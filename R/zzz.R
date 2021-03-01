@@ -1,26 +1,100 @@
 datacache <- new.env(hash=TRUE, parent=emptyenv())
 
+#' Get gene information for set of gene names.
+#' Function lookup for name in Human Gene name and Mouse Gene name data and return
+#' following features for all found genes:
+#' GeneID,
+#' Localisation,
+#' MGI,
+#' HumanEntrez,
+#' MouseEntrez,
+#' HumanName,
+#' MouseName,
+#' PMID,
+#' Paper,
+#' Year,
+#' SpeciesTaxID,
+#' BrainRegion
+#'
+#' @param name vector of gene names
+#'
+#' @return data.frame with fields specified above
+#' @export
+#'
+getGeneInfoByName<-function(name){
+  ids<-findGenesByName(name)
+  df<-.getfGfPfR(ids)
+  return(df)
+}
+
+
+getGeneInfoByEntrez<-function(entrez){
+  ids<-findGenesByEntrez(entrez)
+  df<-.getfGfPfR(ids)
+  return(df)
+}
+
+findGenesByEntrez<-function(entrez){
+
+}
+
+findGenesByName<-function(name){
+
+}
+
+
+#' Get data from FullGeneFullPaperFullRegion view.
+#'
+#' @param ids
+#'
+#' @return
+#' @export
+#' @import dplyr
+#'
+getfGfPfR<-function(ids){
+  gns<-get_dbconn() %>% tbl("FullGeneFullPaperFullRegion") %>% filter(GeneID %in% ids) %>%
+    select('GeneID',
+           'Localisation',
+           'MGI',
+           'HumanEntrez',
+           'MouseEntrez',
+           'HumanName',
+           'MouseName',
+           'PMID',
+           'Paper',
+           'Year',
+           'SpeciesTaxID',
+           'BrainRegion')
+  df<-gns %>% collect()
+  return(df)
+}
+
+#' Get dbcon. Return connection to the database.
+#'
+#' @return dbConnect
+#' @export
+#' @import DBI
+#' @import RSQLite
+#'
+get_dbconn <- function(){
+  get("dbconn", envir=datacache)
+}
+
 .onLoad <- function(libname, pkgname)
 {
-  require("methods", quietly=TRUE)
-  dbfile <- system.file("extdata", "mesh.sqlite", package=pkgname, lib.loc=libname)
+#  require("methods", quietly=TRUE)
+#  require("DBI", quietly=TRUE)
+  #require("methods", quietly=TRUE)
+  dbfile <- system.file("extdata", "synaptome.sqlite", package=pkgname, lib.loc=libname)
   assign("dbfile", dbfile, envir=datacache)
 
-  driver <- dbDriver("SQLite")
   db <- dbfile
-  dbconn <- dbConnect(driver, db)
+  dbconn <- DBI::dbConnect(RSQLite::SQLite(), dbfile)
   assign("dbconn", dbconn, envir=datacache)
 
-  dbshow <- function(){
-    cat("Quality control information for MeSH:\n\n\n")
-    cat("This package has the following mappings:\n\n")
-    print(dbGetQuery(dbconn, "SELECT * FROM MAPCOUNTS;"))
-    cat("Additional Information about this package:\n")
-    cat("Date for MeSH data: 20120907\n")
+  dbschema <-  function() {
+    cat(dbGetQuery(dbconn, "SELECT * FROM sqlite_master;")$sql)
   }
-  assign("dbshow", dbshow, envir=datacache)
-
-  dbschema <-  function() cat(dbGetQuery(dbconn, "SELECT * FROM sqlite_master;")$sql)
   assign("dbschema", dbschema, envir=datacache)
 
   dbInfo <- function() dbGetQuery(dbconn, "SELECT * FROM METADATA;")
@@ -30,5 +104,5 @@ datacache <- new.env(hash=TRUE, parent=emptyenv())
 
 .onUnload <- function(libpath)
 {
-  dbDisconnect(MeSH_dbconn())
+  dbDisconnect(get_dbconn())
 }
