@@ -7,7 +7,7 @@
 getGeneDiseaseByEntres(entrez)
 }
 \arguments{
-\item{ids}{}
+\item{entrez}{}
 }
 \value{
 

@@ -7,7 +7,7 @@
 getGeneDiseaseByName(names)
 }
 \arguments{
-\item{ids}{}
+\item{names}{}
 }
 \value{
 
