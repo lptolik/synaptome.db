@@ -1,0 +1,10 @@
+Package: synamptome.db
+Type: Package
+Title: Synamptosome Proteome Database.
+Version: 0.0.1
+Author: Anatoly Sorokin 
+Maintainer: Anatoly Sorokin <lptolik@gmail.comt>
+Description: Database of the Synaptic proteome
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
