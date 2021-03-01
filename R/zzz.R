@@ -98,8 +98,8 @@ getGeneDiseaseQuery<-function(){
   gns<-get_dbconn() %>% tbl("FullGeneFullDisease")  %>%
     select(HumanEntrez,
            HumanName,
-           d.HDOID,
-           d.Description)
+           HDOID,
+           Description)
   return(gns)
 }
 
@@ -112,36 +112,37 @@ getGeneDiseaseQuery<-function(){
 #' @import dplyr
 #'
 getGeneDiseaseByIDs<-function(ids){
-  gns<-getGeneDiseaseQuery() %>% filter(GeneID %in% ids)
+  ginf<-getGeneInfoByIDs(ids) %>% pull(HumanEntrez)
+  gns<-getGeneDiseaseQuery() %>% filter(HumanEntrez %in% ginf)
   df<-gns %>% collect()
   return(df)
 }
 
 #' Get data about Gene-Disease mapping by Entres IDs
 #'
-#' @param ids
+#' @param entrez
 #'
 #' @return
 #' @export
 #' @import dplyr
 #'
 getGeneDiseaseByEntres<-function(entrez){
-  ids<-findGenesByEntrez(entrez)
-  df<-getGeneDiseaseByIDs(ids)
+  gns<-getGeneDiseaseQuery() %>% filter(HumanEntrez %in% entrez)
+  df<-gns %>% collect()
   return(df)
 }
 
 #' Get data about Gene-Disease mapping by  Name.
 #'
-#' @param ids
+#' @param names
 #'
 #' @return
 #' @export
 #' @import dplyr
 #'
 getGeneDiseaseByName<-function(names){
-  ids<-findGenesByName(names)
-  df<-getGeneDiseaseByIDs(ids)
+  gns<-getGeneDiseaseQuery() %>% filter(HumanName %in% names)
+  df<-gns %>% collect()
   return(df)
 }
 
@@ -242,8 +243,8 @@ getPPIQuery<-function(){
 getPPIbyIDs<-function(ids, type=c('induced','limited')){
   netType<-match.arg(type)
   gns<- switch (netType,
-    induced = getPPIQuery %>% filter(A %in% ids | B %in% ids),
-    limited = getPPIQuery %>% filter(A %in% ids & B %in% ids)
+    induced = getPPIQuery() %>% filter(A %in% ids | B %in% ids),
+    limited = getPPIQuery() %>% filter(A %in% ids & B %in% ids)
   )
   df <- gns %>% collect
   return(df)
@@ -299,7 +300,7 @@ getCompartments<-function(){
 #' @return
 #' @export
 getAllGenes4Compartment<-function(compartmentID){
-  idsC<-get_dbconn() %>% tbl("FullGenePaper") %>% filter(LocalisationID == compartmentID) %>% select(ID) %>% pull(ID) %>% unique
+  idsC<-get_dbconn() %>% tbl("FullGenePaper") %>% filter(LocalisationID == compartmentID) %>% select(GeneID) %>% pull(GeneID) %>% unique
   return(idsC)
 }
 
@@ -311,7 +312,7 @@ getAllGenes4Compartment<-function(compartmentID){
 #' @return
 #' @export
 getGenes4Compartment<-function(ids,compartmentID){
-  idsC<-get_dbconn() %>% tbl("FullGenePaper") %>% filter(LocalisationID == compartmentID & GeneID %in% ids) %>% select(ID) %>% pull(ID) %>% unique
+  idsC<-get_dbconn() %>% tbl("FullGenePaper") %>% filter(LocalisationID == compartmentID & GeneID %in% ids) %>% select(GeneID) %>% pull(GeneID) %>% unique
   return(idsC)
 }
 
@@ -324,7 +325,7 @@ getGenes4Compartment<-function(ids,compartmentID){
 getInducedPPI4Compartment<-function(ids, compartmentID){
   cids<-getGenes4Compartment(ids,compartmentID)
   aids<-getAllGenes4Compartment(compartmentID)
-  gns<-getPPIQuery %>% filter(A %in% cids | B %in% cids) %>% filter(A %in% aids & B %in% aids)
+  gns<-getPPIQuery() %>% filter(A %in% cids | B %in% cids) %>% filter(A %in% aids & B %in% aids)
   return(gns)
 }
 
@@ -336,7 +337,7 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
 #' @return
 getLimitedPPI4Compartment<-function(ids, compartmentID){
   cids<-getGenes4Compartment(ids,compartmentID)
-  gns<-getPPIQuery %>% filter(A %in% ids & B %in% ids)
+  gns<-getPPIQuery() %>% filter(A %in% ids & B %in% ids)
   return(gns)
 }
 #' Extract the PPIs for specific compartment
@@ -376,7 +377,7 @@ getBrainRegions<-function(){
 #' @return
 #' @export
 getAllGenes4BrainRegion<-function(brainRegion,taxID){
-  idsC<-get_dbconn() %>% tbl("FullGeneFullPaperFullRegion") %>% filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>% select(ID) %>% pull(ID) %>% unique
+  idsC<-get_dbconn() %>% tbl("FullGeneFullPaperFullRegion") %>% filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>% select(GeneID) %>% pull(GeneID) %>% unique
   return(idsC)
 }
 
@@ -389,7 +390,7 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #' @return
 #' @export
 getGenes4BrainRegion<-function(ids,brainRegion,taxID){
-  idsC<-get_dbconn() %>% tbl("FullGenePaper") %>% filter(BrainRegion == brainRegion & SpeciesTaxID == taxID & GeneID %in% ids) %>% select(ID) %>% pull(ID) %>% unique
+  idsC<-get_dbconn() %>% tbl("FullGeneFullPaperFullRegion") %>% filter(BrainRegion == brainRegion & SpeciesTaxID == taxID & GeneID %in% ids) %>% select(GeneID) %>% pull(GeneID) %>% unique
   return(idsC)
 }
 
@@ -403,7 +404,7 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
 getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
   cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
   aids<-getAllGenes4BrainRegion(brainRegion,taxID)
-  gns<-getPPIQuery %>% filter(A %in% cids | B %in% cids) %>% filter(A %in% aids & B %in% aids)
+  gns<-getPPIQuery() %>% filter(A %in% cids | B %in% cids) %>% filter(A %in% aids & B %in% aids)
   return(gns)
 }
 
@@ -416,7 +417,7 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @return
 getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
   cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
-  gns<-getPPIQuery %>% filter(A %in% ids & B %in% ids)
+  gns<-getPPIQuery() %>% filter(A %in% ids & B %in% ids)
   return(gns)
 }
 #' Extract the PPIs for specific compartment
