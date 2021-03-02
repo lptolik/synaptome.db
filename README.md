@@ -1,1 +1,1 @@
-# synamptome.db
+# synaptome.db
