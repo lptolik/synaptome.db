@@ -7,10 +7,14 @@
 getPPIbyIDs4Compartment(ids, compartmentID, type = c("induced", "limited"))
 }
 \arguments{
-\item{type}{}
+\item{ids}{gene IDs}
+
+\item{compartmentID}{compartment ID}
+
+\item{type}{type of the PPI network}
 }
 \value{
-
+data.frame
 }
 \description{
 Extract the PPIs for specific compartment

@@ -7,10 +7,12 @@
 getAllGenes4BrainRegion(brainRegion, taxID)
 }
 \arguments{
-\item{taxID}{}
+\item{brainRegion}{region ID}
+
+\item{taxID}{taxon ID}
 }
 \value{
-
+data.frame
 }
 \description{
 Get list of all genes found in particular BrainRegion for particular specie

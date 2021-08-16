@@ -7,10 +7,12 @@
 getMutations4DiseaseByName(name, hdoid)
 }
 \arguments{
-\item{hdoid}{}
+\item{name}{Gene name}
+
+\item{hdoid}{HDO IDs}
 }
 \value{
-
+data.frame
 }
 \description{
 Show mutations for specific disease by gene name

@@ -7,10 +7,12 @@
 getInducedPPI4Compartment(ids, compartmentID)
 }
 \arguments{
-\item{compartmentID}{}
+\item{ids}{gene IDs}
+
+\item{compartmentID}{compartment ID}
 }
 \value{
-
+tbl_lazy
 }
 \description{
 Prepare induces network for compartment

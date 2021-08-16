@@ -7,10 +7,12 @@
 getLimitedPPI4Compartment(ids, compartmentID)
 }
 \arguments{
-\item{compartmentID}{}
+\item{ids}{Gene IDs}
+
+\item{compartmentID}{compartment ID}
 }
 \value{
-
+tbl_lazy
 }
 \description{
 Prepare limited network for compartment

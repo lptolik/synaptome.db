@@ -7,10 +7,12 @@
 getGenes4Compartment(ids, compartmentID)
 }
 \arguments{
-\item{compartmentID}{}
+\item{ids}{Gene IDs}
+
+\item{compartmentID}{compartment ID}
 }
 \value{
-
+data.frame
 }
 \description{
 Select genes from list that found in compartment

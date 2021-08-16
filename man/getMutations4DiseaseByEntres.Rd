@@ -7,10 +7,12 @@
 getMutations4DiseaseByEntres(entrez, hdoid)
 }
 \arguments{
-\item{hdoid}{}
+\item{entrez}{Entrez IDs}
+
+\item{hdoid}{HDO IDs}
 }
 \value{
-
+data.frame
 }
 \description{
 Show mutations for specific disease by Entrez IDs

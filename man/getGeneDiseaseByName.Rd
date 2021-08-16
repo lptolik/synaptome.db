@@ -7,10 +7,10 @@
 getGeneDiseaseByName(names)
 }
 \arguments{
-\item{names}{}
+\item{names}{disease name}
 }
 \value{
-
+data.frame
 }
 \description{
 Get data about Gene-Disease mapping by  Name.

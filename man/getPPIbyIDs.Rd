@@ -7,10 +7,12 @@
 getPPIbyIDs(ids, type = c("induced", "limited"))
 }
 \arguments{
-\item{type}{}
+\item{ids}{Gene IDs}
+
+\item{type}{type of the PPI network}
 }
 \value{
-
+data.frame
 }
 \description{
 Extract the PPIs for my list of genes defined by GeneID

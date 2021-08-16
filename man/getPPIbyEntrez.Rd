@@ -7,10 +7,12 @@
 getPPIbyEntrez(entrez, type = c("induced", "limited"))
 }
 \arguments{
-\item{type}{}
+\item{entrez}{Entrez IDs}
+
+\item{type}{type of the PPI network}
 }
 \value{
-
+data.frame
 }
 \description{
 Extract the PPIs for my list of genes defined by Entrez IDs

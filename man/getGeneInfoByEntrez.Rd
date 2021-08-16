@@ -7,10 +7,10 @@
 getGeneInfoByEntrez(entrez)
 }
 \arguments{
-\item{entrez}{}
+\item{entrez}{Entres IDs}
 }
 \value{
-
+data.frame
 }
 \description{
 Get GeneInfo table for set of Entres IDs

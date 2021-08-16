@@ -7,10 +7,12 @@
 getPPIbyName(name, type = c("induced", "limited"))
 }
 \arguments{
-\item{type}{}
+\item{name}{Gene names}
+
+\item{type}{type of the PPI network}
 }
 \value{
-
+data.frame
 }
 \description{
 Extract the PPIs for my list of genes defined by Gene name

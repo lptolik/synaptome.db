@@ -7,10 +7,10 @@
 findGenesByName(name)
 }
 \arguments{
-\item{name}{}
+\item{name}{gene names}
 }
 \value{
-
+data.frame
 }
 \description{
 Find GeneIDs for names
