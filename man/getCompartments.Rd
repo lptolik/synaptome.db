@@ -7,7 +7,7 @@
 getCompartments()
 }
 \value{
-
+data.frame
 }
 \description{
 Provide full list of compartments

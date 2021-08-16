@@ -7,10 +7,10 @@
 getGeneDiseaseByEntres(entrez)
 }
 \arguments{
-\item{entrez}{}
+\item{entrez}{entrez IDs}
 }
 \value{
-
+data.frame
 }
 \description{
 Get data about Gene-Disease mapping by Entres IDs

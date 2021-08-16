@@ -7,10 +7,14 @@
 getGenes4BrainRegion(ids, brainRegion, taxID)
 }
 \arguments{
-\item{ids}{}
+\item{ids}{gene IDs}
+
+\item{brainRegion}{region ID}
+
+\item{taxID}{taxon ID}
 }
 \value{
-
+data.frame
 }
 \description{
 Select genes from list that found in particular BrainRegion for particular specie

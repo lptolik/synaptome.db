@@ -7,10 +7,10 @@
 getGeneInfoByIDs(ids)
 }
 \arguments{
-\item{ids}{}
+\item{ids}{gene ids}
 }
 \value{
-
+data.frame
 }
 \description{
 Get GeneInfo table for set of GeneIDs

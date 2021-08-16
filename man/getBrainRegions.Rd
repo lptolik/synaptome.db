@@ -7,7 +7,7 @@
 getBrainRegions()
 }
 \value{
-
+data.frame
 }
 \description{
 Get list of all Brain regions in the database

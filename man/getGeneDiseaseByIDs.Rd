@@ -7,10 +7,10 @@
 getGeneDiseaseByIDs(ids)
 }
 \arguments{
-\item{ids}{}
+\item{ids}{gene IDs}
 }
 \value{
-
+data.frame
 }
 \description{
 Get data about Gene-Disease mapping by GeneIDs

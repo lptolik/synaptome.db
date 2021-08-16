@@ -7,10 +7,10 @@
 findGenesByEntrez(entrez)
 }
 \arguments{
-\item{entrez}{}
+\item{entrez}{Entres IDs}
 }
 \value{
-
+data.frame
 }
 \description{
 Find GeneIDs for Entrez

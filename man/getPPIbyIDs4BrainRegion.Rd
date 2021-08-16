@@ -12,10 +12,16 @@ getPPIbyIDs4BrainRegion(
 )
 }
 \arguments{
-\item{taxID}{}
+\item{ids}{gene IDs}
+
+\item{brainRegion}{region ID}
+
+\item{taxID}{taxon ID}
+
+\item{type}{type of the PPI network}
 }
 \value{
-
+data.frame
 }
 \description{
 Extract the PPIs for specific compartment

@@ -1,11 +1,11 @@
 Package: synaptome.db
 Type: Package
-Title: Synamptosome Proteome Database.
+Title: Synamptosome Proteome Database
 Version: 0.0.1
 Author: Anatoly Sorokin 
 Maintainer: Anatoly Sorokin <lptolik@gmail.comt>
 Description: Database of the Synaptic proteome
-Depends: methods, DBI, RSQLite, dplyr, igraph
+Depends: DBI, RSQLite, dplyr
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

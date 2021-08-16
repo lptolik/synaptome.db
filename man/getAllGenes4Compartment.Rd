@@ -7,10 +7,10 @@
 getAllGenes4Compartment(compartmentID)
 }
 \arguments{
-\item{compartmentID}{}
+\item{compartmentID}{Compartment ID}
 }
 \value{
-
+data.frame
 }
 \description{
 Get list of all genes found in compartment

@@ -7,10 +7,12 @@
 getMutations4DiseaseByIDs(ids, hdoid)
 }
 \arguments{
-\item{hdoid}{}
+\item{ids}{Gene IDs}
+
+\item{hdoid}{HDO IDs}
 }
 \value{
-
+data.frame
 }
 \description{
 Show mutations for specific disease by GeneIDs

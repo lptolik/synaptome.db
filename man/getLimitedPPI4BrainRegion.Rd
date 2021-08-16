@@ -7,10 +7,14 @@
 getLimitedPPI4BrainRegion(ids, brainRegion, taxID)
 }
 \arguments{
-\item{ids}{}
+\item{ids}{gene IDs}
+
+\item{brainRegion}{region ID}
+
+\item{taxID}{taxon ID}
 }
 \value{
-
+tbl_lazy
 }
 \description{
 Prepare limited network for compartment
