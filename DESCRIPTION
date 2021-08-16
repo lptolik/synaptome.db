@@ -6,7 +6,7 @@ Author: Anatoly Sorokin
 Maintainer: Anatoly Sorokin <lptolik@gmail.comt>
 Description: Database of the Synaptic proteome
 Depends: DBI, RSQLite, dplyr
-License: What license is it under?
+License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
