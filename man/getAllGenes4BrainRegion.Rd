@@ -2,7 +2,8 @@
 % Please edit documentation in R/zzz.R
 \name{getAllGenes4BrainRegion}
 \alias{getAllGenes4BrainRegion}
-\title{Get list of all genes found in particular BrainRegion for particular specie}
+\title{Get list of all genes found in particular BrainRegion for
+particular specie}
 \usage{
 getAllGenes4BrainRegion(brainRegion, taxID)
 }
@@ -15,5 +16,6 @@ getAllGenes4BrainRegion(brainRegion, taxID)
 data.frame
 }
 \description{
-Get list of all genes found in particular BrainRegion for particular specie
+Get list of all genes found in particular BrainRegion for
+particular specie
 }

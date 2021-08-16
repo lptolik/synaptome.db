@@ -152,7 +152,7 @@ getGeneDiseaseByName<-function(names){
   return(df)
 }
 
-##### Use cases 4    Show mutations for specific disease for my list of genes#####
+##### Use cases 4 Show mutations for specific disease for my list of genes#####
 
 #' Prepare query for AllMutationAllPapers table
 #'
@@ -189,7 +189,8 @@ getMutDiseaseQuery<-function(){
 #' @return  data.frame
 #' @export
 getMutations4DiseaseByIDs<-function(ids,hdoid){
-  gns <- getMutDiseaseQuery() %>% dplyr::filter(GeneID %in% ids & HDOID == hdoid)
+  gns <- getMutDiseaseQuery() %>%
+    dplyr::filter(GeneID %in% ids & HDOID == hdoid)
   df<-gns %>% dplyr::collect()
   return(df)
 }
@@ -202,7 +203,8 @@ getMutations4DiseaseByIDs<-function(ids,hdoid){
 #' @export
 getMutations4DiseaseByEntres<-function(entrez,hdoid){
   ids<-findGenesByEntrez(entrez)
-  gns <- getMutDiseaseQuery() %>% dplyr::filter(GeneID %in% ids & HDOID == hdoid)
+  gns <- getMutDiseaseQuery() %>%
+    dplyr::filter(GeneID %in% ids & HDOID == hdoid)
   df<-gns %>% dplyr::collect()
   return(df)
 }
@@ -215,7 +217,8 @@ getMutations4DiseaseByEntres<-function(entrez,hdoid){
 #' @export
 getMutations4DiseaseByName<-function(name,hdoid){
   ids<-findGenesByName(name)
-  gns <- getMutDiseaseQuery() %>% dplyr::filter(GeneID %in% ids & HDOID == hdoid)
+  gns <- getMutDiseaseQuery() %>%
+    dplyr::filter(GeneID %in% ids & HDOID == hdoid)
   df<-gns %>% dplyr::collect()
   return(df)
 }
@@ -367,7 +370,7 @@ getPPIbyIDs4Compartment<-function(ids, compartmentID,
   return(df)
 }
 
-##### Use cases 7 Extract the PPIs for specific brain region for specific specie #####
+##### Use cases 7 Extract the PPIs for specific brain region and specie #####
 
 #' Get list of all Brain regions in the database
 #'
@@ -378,7 +381,8 @@ getBrainRegions<-function(){
   return(gns)
 }
 
-#' Get list of all genes found in particular BrainRegion for particular specie
+#' Get list of all genes found in particular BrainRegion for
+#' particular specie
 #'
 #' @param brainRegion region ID
 #' @param taxID taxon ID
