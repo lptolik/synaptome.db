@@ -2,11 +2,14 @@ Package: synaptome.db
 Type: Package
 Title: Synamptosome Proteome Database
 Version: 0.0.1
-Author: Anatoly Sorokin 
-Maintainer: Anatoly Sorokin <lptolik@gmail.comt>
-Description: Database of the Synaptic proteome
 Depends: DBI, RSQLite, dplyr
 Imports: knitr
+Authors@R: c(
+    person("Anatoly", "Sorokin", 
+        email="lptolik@gmail.com", role=c("aut", "cre")), 
+    person("Oksana", "Sorokina", 
+        email="oksankasster@gmail.com", role=c("aut", "cre")))
+Description: Database of the Synaptic proteome.
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: false
