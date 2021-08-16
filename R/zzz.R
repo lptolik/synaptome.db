@@ -2,7 +2,8 @@ datacache <- new.env(hash=TRUE, parent=emptyenv())
 
 ##### Use cases 1 and 2 Show my favourite gene info#####
 #' Get gene information for set of gene names.
-#' Function lookup for name in Human Gene name and Mouse Gene name data and return
+#' Function lookup for name in Human Gene name and Mouse Gene name data
+#' and return
 #' following features for all found genes:
 #' GeneID,
 #' Localisation,
@@ -48,7 +49,9 @@ getGeneInfoByEntrez<-function(entrez){
 #' @return  data.frame
 #' @export
 findGenesByEntrez<-function(entrez){
-  idsH<-get_dbconn() %>% tbl("Gene") %>% filter(HumanEntrez %in% entrez | MouseEntrez %in% entrez) %>% select(ID) %>% pull(ID) %>% unique
+  idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
+    dplyr::filter(HumanEntrez %in% entrez | MouseEntrez %in% entrez) %>%
+    dplyr::select(ID) %>% dplyr::pull(ID) %>% unique
   return(idsH)
 }
 
@@ -59,7 +62,9 @@ findGenesByEntrez<-function(entrez){
 #' @return  data.frame
 #' @export
 findGenesByName<-function(name){
-  idsH<-get_dbconn() %>% tbl("Gene") %>% filter(HumanName %in% name | MouseName %in% name) %>% select(ID) %>% pull(ID) %>% unique
+  idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
+    dplyr::filter(HumanName %in% name | MouseName %in% name) %>%
+    dplyr::select(ID) %>% dplyr::pull(ID) %>% unique
   return(idsH)
 }
 
@@ -73,8 +78,9 @@ findGenesByName<-function(name){
 #' @import dplyr
 #'
 getGeneInfoByIDs<-function(ids){
-  gns<-get_dbconn() %>% tbl("FullGeneFullPaperFullRegion") %>% filter(GeneID %in% ids) %>%
-    select('GeneID',
+  gns<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+    dplyr::filter(GeneID %in% ids) %>%
+    dplyr::select('GeneID',
            'Localisation',
            'MGI',
            'HumanEntrez',
@@ -86,7 +92,7 @@ getGeneInfoByIDs<-function(ids){
            'Year',
            'SpeciesTaxID',
            'BrainRegion')
-  df<-gns %>% collect()
+  df<-gns %>% dplyr::collect()
   return(df)
 }
 
@@ -95,8 +101,8 @@ getGeneInfoByIDs<-function(ids){
 #'
 #' @return tbl_lazy
 getGeneDiseaseQuery<-function(){
-  gns<-get_dbconn() %>% tbl("FullGeneFullDisease")  %>%
-    select(HumanEntrez,
+  gns<-get_dbconn() %>% dplyr::tbl("FullGeneFullDisease")  %>%
+    dplyr::select(HumanEntrez,
            HumanName,
            HDOID,
            Description)
@@ -112,9 +118,9 @@ getGeneDiseaseQuery<-function(){
 #' @import dplyr
 #'
 getGeneDiseaseByIDs<-function(ids){
-  ginf<-getGeneInfoByIDs(ids) %>% pull(HumanEntrez)
-  gns<-getGeneDiseaseQuery() %>% filter(HumanEntrez %in% ginf)
-  df<-gns %>% collect()
+  ginf<-getGeneInfoByIDs(ids) %>% dplyr::pull(HumanEntrez)
+  gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% ginf)
+  df<-gns %>% dplyr::collect()
   return(df)
 }
 
@@ -127,8 +133,8 @@ getGeneDiseaseByIDs<-function(ids){
 #' @import dplyr
 #'
 getGeneDiseaseByEntres<-function(entrez){
-  gns<-getGeneDiseaseQuery() %>% filter(HumanEntrez %in% entrez)
-  df<-gns %>% collect()
+  gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% entrez)
+  df<-gns %>% dplyr::collect()
   return(df)
 }
 
@@ -141,19 +147,19 @@ getGeneDiseaseByEntres<-function(entrez){
 #' @import dplyr
 #'
 getGeneDiseaseByName<-function(names){
-  gns<-getGeneDiseaseQuery() %>% filter(HumanName %in% names)
-  df<-gns %>% collect()
+  gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanName %in% names)
+  df<-gns %>% dplyr::collect()
   return(df)
 }
 
-##### Use cases 4	Show mutations for specific disease for my list of genes#####
+##### Use cases 4    Show mutations for specific disease for my list of genes#####
 
 #' Prepare query for AllMutationAllPapers table
 #'
 #' @return tbl_lazy
 getMutDiseaseQuery<-function(){
-  gns<-get_dbconn() %>% tbl("AllMutationsAllPapers") %>%
-    select(GeneID,
+  gns<-get_dbconn() %>% dplyr::tbl("AllMutationsAllPapers") %>%
+    dplyr::select(GeneID,
            MGI,
            MouseEntrez,
            MouseName,
@@ -183,8 +189,8 @@ getMutDiseaseQuery<-function(){
 #' @return  data.frame
 #' @export
 getMutations4DiseaseByIDs<-function(ids,hdoid){
-  gns <- getMutDiseaseQuery() %>% filter(GeneID %in% ids & HDOID == hdoid)
-  df<-gns %>% collect()
+  gns <- getMutDiseaseQuery() %>% dplyr::filter(GeneID %in% ids & HDOID == hdoid)
+  df<-gns %>% dplyr::collect()
   return(df)
 }
 #' Show mutations for specific disease by Entrez IDs
@@ -196,8 +202,8 @@ getMutations4DiseaseByIDs<-function(ids,hdoid){
 #' @export
 getMutations4DiseaseByEntres<-function(entrez,hdoid){
   ids<-findGenesByEntrez(entrez)
-  gns <- getMutDiseaseQuery() %>% filter(GeneID %in% ids & HDOID == hdoid)
-  df<-gns %>% collect()
+  gns <- getMutDiseaseQuery() %>% dplyr::filter(GeneID %in% ids & HDOID == hdoid)
+  df<-gns %>% dplyr::collect()
   return(df)
 }
 #' Show mutations for specific disease by gene name
@@ -209,8 +215,8 @@ getMutations4DiseaseByEntres<-function(entrez,hdoid){
 #' @export
 getMutations4DiseaseByName<-function(name,hdoid){
   ids<-findGenesByName(name)
-  gns <- getMutDiseaseQuery() %>% filter(GeneID %in% ids & HDOID == hdoid)
-  df<-gns %>% collect()
+  gns <- getMutDiseaseQuery() %>% dplyr::filter(GeneID %in% ids & HDOID == hdoid)
+  df<-gns %>% dplyr::collect()
   return(df)
 }
 
@@ -219,9 +225,9 @@ getMutations4DiseaseByName<-function(name,hdoid){
 #'
 #' @return tbl_lazy
 getPPIQuery<-function(){
-  #  gns<-get_dbconn() %>% tbl("AllPpiAllPapers") %>%
-  gns<-get_dbconn() %>% tbl("PPI") %>%
-    select(ID,#ppiID,
+  #  gns<-get_dbconn() %>% dplyr::tbl("AllPpiAllPapers") %>%
+  gns<-get_dbconn() %>% dplyr::tbl("PPI") %>%
+    dplyr::select(ID,#ppiID,
            A,
            B,
            method,
@@ -243,8 +249,10 @@ getPPIQuery<-function(){
 getPPIbyIDs<-function(ids, type=c('induced','limited')){
   netType<-match.arg(type)
   gns<- switch (netType,
-                induced = getPPIQuery() %>% filter(A %in% ids | B %in% ids),
-                limited = getPPIQuery() %>% filter(A %in% ids & B %in% ids)
+                induced = getPPIQuery() %>%
+                  dplyr::filter(A %in% ids | B %in% ids),
+                limited = getPPIQuery() %>%
+                  dplyr::filter(A %in% ids & B %in% ids)
   )
   df <- gns %>% collect
   return(df)
@@ -276,15 +284,15 @@ getPPIbyName<-function(name, type=c('induced','limited')){
   return(df)
 }
 
-##### Use cases 6 Extract the PPIs for specific compartment (pres, post, synaptosome) #####
+##### Use cases 6 Extract the PPIs for specific compartment #####
 
-#' Provide full list of compartments
+#' Provide full list of compartments (pres, post, synaptosome)
 #'
 #' @return data.frame
 #' @export
 #'
 getCompartments<-function(){
-  gns<-get_dbconn() %>% tbl("Localisation") %>% collect
+  gns<-get_dbconn() %>% dplyr::tbl("Localisation") %>% collect
   return(gns)
 }
 
@@ -295,9 +303,9 @@ getCompartments<-function(){
 #' @return data.frame
 #' @export
 getAllGenes4Compartment<-function(compartmentID){
-  idsC<-get_dbconn() %>% tbl("FullGenePaper") %>%
-    filter(LocalisationID == compartmentID) %>%
-    select(GeneID) %>% pull(GeneID) %>% unique
+  idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
+    dplyr::filter(LocalisationID == compartmentID) %>%
+    dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
   return(idsC)
 }
 
@@ -309,9 +317,9 @@ getAllGenes4Compartment<-function(compartmentID){
 #' @return data.frame
 #' @export
 getGenes4Compartment<-function(ids,compartmentID){
-  idsC<-get_dbconn() %>% tbl("FullGenePaper") %>%
-    filter(LocalisationID == compartmentID & GeneID %in% ids) %>%
-    select(GeneID) %>% pull(GeneID) %>% unique
+  idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
+    dplyr::filter(LocalisationID == compartmentID & GeneID %in% ids) %>%
+    dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
   return(idsC)
 }
 
@@ -324,7 +332,8 @@ getGenes4Compartment<-function(ids,compartmentID){
 getInducedPPI4Compartment<-function(ids, compartmentID){
   cids<-getGenes4Compartment(ids,compartmentID)
   aids<-getAllGenes4Compartment(compartmentID)
-  gns<-getPPIQuery() %>% filter(A %in% cids | B %in% cids) %>% filter(A %in% aids & B %in% aids)
+  gns<-getPPIQuery() %>% dplyr::filter(A %in% cids | B %in% cids) %>%
+    dplyr::filter(A %in% aids & B %in% aids)
   return(gns)
 }
 
@@ -336,7 +345,7 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
 #' @return tbl_lazy
 getLimitedPPI4Compartment<-function(ids, compartmentID){
   cids<-getGenes4Compartment(ids,compartmentID)
-  gns<-getPPIQuery() %>% filter(A %in% ids & B %in% ids)
+  gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
   return(gns)
 }
 #' Extract the PPIs for specific compartment
@@ -347,7 +356,8 @@ getLimitedPPI4Compartment<-function(ids, compartmentID){
 #'
 #' @return data.frame
 #' @export
-getPPIbyIDs4Compartment<-function(ids, compartmentID, type=c('induced','limited')){
+getPPIbyIDs4Compartment<-function(ids, compartmentID,
+                                  type=c('induced','limited')){
   netType<-match.arg(type)
   gns<- switch (netType,
                 induced = getInducedPPI4Compartment(ids, compartmentID),
@@ -364,7 +374,7 @@ getPPIbyIDs4Compartment<-function(ids, compartmentID, type=c('induced','limited'
 #' @return data.frame
 #' @export
 getBrainRegions<-function(){
-  gns<-get_dbconn() %>% tbl("BrainRegion") %>% collect
+  gns<-get_dbconn() %>% dplyr::tbl("BrainRegion") %>% collect
   return(gns)
 }
 
@@ -376,13 +386,14 @@ getBrainRegions<-function(){
 #' @return data.frame
 #' @export
 getAllGenes4BrainRegion<-function(brainRegion,taxID){
-  idsC<-get_dbconn() %>% tbl("FullGeneFullPaperFullRegion") %>%
-    filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>%
-    select(GeneID) %>% pull(GeneID) %>% unique
+  idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+    dplyr::filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>%
+    dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
   return(idsC)
 }
 
-#' Select genes from list that found in particular BrainRegion for particular specie
+#' Select genes from list that found in particular BrainRegion
+#' for particular specie
 #'
 #' @param brainRegion region ID
 #' @param taxID taxon ID
@@ -391,9 +402,11 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #' @return data.frame
 #' @export
 getGenes4BrainRegion<-function(ids,brainRegion,taxID){
-  idsC<-get_dbconn() %>% tbl("FullGeneFullPaperFullRegion") %>%
-    filter(BrainRegion == brainRegion & SpeciesTaxID == taxID & GeneID %in% ids) %>%
-    select(GeneID) %>% pull(GeneID) %>% unique
+  idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+    dplyr::filter(BrainRegion == brainRegion &
+                    SpeciesTaxID == taxID &
+                    GeneID %in% ids) %>%
+    dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
   return(idsC)
 }
 
@@ -407,8 +420,8 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
 getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
   cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
   aids<-getAllGenes4BrainRegion(brainRegion,taxID)
-  gns<-getPPIQuery() %>% filter(A %in% cids | B %in% cids) %>%
-    filter(A %in% aids & B %in% aids)
+  gns<-getPPIQuery() %>% dplyr::filter(A %in% cids | B %in% cids) %>%
+    dplyr::filter(A %in% aids & B %in% aids)
   return(gns)
 }
 
@@ -421,7 +434,7 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @return  tbl_lazy
 getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
   cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
-  gns<-getPPIQuery() %>% filter(A %in% ids & B %in% ids)
+  gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
   return(gns)
 }
 #' Extract the PPIs for specific compartment
@@ -433,7 +446,8 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #'
 #' @return data.frame
 #' @export
-getPPIbyIDs4BrainRegion<-function(ids, brainRegion,taxID, type=c('induced','limited')){
+getPPIbyIDs4BrainRegion<-function(ids, brainRegion,taxID,
+                                  type=c('induced','limited')){
   netType<-match.arg(type)
   gns<- switch (netType,
                 induced = getInducedPPI4BrainRegion(ids, brainRegion,taxID),
@@ -460,7 +474,8 @@ get_dbconn <- function(){
   #  require("methods", quietly=TRUE)
   #  require("DBI", quietly=TRUE)
   #require("methods", quietly=TRUE)
-  dbfile <- system.file("extdata", "synaptome.sqlite", package=pkgname, lib.loc=libname)
+  dbfile <- system.file("extdata", "synaptome.sqlite",
+                        package=pkgname, lib.loc=libname)
   assign("dbfile", dbfile, envir=datacache)
 
   db <- dbfile

@@ -3,7 +3,8 @@
 \name{getGeneInfoByName}
 \alias{getGeneInfoByName}
 \title{Get gene information for set of gene names.
-Function lookup for name in Human Gene name and Mouse Gene name data and return
+Function lookup for name in Human Gene name and Mouse Gene name data
+and return
 following features for all found genes:
 GeneID,
 Localisation,
@@ -28,7 +29,8 @@ data.frame with fields specified above
 }
 \description{
 Get gene information for set of gene names.
-Function lookup for name in Human Gene name and Mouse Gene name data and return
+Function lookup for name in Human Gene name and Mouse Gene name data
+and return
 following features for all found genes:
 GeneID,
 Localisation,

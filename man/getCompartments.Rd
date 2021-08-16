@@ -2,7 +2,7 @@
 % Please edit documentation in R/zzz.R
 \name{getCompartments}
 \alias{getCompartments}
-\title{Provide full list of compartments}
+\title{Provide full list of compartments (pres, post, synaptosome)}
 \usage{
 getCompartments()
 }
@@ -10,5 +10,5 @@ getCompartments()
 data.frame
 }
 \description{
-Provide full list of compartments
+Provide full list of compartments (pres, post, synaptosome)
 }

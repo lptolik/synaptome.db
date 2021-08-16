@@ -2,7 +2,8 @@
 % Please edit documentation in R/zzz.R
 \name{getGenes4BrainRegion}
 \alias{getGenes4BrainRegion}
-\title{Select genes from list that found in particular BrainRegion for particular specie}
+\title{Select genes from list that found in particular BrainRegion
+for particular specie}
 \usage{
 getGenes4BrainRegion(ids, brainRegion, taxID)
 }
@@ -17,5 +18,6 @@ getGenes4BrainRegion(ids, brainRegion, taxID)
 data.frame
 }
 \description{
-Select genes from list that found in particular BrainRegion for particular specie
+Select genes from list that found in particular BrainRegion
+for particular specie
 }
