@@ -6,7 +6,7 @@ Authors@R: c(
     person("Anatoly", "Sorokin", 
         email="lptolik@gmail.com", role=c("aut", "cre")), 
     person("Oksana", "Sorokina", 
-        email="oksankasster@gmail.com", role=c("aut", "cre")))
+        email="oksankasster@gmail.com", role=c("aut", "ctb")))
 Description: Database of the Synaptic proteome.
 Depends: R (>= 3.5.0)
 Imports: knitr, DBI, RSQLite, dplyr, pander
