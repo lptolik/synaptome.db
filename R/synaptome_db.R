@@ -6,3 +6,13 @@
 #' @docType package
 #' @name synamptome.db
 "_PACKAGE"
+
+# Update this function call
+utils::globalVariables(c(
+    "ID","A",'B',"method",'type','taxID','HDOID',
+    'GeneID',"PMID","Paper","Disease","HumanEntrez",
+    "HumanName","MouseName","MouseEntrez","MGI",
+    "BrainRegion","Description","LocalisationID",
+    "SpeciesTaxID","Chromosome","Variant","cDNAvariant",
+    "ProteinVariant","FunctionClass","DENOVO","SFARI",
+    "ClinVar"))
