@@ -1,76 +1,215 @@
-datacache <- new.env(hash=TRUE, parent=emptyenv())
-
 ##### Use cases 1 and 2 Show my favourite gene info#####
 #' Get gene information for set of gene names.
 #'
 #'
 #' Function lookup for name in Human Gene name and Mouse Gene name data
 #'
+#' Function lookup for name in Human Gene name, Rat Gene name and
+#' Mouse Gene name data and return following features for all found genes:
+#' GeneID (internal database ID), Localisation (one of the following:
+#' presynaptic, postsynaptic, synaptosome),
+#' MGI (MGI ID), HumanEntrez (Human Entrez ID), MouseEntrez (Mouse Entrez ID),
+#' HumanName (Human gene name), MouseName (Mouse gene name),
+#' PaperPMID (PMID IDs for the publications where the genes were reported),
+#' Paper (papers where specific genes were reported in a format
+#' FIRSTAUTHOR_YEAR), Year, SpeciesTaxID (specie the original experiment
+#' was performed on), BrainRegion (Brain region where the specific genes
+#' were identified, according to the paper)
+#'
 #' This function then returns
 #' following features for all found genes:
 #' \itemize{
-#'  \item GeneID,
-#'  \item Localisation,
-#'  \item MGI,
-#'  \item HumanEntrez,
-#'  \item MouseEntrez,
-#'  \item HumanName,
-#'  \item MouseName,
-#'  \item PaperPMID,
-#'  \item Paper,
-#'  \item Year,
-#'  \item SpeciesTaxID,
-#'  \item BrainRegion
+#' \item GeneID,
+#' \item Localisation,
+#' \item MGI,
+#' \item HumanEntrez,
+#' \item MouseEntrez,
+#' \item HumanName,
+#' \item MouseName,
+#' \item PaperPMID,
+#' \item Paper,
+#' \item Year,
+#' \item SpeciesTaxID,
+#' \item BrainRegion
 #' }
 #'
 #' @param name \code{vector} of gene names
 #'
-#' @return \code{data.frame} with fields specified above
+#' @return \code{data.frame} with fields specified above.
 #' @export
 #'
+#' @examples
+#' #get information for specific gene
+#' t <- getGeneInfoByName('CASK')
+#'
+#' #get information for the list of genes
+#' t <- getGeneInfoByName(c('CASK', 'DLG2'))
 getGeneInfoByName<-function(name){
-    ids<-findGenesByName(name)
+    ids<-getGeneIdByName(name)
     df<-getGeneInfoByIDs(ids)
     return(df)
 }
 
 
-#' Get GeneInfo table for set of Entres IDs
+#' Gene information for given list of gene Entrez IDs
 #'
-#' @param entrez Entres IDs
+#' Get gene information for set of gene Entrez IDs. Function lookup for
+#' name in Human Entrez ID and Mouse Entrez Id  data and return following
+#' features for all found genes: GeneID (internal database ID), Localisation
+#' (presynaptic, postsynaptic, synaptosome), MGI (MGI ID),
+#' HumanEntrez (Human Entrez ID), MouseEntrez (Mouse Entrez ID),
+#' HumanName (Human gene name), MouseName (Mouse gene name),
+#' PaperPMID (PMID IDs for the publications where the genes were reported),
+#' Paper (papers where specific genes were reported in a format
+#' FIRSTAUTHOR_YEAR), Year, SpeciesTaxID (specie the original experiment
+#' was performed on), BrainRegion (Brain region where the specific genes
+#' were identified, according to the paper)
 #'
-#' @return  data.frame
+#' @param entrez \code{vector} of Entres IDs. Function accepts both
+#' integers and characters.
+#'
+#' @return  \code{data.frame}  with fields specified above.
 #' @export
+#'
+#' @examples
+#' #get information for specific gene
+#' t <- getGeneInfoByEntrez(1742)
+#' #get information for specific character string Entres representation
+#' t <- getGeneInfoByEntrez('1742')
+#'
+#' #get information for the list of genes
+#' t <- getGeneInfoByName(c(1741, 1742, 1739, 1740))
 getGeneInfoByEntrez<-function(entrez){
-    ids<-findGenesByEntrez(entrez)
+    ids<-getGeneIdByEntrez(entrez)
     df<-getGeneInfoByIDs(ids)
     return(df)
 }
 
-#' Find GeneIDs for Entrez
+#' Internal Gene representation for given list of gene Entrez IDs
 #'
-#' @param entrez Entres IDs
+#' Get internal gene representation for set of gene Entrez IDs.
+#' Function lookups for provided values in Human Entrez ID, Mouse Entrez ID
+#' and Rat Entrez ID columns and return following features for all found
+#' genes: GeneID (internal database ID), MGI ID, Human Entrez ID, Mouse
+#' Entrez ID, Rat Entrez ID, Human gene name, Mouse gene name and Rat
+#' gene name.
 #'
-#' @return  data.frame
+#' Could be used as an intermediate step for building Protein-Protein
+#' interaction map from the list of Gene IDs returned in the first column.
+#' Also, this function provides a useful sanity check, e.g. how many Gene IDs
+#' correspond to the
+#' specific gene name or Entrez ID, which could be specie-specific.
+#'
+#' @param entrez \code{vector} of Entres IDs. Function accepts both
+#' integers and characters.
+#'
+#' @return  \code{data.frame} with columns specified above.
 #' @export
+#' @import dplyr
 #' @seealso \code{\link{findGenesByName}}
+#' @examples
+#' #get information for specific gene
+#' t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
 findGenesByEntrez<-function(entrez){
+    ids<-getGeneIdByEntrez(entrez)
+    return(getGenesByID(ids))
+}
+
+#' Get list of GeneIDs corresponding to provided Entrez IDs.
+#'
+#' Get internal GeneID values for set of gene Entrez IDs. Function
+#' lookups for provided values in Human Entrez ID, Mouse Entrez ID and
+#' Rat Entrez ID columns and returns obtained GeneIDs.
+#'
+#' @param entrez \code{vector} of Entres IDs. Function accepts both
+#' integers and characters.
+#'
+#' @return \code{vector} of GeneID values.
+#'
+#' @examples
+#' t <- getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
+getGeneIdByEntrez<-function(entrez){
     idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
-        dplyr::filter(HumanEntrez %in% entrez | MouseEntrez %in% entrez) %>%
+        dplyr::filter(
+            HumanEntrez %in% entrez |
+            MouseEntrez %in% entrez |
+            RatEntrez %in% entrez) %>%
         dplyr::select(ID) %>% dplyr::pull(ID) %>% unique
     return(idsH)
 }
 
 #' Find GeneIDs for names
 #'
-#' @param name gene names
+#' Get internal gene representation for set of gene names. Function lookups
+#' for provided values in Human Name, Mouse Name and Rat Name columns and
+#' return following features for all found genes: GeneID (internal database
+#' ID), MGI ID, Human Entrez ID, Mouse Entrez ID, Rat Entrez ID, Human gene
+#' name, Mouse gene name and Rat gene name.
 #'
-#' @return  data.frame
+#' Could be used as an intermediate step for building Protein-Protein
+#' interaction map from the list of Gene IDs returned in the first column.
+#' Also, this function provides a useful sanity check, e.g. how many Gene
+#' IDs correspond to the specific gene name or Entrez ID, which could be
+#' specie-specific.
+#'
+#'
+#' @param name \code{vector} of gene names.
+#'
+#' @return  \code{data.frame} with columns specified above.
 #' @export
+#' @import dplyr
 #' @seealso \code{\link{findGenesByEntrez}}
+#' @examples
+#' # Find GeneIDs for names
+#' t <- findGenesByName(c('Src', 'Srcin1', 'Fyn'))
 findGenesByName<-function(name){
+    ids<-getGeneIdByName(name)
+    return(getGenesByID(ids))
+}
+
+#' Get gene table from list of GeneIDs.
+#'
+#'  Takes internal gene IDs as input and return the following features for
+#'  all found genes:
+#' \describe{
+#' \item{GeneID}{ internal database ID}
+#' \item{MGI}{ MGI ID}
+#' \item{HumanEntrez}{Human Entrez ID}
+#' \item{MouseEntrez}{Mouse Entrez ID}
+#' \item{HumanName}{Human gene name}
+#' \item{MouseName}{Mouse gene name}
+#' \item{RatEntrez}{Rat Entrez ID}
+#' \item{Rat Name}{Rat gene name}
+#' }
+#'
+#' @param ids \code{vector} of GeneID values.
+#'
+#' @return \code{data.frame} with 8 columns specified above.
+#'
+#' @examples
+#' gdf<-getGenesByID(c(46,6,15,1))
+getGenesByID<-function(ids){
+    genes<-get_dbconn() %>% dplyr::tbl("Gene") %>%
+        dplyr::filter(GeneID %in% ids) %>%
+        collect
+    return(genes)
+}
+
+#' Get list of GeneIDs corresponding to provided gene names.
+#'
+#'
+#' @param name \code{vector} of gene names.
+#'
+#' @return \code{vector} of GeneID values.
+#'
+#' @examples
+#' t <- getGeneIdByName(c('Src', 'Srcin1', 'Fyn'))
+getGeneIdByName<-function(name){
     idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
-        dplyr::filter(HumanName %in% name | MouseName %in% name) %>%
+        dplyr::filter(
+            HumanName %in% name |
+            MouseName %in% name |
+            RatName %in% name) %>%
         dplyr::select(ID) %>% dplyr::pull(ID) %>% unique
     return(idsH)
 }
@@ -78,16 +217,43 @@ findGenesByName<-function(name){
 
 #' Get GeneInfo table for set of GeneIDs
 #'
-#' @param ids gene ids
+#' Function lookup for internal GeneID values and return following
+#' features for all found genes:
+#' GeneID (internal database ID), Localisation (one of the following:
+#' presynaptic, postsynaptic, synaptosome),
+#' MGI (MGI ID), HumanEntrez (Human Entrez ID), MouseEntrez (Mouse Entrez ID),
+#' HumanName (Human gene name), MouseName (Mouse gene name),
+#' PaperPMID (PMID IDs for the publications where the genes were reported),
+#' Paper (papers where specific genes were reported in a format
+#' FIRSTAUTHOR_YEAR), Year, SpeciesTaxID (specie the original experiment
+#' was performed on), BrainRegion (Brain region where the specific genes
+#' were identified, according to the paper)
 #'
-#' @return data.frame
+#' This function then returns
+#' following features for all found genes:
+#' \itemize{
+#' \item GeneID,
+#' \item Localisation,
+#' \item MGI,
+#' \item HumanEntrez,
+#' \item MouseEntrez,
+#' \item HumanName,
+#' \item MouseName,
+#' \item PaperPMID,
+#' \item Paper,
+#' \item Year,
+#' \item SpeciesTaxID,
+#' \item BrainRegion
+#' }
+#'
+#' @param ids \code{vector} of Gene IDs.
+#'
+#' @return \code{data.frame} with column specified above.
 #' @export
 #' @import dplyr
 #'
 #' @examples
-#' \dontrun{
-#' getGeneInfoByIDs('ID')
-#' }
+#' gdf<-getGeneInfoByIDs(c(46,6,15,1))
 getGeneInfoByIDs <- function(ids) {
     gns <- get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(GeneID %in% ids) %>%
@@ -113,6 +279,7 @@ getGeneInfoByIDs <- function(ids) {
 #' Prepare query for Disease table
 #'
 #' @return tbl_lazy
+#' @import dplyr
 getGeneDiseaseQuery <- function() {
     gns <- get_dbconn() %>% dplyr::tbl("FullGeneFullDisease")  %>%
         dplyr::select(
@@ -171,6 +338,7 @@ getGeneDiseaseByName<-function(names){
 #' Prepare query for AllMutationAllPapers table
 #'
 #' @return tbl_lazy
+#' @import dplyr
 getMutDiseaseQuery <- function() {
     gns <- get_dbconn() %>% dplyr::tbl("AllMutationsAllPapers") %>%
         dplyr::select(
@@ -204,6 +372,7 @@ getMutDiseaseQuery <- function() {
 #'
 #' @return  data.frame
 #' @export
+#' @import dplyr
 getMutations4DiseaseByIDs<-function(ids,hdoid){
     gns <- getMutDiseaseQuery() %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
@@ -217,8 +386,9 @@ getMutations4DiseaseByIDs<-function(ids,hdoid){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getMutations4DiseaseByEntres<-function(entrez,hdoid){
-    ids<-findGenesByEntrez(entrez)
+    ids<-getGeneIdByEntrez(entrez)
     gns <- getMutDiseaseQuery() %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
     df<-gns %>% dplyr::collect()
@@ -231,8 +401,9 @@ getMutations4DiseaseByEntres<-function(entrez,hdoid){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getMutations4DiseaseByName<-function(name,hdoid){
-    ids<-findGenesByName(name)
+    ids<-getGeneIdByName(name)
     gns <- getMutDiseaseQuery() %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
     df<-gns %>% dplyr::collect()
@@ -243,6 +414,7 @@ getMutations4DiseaseByName<-function(name,hdoid){
 #' Prepare query for AllMutationAllPapers table
 #'
 #' @return tbl_lazy
+#' @import dplyr
 getPPIQuery<-function(){
     #  gns<-get_dbconn() %>% dplyr::tbl("AllPpiAllPapers") %>%
     gns<-get_dbconn() %>% dplyr::tbl("PPI") %>%
@@ -263,6 +435,7 @@ getPPIQuery<-function(){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
     netType <- match.arg(type)
     gns <- switch (
@@ -284,7 +457,7 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 #' @return data.frame
 #' @export
 getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
-    ids<-findGenesByEntrez(entrez)
+    ids<-getGeneIdByEntrez(entrez)
     df<-getPPIbyIDs(ids,type)
     return(df)
 }
@@ -297,7 +470,7 @@ getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
 #' @return data.frame
 #' @export
 getPPIbyName<-function(name, type=c('induced','limited')){
-    ids<-findGenesByName(name)
+    ids<-getGeneIdByName(name)
     df<-getPPIbyIDs(ids,type)
     return(df)
 }
@@ -308,6 +481,7 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 #'
 getCompartments<-function(){
     gns<-get_dbconn() %>% dplyr::tbl("Localisation") %>% collect
@@ -320,6 +494,7 @@ getCompartments<-function(){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getAllGenes4Compartment<-function(compartmentID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID) %>%
@@ -334,6 +509,7 @@ getAllGenes4Compartment<-function(compartmentID){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getGenes4Compartment<-function(ids,compartmentID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID & GeneID %in% ids) %>%
@@ -347,6 +523,7 @@ getGenes4Compartment<-function(ids,compartmentID){
 #' @param compartmentID compartment ID
 #'
 #' @return  tbl_lazy
+#' @import dplyr
 getInducedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)
     aids<-getAllGenes4Compartment(compartmentID)
@@ -361,6 +538,7 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
 #' @param compartmentID compartment ID
 #'
 #' @return tbl_lazy
+#' @import dplyr
 getLimitedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)
     gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
@@ -374,6 +552,7 @@ getLimitedPPI4Compartment<-function(ids, compartmentID){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getPPIbyIDs4Compartment<-function(
     ids, compartmentID,type=c('induced','limited')){
     netType<-match.arg(type)
@@ -392,6 +571,7 @@ getPPIbyIDs4Compartment<-function(
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getBrainRegions<-function(){
     gns<-get_dbconn() %>% dplyr::tbl("BrainRegion") %>% collect
     return(gns)
@@ -405,6 +585,7 @@ getBrainRegions<-function(){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getAllGenes4BrainRegion<-function(brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>%
@@ -421,6 +602,7 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getGenes4BrainRegion<-function(ids,brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(
@@ -438,6 +620,7 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
 #' @param ids gene IDs
 #'
 #' @return  tbl_lazy
+#' @import dplyr
 getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
     aids<-getAllGenes4BrainRegion(brainRegion,taxID)
@@ -453,6 +636,7 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @param ids gene IDs
 #'
 #' @return  tbl_lazy
+#' @import dplyr
 getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
     gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
@@ -467,6 +651,7 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #'
 #' @return data.frame
 #' @export
+#' @import dplyr
 getPPIbyIDs4BrainRegion<-function(
     ids, brainRegion,taxID,type=c('induced','limited')){
     netType<-match.arg(type)
@@ -487,33 +672,29 @@ getPPIbyIDs4BrainRegion<-function(
 #' @import DBI
 #' @import RSQLite
 #'
-get_dbconn <- function(){
-    get("dbconn", envir=datacache)
+get_dbconn <- function() {
+    if (!exists('dbconn') || !DBI::dbIsValid(dbconn)) {
+        pkgname = getPackageName()
+        dbfile <- system.file("extdata", "synaptome.sqlite", package = pkgname)
+        dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
+        cat('DB is connected with ',dbfile)
+    }
+    return(dbconn)
 }
 
+#' @export
 .onLoad <- function(libname, pkgname)
 {
-    #  require("methods", quietly=TRUE)
-    #  require("DBI", quietly=TRUE)
-    #require("methods", quietly=TRUE)
     dbfile <- system.file(
         "extdata", "synaptome.sqlite", package=pkgname, lib.loc=libname)
-    assign("dbfile", dbfile, envir=datacache)
-
+    cat(pkgname,libname)
     db <- dbfile
-    dbconn <- DBI::dbConnect(RSQLite::SQLite(), dbfile)
-    assign("dbconn", dbconn, envir=datacache)
-
-    dbschema <-  function() {
-        cat(dbGetQuery(dbconn, "SELECT * FROM sqlite_master;")$sql)
-    }
-    assign("dbschema", dbschema, envir=datacache)
-
-    dbInfo <- function() dbGetQuery(dbconn, "SELECT * FROM METADATA;")
-    assign("dbInfo", dbInfo, envir=datacache)
+    dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
+    packageStartupMessage(paste("Package Synaptome.DB loaded with db fram",db))
 }
 
 
+#' @export
 .onUnload <- function(libpath)
 {
     dbDisconnect(get_dbconn())

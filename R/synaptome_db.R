@@ -15,4 +15,4 @@ utils::globalVariables(c(
     "BrainRegion","Description","LocalisationID",
     "SpeciesTaxID","Chromosome","Variant","cDNAvariant",
     "ProteinVariant","FunctionClass","DENOVO","SFARI",
-    "ClinVar"))
+    "ClinVar",'dbconn'))

@@ -7,16 +7,42 @@
 getGeneInfoByIDs(ids)
 }
 \arguments{
-\item{ids}{gene ids}
+\item{ids}{\code{vector} of Gene IDs.}
 }
 \value{
-data.frame
+\code{data.frame} with column specified above.
 }
 \description{
-Get GeneInfo table for set of GeneIDs
+Function lookup for internal GeneID values and return following
+features for all found genes:
+GeneID (internal database ID), Localisation (one of the following:
+presynaptic, postsynaptic, synaptosome),
+MGI (MGI ID), HumanEntrez (Human Entrez ID), MouseEntrez (Mouse Entrez ID),
+HumanName (Human gene name), MouseName (Mouse gene name),
+PaperPMID (PMID IDs for the publications where the genes were reported),
+Paper (papers where specific genes were reported in a format
+FIRSTAUTHOR_YEAR), Year, SpeciesTaxID (specie the original experiment
+was performed on), BrainRegion (Brain region where the specific genes
+were identified, according to the paper)
+}
+\details{
+This function then returns
+following features for all found genes:
+\itemize{
+\item GeneID,
+\item Localisation,
+\item MGI,
+\item HumanEntrez,
+\item MouseEntrez,
+\item HumanName,
+\item MouseName,
+\item PaperPMID,
+\item Paper,
+\item Year,
+\item SpeciesTaxID,
+\item BrainRegion
+}
 }
 \examples{
-\dontrun{
-getGeneInfoByIDs('ID')
-}
+gdf<-getGeneInfoByIDs(c(46,6,15,1))
 }
