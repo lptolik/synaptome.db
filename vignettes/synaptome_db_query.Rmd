@@ -17,3 +17,17 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(synaptome.db)
 ```
+
+# Appendix {.tabset}
+## Functions
+```{r functions, eval=FALSE, include=TRUE}
+```
+
+## Versions
+
+### Session Info
+```{r sessionInfo, echo=FALSE, results='asis', class='text', warning=FALSE}
+c<-devtools::session_info()
+pander::pander(t(data.frame(c(c$platform))))
+pander::pander(as.data.frame(c$packages)[,-c(4,5,10,11)])
+```
