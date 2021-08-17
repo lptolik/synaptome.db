@@ -2,25 +2,30 @@ datacache <- new.env(hash=TRUE, parent=emptyenv())
 
 ##### Use cases 1 and 2 Show my favourite gene info#####
 #' Get gene information for set of gene names.
+#'
+#'
 #' Function lookup for name in Human Gene name and Mouse Gene name data
-#' and return
+#'
+#' This function then returns
 #' following features for all found genes:
-#' GeneID,
-#' Localisation,
-#' MGI,
-#' HumanEntrez,
-#' MouseEntrez,
-#' HumanName,
-#' MouseName,
-#' PaperPMID,
-#' Paper,
-#' Year,
-#' SpeciesTaxID,
-#' BrainRegion
+#' \itemize{
+#'  \item GeneID,
+#'  \item Localisation,
+#'  \item MGI,
+#'  \item HumanEntrez,
+#'  \item MouseEntrez,
+#'  \item HumanName,
+#'  \item MouseName,
+#'  \item PaperPMID,
+#'  \item Paper,
+#'  \item Year,
+#'  \item SpeciesTaxID,
+#'  \item BrainRegion
+#' }
 #'
-#' @param name vector of gene names
+#' @param name \code{vector} of gene names
 #'
-#' @return data.frame with fields specified above
+#' @return \code{data.frame} with fields specified above
 #' @export
 #'
 getGeneInfoByName<-function(name){
@@ -48,6 +53,7 @@ getGeneInfoByEntrez<-function(entrez){
 #'
 #' @return  data.frame
 #' @export
+#' @seealso \code{\link{findGenesByName}}
 findGenesByEntrez<-function(entrez){
     idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
         dplyr::filter(HumanEntrez %in% entrez | MouseEntrez %in% entrez) %>%
@@ -61,6 +67,7 @@ findGenesByEntrez<-function(entrez){
 #'
 #' @return  data.frame
 #' @export
+#' @seealso \code{\link{findGenesByEntrez}}
 findGenesByName<-function(name){
     idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
         dplyr::filter(HumanName %in% name | MouseName %in% name) %>%
@@ -77,6 +84,10 @@ findGenesByName<-function(name){
 #' @export
 #' @import dplyr
 #'
+#' @examples
+#' \dontrun{
+#' getGeneInfoByIDs('ID')
+#' }
 getGeneInfoByIDs <- function(ids) {
     gns <- get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(GeneID %in% ids) %>%
