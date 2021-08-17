@@ -15,3 +15,8 @@ data.frame
 \description{
 Get GeneInfo table for set of GeneIDs
 }
+\examples{
+\dontrun{
+getGeneInfoByIDs('ID')
+}
+}

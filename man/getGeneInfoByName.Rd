@@ -2,46 +2,34 @@
 % Please edit documentation in R/zzz.R
 \name{getGeneInfoByName}
 \alias{getGeneInfoByName}
-\title{Get gene information for set of gene names.
-Function lookup for name in Human Gene name and Mouse Gene name data
-and return
-following features for all found genes:
-GeneID,
-Localisation,
-MGI,
-HumanEntrez,
-MouseEntrez,
-HumanName,
-MouseName,
-PaperPMID,
-Paper,
-Year,
-SpeciesTaxID,
-BrainRegion}
+\title{Get gene information for set of gene names.}
 \usage{
 getGeneInfoByName(name)
 }
 \arguments{
-\item{name}{vector of gene names}
+\item{name}{\code{vector} of gene names}
 }
 \value{
-data.frame with fields specified above
+\code{data.frame} with fields specified above
 }
 \description{
-Get gene information for set of gene names.
 Function lookup for name in Human Gene name and Mouse Gene name data
-and return
+}
+\details{
+This function then returns
 following features for all found genes:
-GeneID,
-Localisation,
-MGI,
-HumanEntrez,
-MouseEntrez,
-HumanName,
-MouseName,
-PaperPMID,
-Paper,
-Year,
-SpeciesTaxID,
-BrainRegion
+\itemize{
+ \item GeneID,
+ \item Localisation,
+ \item MGI,
+ \item HumanEntrez,
+ \item MouseEntrez,
+ \item HumanName,
+ \item MouseName,
+ \item PaperPMID,
+ \item Paper,
+ \item Year,
+ \item SpeciesTaxID,
+ \item BrainRegion
+}
 }

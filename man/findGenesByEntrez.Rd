@@ -15,3 +15,6 @@ data.frame
 \description{
 Find GeneIDs for Entrez
 }
+\seealso{
+\code{\link{findGenesByName}}
+}

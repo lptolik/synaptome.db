@@ -15,3 +15,6 @@ data.frame
 \description{
 Find GeneIDs for names
 }
+\seealso{
+\code{\link{findGenesByEntrez}}
+}
