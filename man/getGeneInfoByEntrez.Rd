@@ -2,16 +2,36 @@
 % Please edit documentation in R/zzz.R
 \name{getGeneInfoByEntrez}
 \alias{getGeneInfoByEntrez}
-\title{Get GeneInfo table for set of Entres IDs}
+\title{Gene information for given list of gene Entrez IDs}
 \usage{
 getGeneInfoByEntrez(entrez)
 }
 \arguments{
-\item{entrez}{Entres IDs}
+\item{entrez}{\code{vector} of Entres IDs. Function accepts both
+integers and characters.}
 }
 \value{
-data.frame
+\code{data.frame}  with fields specified above.
 }
 \description{
-Get GeneInfo table for set of Entres IDs
+Get gene information for set of gene Entrez IDs. Function lookup for
+name in Human Entrez ID and Mouse Entrez Id  data and return following
+features for all found genes: GeneID (internal database ID), Localisation
+(presynaptic, postsynaptic, synaptosome), MGI (MGI ID),
+HumanEntrez (Human Entrez ID), MouseEntrez (Mouse Entrez ID),
+HumanName (Human gene name), MouseName (Mouse gene name),
+PaperPMID (PMID IDs for the publications where the genes were reported),
+Paper (papers where specific genes were reported in a format
+FIRSTAUTHOR_YEAR), Year, SpeciesTaxID (specie the original experiment
+was performed on), BrainRegion (Brain region where the specific genes
+were identified, according to the paper)
+}
+\examples{
+#get information for specific gene
+t <- getGeneInfoByEntrez(1742)
+#get information for specific character string Entres representation
+t <- getGeneInfoByEntrez('1742')
+
+#get information for the list of genes
+t <- getGeneInfoByName(c(1741, 1742, 1739, 1740))
 }
