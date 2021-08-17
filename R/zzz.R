@@ -278,6 +278,8 @@ getGeneInfoByIDs <- function(ids) {
 ##### Use cases 3 Show disease info for my list of genes#####
 #' Prepare query for Disease table
 #'
+#' Utility furnction for construction queries.
+#'
 #' @return tbl_lazy
 #' @import dplyr
 getGeneDiseaseQuery <- function() {
@@ -290,14 +292,19 @@ getGeneDiseaseQuery <- function() {
     return(gns)
 }
 
-#' Get data about Gene-Disease mapping by GeneIDs
+#' Disease information for internal gene IDs.
 #'
-#' @param ids gene IDs
+#' Get Human disease information (HDO provided) for the set of internal
+#' gene IDs. Function lookups for diseases associated with internal
+#' GeneIDs and returns list of available diseases.
+#'
+#' @param ids \code{vector} of gene IDs.
 #'
 #' @return data.frame
 #' @export
 #' @import dplyr
-#'
+#' @examples
+#' t <- getGeneDiseaseByIDs (c(48, 585, 710))
 getGeneDiseaseByIDs<-function(ids){
     ginf<-getGeneInfoByIDs(ids) %>% dplyr::pull(HumanEntrez)
     gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% ginf)

@@ -9,3 +9,5 @@ t <- getGeneInfoByEntrez('1742')
 t <- getGeneInfoByName(c(1741, 1742, 1739, 1740)) #(195 rows)
 #get information for specific gene
 t <- findGenesByEntrez(c(1742, 1741, 1739, 1740)) #(4 rows)
+#' Find information for gene IDs
+t <- getGeneInfoByIDs (c(48, 585, 710)) #(110 rows)
