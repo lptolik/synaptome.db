@@ -8,8 +8,8 @@ Authors@R: c(
     person("Oksana", "Sorokina", 
         email="oksankasster@gmail.com", role=c("aut", "cre")))
 Description: Database of the Synaptic proteome.
-Depends: R(>=3.6.0)
-Imports: knitr, DBI, RSQLite, dplyr
+Depends: R (>= 3.5.0)
+Imports: knitr, DBI, RSQLite, dplyr, pander
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: false
