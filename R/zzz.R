@@ -374,12 +374,13 @@ getLimitedPPI4Compartment<-function(ids, compartmentID){
 #'
 #' @return data.frame
 #' @export
-getPPIbyIDs4Compartment<-function(ids, compartmentID,
-                                  type=c('induced','limited')){
+getPPIbyIDs4Compartment<-function(
+    ids, compartmentID,type=c('induced','limited')){
     netType<-match.arg(type)
-    gns<- switch (netType,
-                  induced = getInducedPPI4Compartment(ids, compartmentID),
-                  limited = getLimitedPPI4Compartment(ids, compartmentID)
+    gns<- switch (
+        netType,
+        induced = getInducedPPI4Compartment(ids, compartmentID),
+        limited = getLimitedPPI4Compartment(ids, compartmentID)
     )
     df <- gns %>% collect
     return(df)
@@ -422,9 +423,10 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #' @export
 getGenes4BrainRegion<-function(ids,brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
-        dplyr::filter(BrainRegion == brainRegion &
-                          SpeciesTaxID == taxID &
-                          GeneID %in% ids) %>%
+        dplyr::filter(
+            BrainRegion == brainRegion &
+                SpeciesTaxID == taxID &
+                GeneID %in% ids) %>%
         dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
     return(idsC)
 }
@@ -465,12 +467,13 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #'
 #' @return data.frame
 #' @export
-getPPIbyIDs4BrainRegion<-function(ids, brainRegion,taxID,
-                                  type=c('induced','limited')){
+getPPIbyIDs4BrainRegion<-function(
+    ids, brainRegion,taxID,type=c('induced','limited')){
     netType<-match.arg(type)
-    gns<- switch (netType,
-                  induced = getInducedPPI4BrainRegion(ids, brainRegion,taxID),
-                  limited = getLimitedPPI4BrainRegion(ids, brainRegion,taxID)
+    gns<- switch (
+        netType,
+        induced = getInducedPPI4BrainRegion(ids, brainRegion,taxID),
+        limited = getLimitedPPI4BrainRegion(ids, brainRegion,taxID)
     )
     df <- gns %>% collect
     return(df)
@@ -493,8 +496,8 @@ get_dbconn <- function(){
     #  require("methods", quietly=TRUE)
     #  require("DBI", quietly=TRUE)
     #require("methods", quietly=TRUE)
-    dbfile <- system.file("extdata", "synaptome.sqlite",
-                          package=pkgname, lib.loc=libname)
+    dbfile <- system.file(
+        "extdata", "synaptome.sqlite", package=pkgname, lib.loc=libname)
     assign("dbfile", dbfile, envir=datacache)
 
     db <- dbfile
