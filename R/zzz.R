@@ -5,6 +5,7 @@
 #' @export
 #' @import DBI
 #' @import RSQLite
+#' @import dbplyr
 #'
 get_dbconn <- function() {
     if (!exists('dbconn') || !DBI::dbIsValid(dbconn)) {

@@ -19,5 +19,5 @@ lookups for provided values in Human Entrez ID, Mouse Entrez ID and
 Rat Entrez ID columns and returns obtained GeneIDs.
 }
 \examples{
-t <- getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
+t <- synaptome.db:::getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
 }

@@ -4,7 +4,7 @@
 #' Utility furnction for construction queries.
 #'
 #' @return tbl_lazy
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getGeneDiseaseQuery <- function() {
     gns <- get_dbconn() %>% dplyr::tbl("FullGeneFullDisease")  %>%
         dplyr::select(
@@ -25,7 +25,7 @@ getGeneDiseaseQuery <- function() {
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' t <- getGeneDiseaseByIDs (c(48, 585, 710))
 getGeneDiseaseByIDs<-function(ids){
@@ -41,7 +41,7 @@ getGeneDiseaseByIDs<-function(ids){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 #'
 getGeneDiseaseByEntres<-function(entrez){
     gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% entrez)
@@ -55,7 +55,7 @@ getGeneDiseaseByEntres<-function(entrez){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 #'
 getGeneDiseaseByName<-function(names){
     gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanName %in% names)

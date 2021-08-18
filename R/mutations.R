@@ -3,7 +3,7 @@
 #' Prepare query for AllMutationAllPapers table
 #'
 #' @return tbl_lazy
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getMutDiseaseQuery <- function() {
     gns <- get_dbconn() %>% dplyr::tbl("AllMutationsAllPapers") %>%
         dplyr::select(
@@ -37,7 +37,7 @@ getMutDiseaseQuery <- function() {
 #'
 #' @return  data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getMutations4DiseaseByIDs<-function(ids,hdoid){
     gns <- getMutDiseaseQuery() %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
@@ -51,7 +51,7 @@ getMutations4DiseaseByIDs<-function(ids,hdoid){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getMutations4DiseaseByEntres<-function(entrez,hdoid){
     ids<-getGeneIdByEntrez(entrez)
     gns <- getMutDiseaseQuery() %>%
@@ -66,7 +66,7 @@ getMutations4DiseaseByEntres<-function(entrez,hdoid){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getMutations4DiseaseByName<-function(name,hdoid){
     ids<-getGeneIdByName(name)
     gns <- getMutDiseaseQuery() %>%
