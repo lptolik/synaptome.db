@@ -14,5 +14,6 @@ License: Artistic-2.0
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+biocViews: FunctionalAnnotation, CustomDBSchema
 Suggests: 
-    rmarkdown, knitr, pander, testthat
+    rmarkdown, knitr, pander, testthat, devtools
