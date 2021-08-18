@@ -192,9 +192,8 @@ getGenesByID<-function(ids){
     genes<-get_dbconn() %>% dplyr::tbl("Gene") %>%
         dplyr::select(
             ID,MGI,
-            HumanEntrez,MouseEntrez,
-            HumanName,MouseName,
-            RatEntrez,RatName) %>%
+            HumanEntrez,MouseEntrez,RatEntrez,
+            HumanName,MouseName,RatName) %>%
         dplyr::filter(ID %in% ids) %>% rename(GeneID=ID) %>%
         collect
     return(genes)
