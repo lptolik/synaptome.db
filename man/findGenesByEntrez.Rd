@@ -2,18 +2,35 @@
 % Please edit documentation in R/zzz.R
 \name{findGenesByEntrez}
 \alias{findGenesByEntrez}
-\title{Find GeneIDs for Entrez}
+\title{Internal Gene representation for given list of gene Entrez IDs}
 \usage{
 findGenesByEntrez(entrez)
 }
 \arguments{
-\item{entrez}{Entres IDs}
+\item{entrez}{\code{vector} of Entres IDs. Function accepts both
+integers and characters.}
 }
 \value{
-data.frame
+\code{data.frame} with columns specified above.
 }
 \description{
-Find GeneIDs for Entrez
+Get internal gene representation for set of gene Entrez IDs.
+Function lookups for provided values in Human Entrez ID, Mouse Entrez ID
+and Rat Entrez ID columns and return following features for all found
+genes: GeneID (internal database ID), MGI ID, Human Entrez ID, Mouse
+Entrez ID, Rat Entrez ID, Human gene name, Mouse gene name and Rat
+gene name.
+}
+\details{
+Could be used as an intermediate step for building Protein-Protein
+interaction map from the list of Gene IDs returned in the first column.
+Also, this function provides a useful sanity check, e.g. how many Gene IDs
+correspond to the
+specific gene name or Entrez ID, which could be specie-specific.
+}
+\examples{
+#get information for specific gene
+t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
 }
 \seealso{
 \code{\link{findGenesByName}}
