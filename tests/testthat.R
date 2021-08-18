@@ -1,2 +1,2 @@
 library("testthat")
-test_check("synamptome.db")
+test_check("synaptome.db")
