@@ -22,7 +22,8 @@ getAllGenes4Compartment<-function(compartmentID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID) %>%
         dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
-    return(idsC)
+
+    return(getGenesByID(idsC))
 }
 
 #' Select genes from list that found in compartment
@@ -37,7 +38,7 @@ getGenes4Compartment<-function(ids,compartmentID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID & GeneID %in% ids) %>%
         dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
-    return(idsC)
+    return(getGenesByID(idsC))
 }
 
 #' Prepare induces network for compartment
@@ -50,8 +51,8 @@ getGenes4Compartment<-function(ids,compartmentID){
 getInducedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)
     aids<-getAllGenes4Compartment(compartmentID)
-    gns<-getPPIQuery() %>% dplyr::filter(A %in% cids | B %in% cids) %>%
-        dplyr::filter(A %in% aids & B %in% aids)
+    gns<-getPPIQuery() %>% dplyr::filter(A %in% cids$GeneID | B %in% cids$GeneID) %>%
+        dplyr::filter(A %in% aids$GeneID & B %in% aids$GeneID)
     return(gns)
 }
 
@@ -64,7 +65,7 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
 #' @import dplyr
 getLimitedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)
-    gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
+    gns<-getPPIQuery() %>% dplyr::filter(A %in% cids$GeneID & B %in% cids$GeneID)
     return(gns)
 }
 #' Extract the PPIs for specific compartment
