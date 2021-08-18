@@ -78,15 +78,15 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' Extract the PPIs for specific compartment
 #'
 #' @param ids gene IDs
-#' @param type  type of the PPI network
-#' @param brainRegion  region ID
-#' @param taxID  taxon ID
+#' @param type type of the PPI network
+#' @param brainRegion region ID
+#' @param taxID taxon ID
 #'
 #' @return data.frame
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
 getPPIbyIDs4BrainRegion<-function(
-    ids, brainRegion,taxID,type=c('induced','limited')){
+    ids,brainRegion,taxID,type=c('induced','limited')){
     netType<-match.arg(type)
     gns<- switch (
         netType,
