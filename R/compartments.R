@@ -5,7 +5,8 @@
 #' @return data.frame
 #' @export
 #' @import dplyr
-#'
+#' @examples
+#' c<-getCompartments()
 getCompartments<-function(){
     gns<-get_dbconn() %>% dplyr::tbl("Localisation") %>% collect
     return(gns)
@@ -68,6 +69,7 @@ getLimitedPPI4Compartment<-function(ids, compartmentID){
     gns<-getPPIQuery() %>% dplyr::filter(A %in% cids$GeneID & B %in% cids$GeneID)
     return(gns)
 }
+
 #' Extract the PPIs for specific compartment
 #'
 #' @param ids gene IDs
