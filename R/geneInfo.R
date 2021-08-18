@@ -190,7 +190,7 @@ findGenesByName<-function(name){
 #' gdf<-getGenesByID(c(46,6,15,1))
 getGenesByID<-function(ids){
     genes<-get_dbconn() %>% dplyr::tbl("Gene") %>%
-        dplyr::filter(GeneID %in% ids) %>%
+        dplyr::filter(ID %in% ids) %>% rename(GeneID=ID)
         collect
     return(genes)
 }
