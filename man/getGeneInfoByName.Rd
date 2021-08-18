@@ -10,26 +10,45 @@ getGeneInfoByName(name)
 \item{name}{\code{vector} of gene names}
 }
 \value{
-\code{data.frame} with fields specified above
+\code{data.frame} with fields specified above.
 }
 \description{
 Function lookup for name in Human Gene name and Mouse Gene name data
 }
 \details{
+Function lookup for name in Human Gene name, Rat Gene name and
+Mouse Gene name data and return following features for all found genes:
+GeneID (internal database ID), Localisation (one of the following:
+presynaptic, postsynaptic, synaptosome),
+MGI (MGI ID), HumanEntrez (Human Entrez ID), MouseEntrez (Mouse Entrez ID),
+HumanName (Human gene name), MouseName (Mouse gene name),
+PaperPMID (PMID IDs for the publications where the genes were reported),
+Paper (papers where specific genes were reported in a format
+FIRSTAUTHOR_YEAR), Year, SpeciesTaxID (specie the original experiment
+was performed on), BrainRegion (Brain region where the specific genes
+were identified, according to the paper)
+
 This function then returns
 following features for all found genes:
 \itemize{
- \item GeneID,
- \item Localisation,
- \item MGI,
- \item HumanEntrez,
- \item MouseEntrez,
- \item HumanName,
- \item MouseName,
- \item PaperPMID,
- \item Paper,
- \item Year,
- \item SpeciesTaxID,
- \item BrainRegion
+\item GeneID,
+\item Localisation,
+\item MGI,
+\item HumanEntrez,
+\item MouseEntrez,
+\item HumanName,
+\item MouseName,
+\item PaperPMID,
+\item Paper,
+\item Year,
+\item SpeciesTaxID,
+\item BrainRegion
 }
+}
+\examples{
+#get information for specific gene
+t <- getGeneInfoByName('CASK')
+
+#get information for the list of genes
+t <- getGeneInfoByName(c('CASK', 'DLG2'))
 }

@@ -9,10 +9,9 @@ Authors@R: c(
         email="oksankasster@gmail.com", role=c("aut", "ctb")))
 Description: Database of the Synaptic proteome.
 Depends: R (>= 3.5.0)
-Imports: DBI, RSQLite, dplyr, 
+Imports: DBI, RSQLite, dplyr, dbplyr
 License: Artistic-2.0
 Encoding: UTF-8
-LazyData: false
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Suggests: 

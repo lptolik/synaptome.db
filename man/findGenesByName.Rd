@@ -7,13 +7,28 @@
 findGenesByName(name)
 }
 \arguments{
-\item{name}{gene names}
+\item{name}{\code{vector} of gene names.}
 }
 \value{
-data.frame
+\code{data.frame} with columns specified above.
 }
 \description{
-Find GeneIDs for names
+Get internal gene representation for set of gene names. Function lookups
+for provided values in Human Name, Mouse Name and Rat Name columns and
+return following features for all found genes: GeneID (internal database
+ID), MGI ID, Human Entrez ID, Mouse Entrez ID, Rat Entrez ID, Human gene
+name, Mouse gene name and Rat gene name.
+}
+\details{
+Could be used as an intermediate step for building Protein-Protein
+interaction map from the list of Gene IDs returned in the first column.
+Also, this function provides a useful sanity check, e.g. how many Gene
+IDs correspond to the specific gene name or Entrez ID, which could be
+specie-specific.
+}
+\examples{
+# Find GeneIDs for names
+t <- findGenesByName(c('Src', 'Srcin1', 'Fyn'))
 }
 \seealso{
 \code{\link{findGenesByEntrez}}
