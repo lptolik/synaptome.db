@@ -14,7 +14,7 @@ getGenesByID(ids)
 }
 \description{
 Takes internal gene IDs as input and return the following features for
- all found genes:
+all found genes:
 \describe{
 \item{GeneID}{ internal database ID}
 \item{MGI}{ MGI ID}

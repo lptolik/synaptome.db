@@ -52,7 +52,8 @@ getGenes4Compartment<-function(ids,compartmentID){
 getInducedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)
     aids<-getAllGenes4Compartment(compartmentID)
-    gns<-getPPIQuery() %>% dplyr::filter(A %in% cids$GeneID | B %in% cids$GeneID) %>%
+    gns<-getPPIQuery() %>%
+        dplyr::filter(A %in% cids$GeneID | B %in% cids$GeneID) %>%
         dplyr::filter(A %in% aids$GeneID & B %in% aids$GeneID)
     return(gns)
 }
@@ -66,7 +67,8 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
 #' @importFrom dplyr tbl select filter pull collect
 getLimitedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)
-    gns<-getPPIQuery() %>% dplyr::filter(A %in% cids$GeneID & B %in% cids$GeneID)
+    gns<-getPPIQuery() %>%
+        dplyr::filter(A %in% cids$GeneID & B %in% cids$GeneID)
     return(gns)
 }
 
