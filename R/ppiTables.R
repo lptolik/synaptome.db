@@ -2,7 +2,7 @@
 #' Prepare query for AllMutationAllPapers table
 #'
 #' @return tbl_lazy
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getPPIQuery<-function(){
     #  gns<-get_dbconn() %>% dplyr::tbl("AllPpiAllPapers") %>%
     gns<-get_dbconn() %>% dplyr::tbl("PPI") %>%
@@ -23,7 +23,7 @@ getPPIQuery<-function(){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
     netType <- match.arg(type)
     gns <- switch (

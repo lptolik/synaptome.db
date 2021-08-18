@@ -105,7 +105,7 @@ getGeneInfoByEntrez<-function(entrez){
 #'
 #' @return  \code{data.frame} with columns specified above.
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 #' @seealso \code{\link{findGenesByName}}
 #' @examples
 #' #get information for specific gene
@@ -127,7 +127,7 @@ findGenesByEntrez<-function(entrez){
 #' @return \code{vector} of GeneID values.
 #'
 #' @examples
-#' t <- getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
+#' t <- synaptome.db:::getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
 getGeneIdByEntrez<-function(entrez){
     idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
         dplyr::filter(
@@ -157,7 +157,7 @@ getGeneIdByEntrez<-function(entrez){
 #'
 #' @return  \code{data.frame} with columns specified above.
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 #' @seealso \code{\link{findGenesByEntrez}}
 #' @examples
 #' # Find GeneIDs for names
@@ -186,8 +186,9 @@ findGenesByName<-function(name){
 #'
 #' @return \code{data.frame} with 8 columns specified above.
 #'
+#' @importFrom dplyr tbl select filter rename collect
 #' @examples
-#' gdf<-getGenesByID(c(46,6,15,1))
+#' gdf<-synaptome.db:::getGenesByID(c(46,6,15,1))
 getGenesByID<-function(ids){
     genes<-get_dbconn() %>% dplyr::tbl("Gene") %>%
         dplyr::select(
@@ -207,7 +208,7 @@ getGenesByID<-function(ids){
 #' @return \code{vector} of GeneID values.
 #'
 #' @examples
-#' t <- getGeneIdByName(c('Src', 'Srcin1', 'Fyn'))
+#' t <- synaptome.db:::getGeneIdByName(c('Src', 'Srcin1', 'Fyn'))
 getGeneIdByName<-function(name){
     idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
         dplyr::filter(
@@ -254,7 +255,7 @@ getGeneIdByName<-function(name){
 #'
 #' @return \code{data.frame} with column specified above.
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 #'
 #' @examples
 #' gdf<-getGeneInfoByIDs(c(46,6,15,1))

@@ -12,3 +12,6 @@ data.frame
 \description{
 Provide full list of compartments (pres, post, synaptosome)
 }
+\examples{
+c<-getCompartments()
+}

@@ -4,7 +4,7 @@
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getBrainRegions<-function(){
     gns<-get_dbconn() %>% dplyr::tbl("BrainRegion") %>% collect
     return(gns)
@@ -18,7 +18,7 @@ getBrainRegions<-function(){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getAllGenes4BrainRegion<-function(brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>%
@@ -35,7 +35,7 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getGenes4BrainRegion<-function(ids,brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(
@@ -53,7 +53,7 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
 #' @param ids gene IDs
 #'
 #' @return  tbl_lazy
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
     aids<-getAllGenes4BrainRegion(brainRegion,taxID)
@@ -69,7 +69,7 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @param ids gene IDs
 #'
 #' @return  tbl_lazy
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
     gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
@@ -84,7 +84,7 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #'
 #' @return data.frame
 #' @export
-#' @import dplyr
+#' @importFrom dplyr tbl select filter pull collect
 getPPIbyIDs4BrainRegion<-function(
     ids, brainRegion,taxID,type=c('induced','limited')){
     netType<-match.arg(type)

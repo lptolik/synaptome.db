@@ -16,5 +16,5 @@ getGeneIdByName(name)
 Get list of GeneIDs corresponding to provided gene names.
 }
 \examples{
-t <- getGeneIdByName(c('Src', 'Srcin1', 'Fyn'))
+t <- synaptome.db:::getGeneIdByName(c('Src', 'Srcin1', 'Fyn'))
 }

@@ -27,5 +27,5 @@ Takes internal gene IDs as input and return the following features for
 }
 }
 \examples{
-gdf<-getGenesByID(c(46,6,15,1))
+gdf<-synaptome.db:::getGenesByID(c(46,6,15,1))
 }
