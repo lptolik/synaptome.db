@@ -21,10 +21,10 @@ get_dbconn <- function() {
 {
     dbfile <- system.file(
         "extdata", "synaptome.sqlite", package=pkgname, lib.loc=libname)
-    cat(pkgname,libname)
+    #cat(pkgname,libname)
     db <- dbfile
     dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
-    packageStartupMessage(paste("Package Synaptome.DB loaded with db fram",db))
+    #packageStartupMessage(paste("Package Synaptome.DB loaded with db fram",db))
 }
 
 
