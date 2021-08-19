@@ -41,6 +41,7 @@ get igraph representation of the PPI \code{data.frame}.
 Other {ppi_functions}: 
 \code{\link{getIGraphFromPPI}()},
 \code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs4Compartment}()},
 \code{\link{getPPIbyIDs}()},
 \code{\link{getPPIbyName}()}
 }

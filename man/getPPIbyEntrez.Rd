@@ -16,7 +16,7 @@ Type could be shortened to recognizable minimum like 'ind'
 or 'lim'.}
 }
 \value{
-data.frame
+data.frame with interactors internal GeneID in columns A and B
 }
 \description{
 Get Protein-Protein interactions (PPIs) for the set of ID. Function
@@ -38,6 +38,7 @@ table representation of the PPI \code{data.frame}.
 
 Other {ppi_functions}: 
 \code{\link{getIGraphFromPPI}()},
+\code{\link{getPPIbyIDs4Compartment}()},
 \code{\link{getPPIbyIDs}()},
 \code{\link{getPPIbyName}()},
 \code{\link{getTableFromPPI}()}

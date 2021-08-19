@@ -32,7 +32,7 @@ getPPIQuery<-function(){
 #'     Type could be shortened to recognizable minimum like 'ind'
 #'     or 'lim'.
 #'
-#' @return data.frame
+#' @return data.frame with interactors internal GeneID in columns A and B
 
 #' @export
 #'
@@ -76,7 +76,7 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 #'     Type could be shortened to recognizable minimum like 'ind'
 #'     or 'lim'.
 #'
-#' @return data.frame
+#' @return data.frame with interactors internal GeneID in columns A and B
 #' @export
 #'
 #' @family {ppi_functions}
@@ -111,7 +111,7 @@ getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
 #'     Type could be shortened to recognizable minimum like 'ind'
 #'     or 'lim'.
 #'
-#' @return data.frame
+#' @return data.frame with interactors internal GeneID in columns A and B
 #' @export
 #'
 #' @family {ppi_functions}

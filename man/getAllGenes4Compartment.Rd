@@ -2,16 +2,36 @@
 % Please edit documentation in R/compartments.R
 \name{getAllGenes4Compartment}
 \alias{getAllGenes4Compartment}
-\title{Get list of all genes found in compartment}
+\title{Extract all genes found in compartment}
 \usage{
 getAllGenes4Compartment(compartmentID)
 }
 \arguments{
-\item{compartmentID}{Compartment ID}
+\item{compartmentID}{ID for specific compartment}
 }
 \value{
-data.frame
+data.frame described in \code{\link[=getGenesByID]{getGenesByID()}}
 }
 \description{
-Get list of all genes found in compartment
+Get all genes annotated for specific compartment. Function
+returns main information like internal Gene IDs, MGI ID,
+Human Entrez ID, Human Gene Name, Mouse Entrez ID,
+Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
 }
+\examples{
+G <- getAllGenes4Compartment(compartmentID = 1) # 5560 rows
+}
+\seealso{
+Other {gene_functions}: 
+\code{\link{findGenesByEntrez}()},
+\code{\link{findGenesByName}()},
+\code{\link{getGenes4Compartment}()},
+\code{\link{getGenesByID}()}
+
+Other {compartment_functions}: 
+\code{\link{getCompartments}()},
+\code{\link{getGenes4Compartment}()},
+\code{\link{getPPIbyIDs4Compartment}()}
+}
+\concept{{compartment_functions}}
+\concept{{gene_functions}}

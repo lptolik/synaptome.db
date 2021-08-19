@@ -36,6 +36,8 @@ Other {find_functions}:
 
 Other {gene_functions}: 
 \code{\link{findGenesByEntrez}()},
+\code{\link{getAllGenes4Compartment}()},
+\code{\link{getGenes4Compartment}()},
 \code{\link{getGenesByID}()}
 }
 \concept{{find_functions}}

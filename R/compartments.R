@@ -1,8 +1,13 @@
 ##### Use cases 6 Extract the PPIs for specific compartment #####
 
-#' Provide full list of compartments (pres, post, synaptosome)
+#' Get full list of compartments
 #'
-#' @return data.frame
+#' Get list of synaptic compartments considered in the database.
+#'  Returns table with compartments: “Presynaptic”, “Postsynaptic”,
+#'  “Synaptosome”, and their internal IDs.
+#'
+#' @return data.frame described above
+#' @family {compartment_functions}
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
@@ -12,13 +17,23 @@ getCompartments<-function(){
     return(gns)
 }
 
-#' Get list of all genes found in compartment
+#' Extract all genes found in compartment
 #'
-#' @param compartmentID Compartment ID
+#' Get all genes annotated for specific compartment. Function
+#' returns main information like internal Gene IDs, MGI ID,
+#' Human Entrez ID, Human Gene Name, Mouse Entrez ID,
+#' Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
 #'
-#' @return data.frame
+#' @param compartmentID ID for specific compartment
+#'
+#' @return data.frame described in [getGenesByID()]
+#' @family {gene_functions}
+#' @family {compartment_functions}
 #' @export
+#' @md
 #' @importFrom dplyr tbl select filter pull collect
+#' @examples
+#' G <- getAllGenes4Compartment(compartmentID = 1) # 5560 rows
 getAllGenes4Compartment<-function(compartmentID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID) %>%
@@ -27,14 +42,28 @@ getAllGenes4Compartment<-function(compartmentID){
     return(getGenesByID(idsC))
 }
 
-#' Select genes from list that found in compartment
+#' Select genes from the list that found in compartment
+#'
+#' Select all genes from your list annotated for specific
+#' compartment. Should be used with [findGenesByEntrez()]
+#' or [findGenesByName()] functions to obtain list of internal
+#' IDs for your list of genes. Function lookups the Gene table
+#' for specified localisation and returns main gene information
+#' like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name,
+#' Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
 #'
 #' @param ids Gene IDs
 #' @param compartmentID compartment ID
 #'
-#' @return data.frame
+#' @return data.frame described in [getGenesByID()]
+#' @family {gene_functions}
+#' @family {compartment_functions}
 #' @export
+#' @md
 #' @importFrom dplyr tbl select filter pull collect
+#' @examples
+#' Genes <- getGenes4Compartment(c(1, 15, 156, 1500, 3000, 7000),
+#' compartmentID = 1)
 getGenes4Compartment<-function(ids,compartmentID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID & GeneID %in% ids) %>%
@@ -50,11 +79,11 @@ getGenes4Compartment<-function(ids,compartmentID){
 #' @return  tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 getInducedPPI4Compartment<-function(ids, compartmentID){
-    cids<-getGenes4Compartment(ids,compartmentID)
-    aids<-getAllGenes4Compartment(compartmentID)
+    cids<-getGenes4Compartment(ids,compartmentID)$GeneID
+    aids<-getAllGenes4Compartment(compartmentID)$GeneID
     gns<-getPPIQuery() %>%
-        dplyr::filter(A %in% cids$GeneID | B %in% cids$GeneID) %>%
-        dplyr::filter(A %in% aids$GeneID & B %in% aids$GeneID)
+        dplyr::filter(A %in% cids | B %in% cids) %>%
+        dplyr::filter(A %in% aids & B %in% aids)
     return(gns)
 }
 
@@ -66,21 +95,39 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
 #' @return tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 getLimitedPPI4Compartment<-function(ids, compartmentID){
-    cids<-getGenes4Compartment(ids,compartmentID)
+    cids<-getGenes4Compartment(ids,compartmentID)$GeneID
     gns<-getPPIQuery() %>%
-        dplyr::filter(A %in% cids$GeneID & B %in% cids$GeneID)
+        dplyr::filter(A %in% cids & B %in% cids)
     return(gns)
 }
 
-#' Extract the PPIs for specific compartment
+#' Prepare induced or limited network for compartment
 #'
-#' @param ids gene IDs
-#' @param compartmentID compartment ID
-#' @param type type of the PPI network
+#' Prepare PPI network for genes from your list annotated for
+#' specific compartment. Should be used with findGenesByEntrez
+#' or findGenesByName functions to obtain list of internal IDs
+#' for your list of genes. Could be used with getAllGenes4Compartment
+#' functions to obtain all genes belonging to respective compartment.
+#' Function lookups the PPI table for gene IDs from the list and
+#' returns “limited” or “induced” interactors GeneIDs from the
+#' same compartment.
 #'
-#' @return data.frame
+#' @param ids internal gene IDs
+#' @param compartmentID ID for specific compartment
+#' @param type type of the PPI network should be either `induced` (for
+#'     all the PPIs for specific genes, including external genes) or
+#'     `limited` (for PPIs between the genes specified in the query).
+#'     Type could be shortened to recognizable minimum like 'ind'
+#'     or 'lim'.
+#'
+#' @return data.frame with interactors internal GeneID in columns A and B
+#' @family {ppi_functions}
+#' @family {compartment_functions}
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
+#' @examples
+#' ppi <- getPPIbyIDs4Compartment(c(1, 15, 156, 1500, 3000, 7000),
+#' compartmentID =1, type = 'induced')#201 rows
 getPPIbyIDs4Compartment<-function(
     ids, compartmentID,type=c('induced','limited')){
     netType<-match.arg(type)
