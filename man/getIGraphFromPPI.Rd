@@ -7,11 +7,15 @@
 getIGraphFromPPI(ppi)
 }
 \arguments{
-\item{ppi}{}
+\item{ppi}{PPI \code{data.frame} with columns A and B, obtaioed
+from functions like \code{\link{getPPIbyName}}}
 }
 \value{
 
 }
 \description{
 Get Igraph representation of PPI
+}
+\examples{
+
 }
