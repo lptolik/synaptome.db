@@ -38,6 +38,8 @@ Other {find_functions}:
 
 Other {gene_functions}: 
 \code{\link{findGenesByName}()},
+\code{\link{getAllGenes4Compartment}()},
+\code{\link{getGenes4Compartment}()},
 \code{\link{getGenesByID}()}
 }
 \concept{{find_functions}}

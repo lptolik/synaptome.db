@@ -2,20 +2,50 @@
 % Please edit documentation in R/compartments.R
 \name{getPPIbyIDs4Compartment}
 \alias{getPPIbyIDs4Compartment}
-\title{Extract the PPIs for specific compartment}
+\title{Prepare induced or limited network for compartment}
 \usage{
 getPPIbyIDs4Compartment(ids, compartmentID, type = c("induced", "limited"))
 }
 \arguments{
-\item{ids}{gene IDs}
+\item{ids}{internal gene IDs}
 
-\item{compartmentID}{compartment ID}
+\item{compartmentID}{ID for specific compartment}
 
-\item{type}{type of the PPI network}
+\item{type}{type of the PPI network should be either `induced` (for
+all the PPIs for specific genes, including external genes) or
+`limited` (for PPIs between the genes specified in the query).
+Type could be shortened to recognizable minimum like 'ind'
+or 'lim'.}
 }
 \value{
-data.frame
+data.frame with interactors internal GeneID in columns A and B
 }
 \description{
-Extract the PPIs for specific compartment
+Prepare PPI network for genes from your list annotated for
+specific compartment. Should be used with findGenesByEntrez
+or findGenesByName functions to obtain list of internal IDs
+for your list of genes. Could be used with getAllGenes4Compartment
+functions to obtain all genes belonging to respective compartment.
+Function lookups the PPI table for gene IDs from the list and
+returns “limited” or “induced” interactors GeneIDs from the
+same compartment.
 }
+\examples{
+ppi <- getPPIbyIDs4Compartment(c(1, 15, 156, 1500, 3000, 7000),
+compartmentID =1, type = 'induced')#201 rows
+}
+\seealso{
+Other {ppi_functions}: 
+\code{\link{getIGraphFromPPI}()},
+\code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs}()},
+\code{\link{getPPIbyName}()},
+\code{\link{getTableFromPPI}()}
+
+Other {compartment_functions}: 
+\code{\link{getAllGenes4Compartment}()},
+\code{\link{getCompartments}()},
+\code{\link{getGenes4Compartment}()}
+}
+\concept{{compartment_functions}}
+\concept{{ppi_functions}}

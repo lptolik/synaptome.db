@@ -2,16 +2,25 @@
 % Please edit documentation in R/compartments.R
 \name{getCompartments}
 \alias{getCompartments}
-\title{Provide full list of compartments (pres, post, synaptosome)}
+\title{Get full list of compartments}
 \usage{
 getCompartments()
 }
 \value{
-data.frame
+data.frame described above
 }
 \description{
-Provide full list of compartments (pres, post, synaptosome)
+Get list of synaptic compartments considered in the database.
+ Returns table with compartments: “Presynaptic”, “Postsynaptic”,
+ “Synaptosome”, and their internal IDs.
 }
 \examples{
 c<-getCompartments()
 }
+\seealso{
+Other {compartment_functions}: 
+\code{\link{getAllGenes4Compartment}()},
+\code{\link{getGenes4Compartment}()},
+\code{\link{getPPIbyIDs4Compartment}()}
+}
+\concept{{compartment_functions}}

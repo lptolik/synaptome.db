@@ -28,6 +28,17 @@ test_that("Proper row number in geneInfo", {
 test_that("Proper row number in compartments",{
     c<-getCompartments()
     expect_equal(dim(c), c(3,3))
+    expect_equal(dim(getAllGenes4Compartment(compartmentID = 1)), c(5560,8))
+    expect_equal(
+        dim(
+            getGenes4Compartment(
+                c(1, 15, 156, 1500, 3000, 7000),
+                compartmentID = 1)), c(5,8))
+    expect_equal(
+        dim(
+            getPPIbyIDs4Compartment(
+                c(1, 15, 156, 1500, 3000, 7000),
+                compartmentID =1, type = 'induced')),c(248,2))
 })
 
 test_that("Proper row number in diseases",{
