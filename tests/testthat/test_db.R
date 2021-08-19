@@ -30,6 +30,13 @@ test_that("Proper row number in compartments",{
     expect_equal(dim(c), c(3,3))
 })
 
+test_that("Proper row number in diseases",{
+    expect_equal(dim(getGeneDiseaseByIDs(c(48, 585, 710))), c(262,4))
+    expect_equal(dim(getGeneDiseaseByEntres (c(8573, 1742, 1739))), c(95,4))
+    expect_equal(dim(getGeneDiseaseByName (c('CASK', 'DLG2', 'DLG1'))), c(99,4))
+
+})
+
 test_that("Proper row numbers in PPIs",{
     expect_equal(
         dim(getPPIbyIDs(c(48, 585, 710), type='limited')),
