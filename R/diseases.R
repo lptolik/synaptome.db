@@ -23,8 +23,16 @@ getGeneDiseaseQuery <- function() {
 #'
 #' @param ids \code{vector} of gene IDs.
 #'
-#' @return data.frame
+#' @return data.frame with following columns:
+#' * HumanEntrez
+#' * HumanName
+#' * HDOID
+#' * Description
+#'
+#' @family {disease_functions}
 #' @export
+#'
+#' @md
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' t <- getGeneDiseaseByIDs (c(48, 585, 710))
@@ -35,28 +43,47 @@ getGeneDiseaseByIDs<-function(ids){
     return(df)
 }
 
-#' Get data about Gene-Disease mapping by Entres IDs
+#' Disease information for Human Entrez IDs
 #'
-#' @param entrez entrez IDs
+#' Get Human disease information (HDO provided) for the set of
+#' Human Entrez IDs. Function lookups for diseases associated with
+#' Human Entrez IDs and returns list of available diseases.
 #'
-#' @return data.frame
+#' @param entrez `vector` of Human Entrez gene IDs
+#'
+#' @return data.frame with following columns:
+#' * HumanEntrez
+#' * HumanName
+#' * HDOID
+#' * Description
+#'
+#' @md
 #' @export
+#' @family {disease_functions}
 #' @importFrom dplyr tbl select filter pull collect
-#'
+#' @examples
+#' t <- getGeneDiseaseByEntres (c(8573, 1742, 1739)) #(95 rows)
 getGeneDiseaseByEntres<-function(entrez){
     gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% entrez)
     df<-gns %>% dplyr::collect()
     return(df)
 }
 
-#' Get data about Gene-Disease mapping by  Name.
+#' Disease information for Human Gene Names
 #'
-#' @param names disease name
+#' Get Human disease information (HDO provided) for the set of
+#' Human Gene Names. Function lookups for diseases associated with
+#' internal Human gene names and returns list of available diseases.
+#'
+#' @param names `vector` of Human gene names
 #'
 #' @return data.frame
 #' @export
+#' @md
+#' @family {disease_functions}
 #' @importFrom dplyr tbl select filter pull collect
-#'
+#' @examples
+#' t <- getGeneDiseaseByName (c('CASK', 'DLG2', 'DLG1')) #(115 rows)
 getGeneDiseaseByName<-function(names){
     gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanName %in% names)
     df<-gns %>% dplyr::collect()

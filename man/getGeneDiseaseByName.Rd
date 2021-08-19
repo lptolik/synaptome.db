@@ -2,16 +2,27 @@
 % Please edit documentation in R/diseases.R
 \name{getGeneDiseaseByName}
 \alias{getGeneDiseaseByName}
-\title{Get data about Gene-Disease mapping by  Name.}
+\title{Disease information for Human Gene Names}
 \usage{
 getGeneDiseaseByName(names)
 }
 \arguments{
-\item{names}{disease name}
+\item{names}{\code{vector} of Human gene names}
 }
 \value{
 data.frame
 }
 \description{
-Get data about Gene-Disease mapping by  Name.
+Get Human disease information (HDO provided) for the set of
+Human Gene Names. Function lookups for diseases associated with
+internal Human gene names and returns list of available diseases.
 }
+\examples{
+t <- getGeneDiseaseByName (c('CASK', 'DLG2', 'DLG1')) #(115 rows)
+}
+\seealso{
+Other {disease_functions}: 
+\code{\link{getGeneDiseaseByEntres}()},
+\code{\link{getGeneDiseaseByIDs}()}
+}
+\concept{{disease_functions}}
