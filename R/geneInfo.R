@@ -37,6 +37,7 @@
 #'
 #' @return \code{data.frame} with fields specified above.
 #' @export
+#' @family {geneInfo_functions}
 #'
 #' @examples
 #' #get information for specific gene
@@ -70,6 +71,7 @@ getGeneInfoByName<-function(name){
 #'
 #' @return  \code{data.frame}  with fields specified above.
 #' @export
+#' @family {geneInfo_functions}
 #'
 #' @examples
 #' #get information for specific gene
@@ -106,7 +108,11 @@ getGeneInfoByEntrez<-function(entrez){
 #' @return  \code{data.frame} with columns specified above.
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
-#' @seealso \code{\link{findGenesByName}}
+#' @family {find_functions}
+#' @family {gene_functions}
+#'
+#'
+#' @md
 #' @examples
 #' #get information for specific gene
 #' t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
@@ -158,7 +164,8 @@ getGeneIdByEntrez<-function(entrez){
 #' @return  \code{data.frame} with columns specified above.
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
-#' @seealso \code{\link{findGenesByEntrez}}
+#' @family {find_functions}
+#' @family {gene_functions}
 #' @examples
 #' # Find GeneIDs for names
 #' t <- findGenesByName(c('Src', 'Srcin1', 'Fyn'))
@@ -187,6 +194,7 @@ findGenesByName<-function(name){
 #' @return \code{data.frame} with 8 columns specified above.
 #'
 #' @importFrom dplyr tbl select filter rename collect
+#' @family {gene_functions}
 #' @export
 #' @examples
 #' gdf<-synaptome.db:::getGenesByID(c(46,6,15,1))
@@ -257,6 +265,7 @@ getGeneIdByName<-function(name){
 #' @return \code{data.frame} with column specified above.
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
+#' @family {geneInfo_functions}
 #'
 #' @examples
 #' gdf<-getGeneInfoByIDs(c(46,6,15,1))

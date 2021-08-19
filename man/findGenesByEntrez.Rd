@@ -33,5 +33,12 @@ specific gene name or Entrez ID, which could be specie-specific.
 t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
 }
 \seealso{
-\code{\link{findGenesByName}}
+Other {find_functions}: 
+\code{\link{findGenesByName}()}
+
+Other {gene_functions}: 
+\code{\link{findGenesByName}()},
+\code{\link{getGenesByID}()}
 }
+\concept{{find_functions}}
+\concept{{gene_functions}}

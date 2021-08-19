@@ -35,3 +35,9 @@ t <- getGeneInfoByEntrez('1742')
 #get information for the list of genes
 t <- getGeneInfoByName(c(1741, 1742, 1739, 1740))
 }
+\seealso{
+Other {geneInfo_functions}: 
+\code{\link{getGeneInfoByIDs}()},
+\code{\link{getGeneInfoByName}()}
+}
+\concept{{geneInfo_functions}}

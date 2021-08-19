@@ -81,8 +81,9 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 #'
 #' @family {ppi_functions}
 #' @seealso [getPPIbyName()] and [getPPIbyIDs()] to get
-#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
-#'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
+#'     PPI \code{data.frame},  [getIGraphFromPPI()]
+#'     to get igraph representation of the
+#'     PPI \code{data.frame} and [getTableFromPPI()] to
 #'     get interpretable
 #'     table representation of the PPI \code{data.frame}.
 #'
@@ -154,10 +155,12 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 #' @export
 #' @importFrom dplyr inner_join
 #'
-#' @family {ppi_functions} {df_functions}
-#' @seealso [getPPIbyName()], [getPPIbyEntrez()] and [getPPIbyIDs()] to get
-#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
-#'      representation of the PPI \code{data.frame}.
+#' @family {ppi_functions}
+#' @family {df_functions}
+#' @seealso [getPPIbyName()], [getPPIbyEntrez()]
+#'     and [getPPIbyIDs()] to get
+#'     PPI \code{data.frame},  [getIGraphFromPPI()] to
+#'     get igraph representation of the PPI \code{data.frame}.
 #'
 #' @md
 #' @examples
@@ -187,10 +190,13 @@ getTableFromPPI<-function(ppi){
 #'
 #' @return \code{\link{igraph}} object with specified PPI network.
 #'
-#' @family {ppi_functions} {graph_functions}
-#' @seealso [getPPIbyName()], [getPPIbyEntrez()] and [getPPIbyIDs()] to get
-#'     PPI \code{data.frame},  [getTableFromPPI()] to get interpretable
-#'     table representation of the PPI \code{data.frame}.
+#' @family {ppi_functions}
+#' @family {graph_functions}
+#' @seealso [getPPIbyName()], [getPPIbyEntrez()]
+#'     and [getPPIbyIDs()] to get
+#'     PPI \code{data.frame},  [getTableFromPPI()]
+#'     to get interpretable table representation of
+#'     the PPI \code{data.frame}.
 #'
 #' @export
 #' @importFrom igraph graph_from_data_frame
