@@ -36,7 +36,9 @@ get interpretable
 table representation of the PPI \code{data.frame}.
 
 Other {ppi_functions}: 
+\code{\link{getIGraphFromPPI}()},
 \code{\link{getPPIbyEntrez}()},
-\code{\link{getPPIbyIDs}()}
+\code{\link{getPPIbyIDs}()},
+\code{\link{getTableFromPPI}()}
 }
 \concept{{ppi_functions}}

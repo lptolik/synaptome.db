@@ -52,3 +52,9 @@ t <- getGeneInfoByName('CASK')
 #get information for the list of genes
 t <- getGeneInfoByName(c('CASK', 'DLG2'))
 }
+\seealso{
+Other {geneInfo_functions}: 
+\code{\link{getGeneInfoByEntrez}()},
+\code{\link{getGeneInfoByIDs}()}
+}
+\concept{{geneInfo_functions}}

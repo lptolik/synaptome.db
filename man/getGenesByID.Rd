@@ -29,3 +29,9 @@ all found genes:
 \examples{
 gdf<-synaptome.db:::getGenesByID(c(46,6,15,1))
 }
+\seealso{
+Other {gene_functions}: 
+\code{\link{findGenesByEntrez}()},
+\code{\link{findGenesByName}()}
+}
+\concept{{gene_functions}}

@@ -31,5 +31,12 @@ plot(g,vertex.label=V(g)$RatName,vertex.size=35)
 \code{\link[=getPPIbyName]{getPPIbyName()}}, \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
 PPI \code{data.frame},  \code{\link[=getTableFromPPI]{getTableFromPPI()}} to get interpretable
 table representation of the PPI \code{data.frame}.
+
+Other {ppi_functions}: 
+\code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs}()},
+\code{\link{getPPIbyName}()},
+\code{\link{getTableFromPPI}()}
 }
-\concept{{ppi_functions} {graph_functions}}
+\concept{{graph_functions}}
+\concept{{ppi_functions}}

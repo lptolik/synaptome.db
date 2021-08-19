@@ -36,5 +36,12 @@ tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
 \code{\link[=getPPIbyName]{getPPIbyName()}}, \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
 PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
 representation of the PPI \code{data.frame}.
+
+Other {ppi_functions}: 
+\code{\link{getIGraphFromPPI}()},
+\code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs}()},
+\code{\link{getPPIbyName}()}
 }
-\concept{{ppi_functions} {df_functions}}
+\concept{{df_functions}}
+\concept{{ppi_functions}}
