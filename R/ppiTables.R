@@ -19,11 +19,31 @@ getPPIQuery<-function(){
 
 #' Extract the PPIs for my list of genes defined by GeneID
 #'
+#' Get Protein-Protein interactions (PPIs) for the set of internal GeneIDs.
+#' Function lookups for PPIs for specific GeneID and returns either “induced”
+#' (all interaction for this GeneID) or “limited” (only interactions between
+#' GeneIDs specified in the query) table of A and B interacting genes, where
+#' A and B are respective GeneIDs.
+#'
 #' @param ids Gene IDs
-#' @param type type of the PPI network
+#' @param type type of the PPI network should be either `induced` (for
+#'     all the PPIs for specific genes, including external genes) or
+#'     `limited` (for PPIs between the genes specified in the query).
+#'     Type could be shortened to recognizable minimum like 'ind'
+#'     or 'lim'.
 #'
 #' @return data.frame
+
 #' @export
+#'
+#' @family {ppi_functions}
+#' @seealso [getPPIbyName()] and [getPPIbyEntrez()] to get
+#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
+#'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
+#'     get interpretable
+#'     table representation of the PPI \code{data.frame}.
+#'
+#' @md
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' t <- getPPIbyIDs(c(48, 585, 710), type='limited') #(16 rows)
@@ -43,11 +63,32 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 
 #' Extract the PPIs for my list of genes defined by Entrez IDs
 #'
+#' Get Protein-Protein interactions (PPIs) for the set of ID. Function
+#' lookups for PPIs for the list of Entrez IDs and returns either “induced”
+#' (all available interactions for these genes) or “limited” (only
+#' interactions between genes specified in the query) table of
+#' interacting genes A and B, where A and B are respective Internal IDs.
+#'
 #' @param entrez Entrez IDs
-#' @param type type of the PPI network
+#' @param type type of the PPI network should be either `induced` (for
+#'     all the PPIs for specific genes, including external genes) or
+#'     `limited` (for PPIs between the genes specified in the query).
+#'     Type could be shortened to recognizable minimum like 'ind'
+#'     or 'lim'.
 #'
 #' @return data.frame
 #' @export
+#'
+#' @family {ppi_functions}
+#' @seealso [getPPIbyName()] and [getPPIbyIDs()] to get
+#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
+#'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
+#'     get interpretable
+#'     table representation of the PPI \code{data.frame}.
+#'
+#' @md
+#' @examples
+#' t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type='ind')
 getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
     ids<-getGeneIdByEntrez(entrez)
     df<-getPPIbyIDs(ids,type)
@@ -56,11 +97,32 @@ getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
 
 #' Extract the PPIs for my list of genes defined by Gene name
 #'
+#' Get Protein-Protein interactions (PPIs) for the set of gene names.
+#' Function lookups for PPIs for the list of GeneIDs and returns either
+#' “induced” (all interaction for this GeneID) or “limited” (only
+#' interactions between GeneIDs specified in the query) table of
+#' interacting genes A and B, where A and B are respective gene names.
+#'
 #' @param name Gene names
-#' @param type type of the PPI network
+#' @param type type of the PPI network should be either `induced` (for
+#'     all the PPIs for specific genes, including external genes) or
+#'     `limited` (for PPIs between the genes specified in the query).
+#'     Type could be shortened to recognizable minimum like 'ind'
+#'     or 'lim'.
 #'
 #' @return data.frame
 #' @export
+#'
+#' @family {ppi_functions}
+#' @seealso [getPPIbyEntrez()] and [getPPIbyIDs()] to get
+#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
+#'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
+#'     get interpretable
+#'     table representation of the PPI \code{data.frame}.
+#'
+#' @md
+#' @examples
+#' t <- getPPIbyName(c('CASK', 'DLG4', 'GRIN2A', 'GRIN2B', 'GRIN1'),type='lim')
 getPPIbyName<-function(name, type=c('induced','limited')){
     ids<-getGeneIdByName(name)
     df<-getPPIbyIDs(ids,type)
@@ -68,6 +130,11 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 }
 
 #' Get table representation of the PPI.
+#'
+#' Combine information from PPI \code{data.frame} obtained with functions like
+#' \code{\link{getPPIbyName}} or \code{\link{getPPIbyEntrez}} with information
+#' about genes obtained from
+#' \code{\link{getGenesByID}} to make  interpretable table representation.
 #'
 #' @param ppi PPI \code{data.frame} with columns A and B, obtaioed
 #' from functions like \code{\link{getPPIbyName}}
@@ -87,6 +154,12 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 #' @export
 #' @importFrom dplyr inner_join
 #'
+#' @family {ppi_functions} {df_functions}
+#' @seealso [getPPIbyName()], [getPPIbyEntrez()] and [getPPIbyIDs()] to get
+#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
+#'      representation of the PPI \code{data.frame}.
+#'
+#' @md
 #' @examples
 #' tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
 getTableFromPPI<-function(ppi){
@@ -102,15 +175,32 @@ getTableFromPPI<-function(ppi){
 
 #' Get Igraph representation of PPI
 #'
+#' Combine information from PPI \code{data.frame} obtained with functions like
+#' \code{\link{getPPIbyName}} or \code{\link{getPPIbyEntrez}} with information
+#' about genes obtained from
+#' \code{\link{getGenesByID}} to make  interpretable undirected PPI graph in
+#' \code{\link{igraph}} format. In this format network could be further
+#' analysed and visualized by algorithms in \code{\link{igraph}} package.
+#'
 #' @param ppi PPI \code{data.frame} with columns A and B, obtaioed
 #' from functions like \code{\link{getPPIbyName}}
 #'
-#' @return
+#' @return \code{\link{igraph}} object with specified PPI network.
+#'
+#' @family {ppi_functions} {graph_functions}
+#' @seealso [getPPIbyName()], [getPPIbyEntrez()] and [getPPIbyIDs()] to get
+#'     PPI \code{data.frame},  [getTableFromPPI()] to get interpretable
+#'     table representation of the PPI \code{data.frame}.
+#'
 #' @export
-#' @import igraph
+#' @importFrom igraph graph_from_data_frame
 #'
+#' @md
 #' @examples
-#'
+#' library(igraph)
+#' g<-getIGraphFromPPI(
+#'     getPPIbyIDs(c(48, 129,  975,  4422, 5715, 5835), type='lim'))
+#' plot(g,vertex.label=V(g)$RatName,vertex.size=35)
 getIGraphFromPPI<-function(ppi){
     nids<-unique(c(ppi$A,ppi$B))
     nodes<-getGenesByID(nids)
