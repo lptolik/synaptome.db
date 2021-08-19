@@ -9,10 +9,10 @@ Authors@R: c(
     person("Oksana", "Sorokina", 
         email="oksankasster@gmail.com", role=c("aut", "cre")))
 Description: The package contains local copy of the Synaptic proteome 
-    database together with a set of utility R functions to query and analyse 
-    its content. It allows extraction of information for specific genes and 
-    building the protein-protein interaction maps for gene sets, synaptic 
-    compartments, and brain regions.
+    database. On top of this it provide a set of utility R functions 
+    to query and analyse its content. It allows extraction of information 
+    for specific genes and building the protein-protein interaction graph 
+    for gene sets, synaptic compartments, and brain regions.
 Depends: R (>= 3.5.0)
 Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack
 RdMacros: Rdpack
