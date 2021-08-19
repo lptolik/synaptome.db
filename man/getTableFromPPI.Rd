@@ -33,9 +33,10 @@ about genes obtained from
 tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
 }
 \seealso{
-\code{\link[=getPPIbyName]{getPPIbyName()}}, \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
-PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
-representation of the PPI \code{data.frame}.
+\code{\link[=getPPIbyName]{getPPIbyName()}}, \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}}
+and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
+PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to
+get igraph representation of the PPI \code{data.frame}.
 
 Other {ppi_functions}: 
 \code{\link{getIGraphFromPPI}()},

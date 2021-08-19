@@ -30,8 +30,9 @@ t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type='ind')
 }
 \seealso{
 \code{\link[=getPPIbyName]{getPPIbyName()}} and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
-PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
-representation of the PPI \code{data.frame} and \code{\link[=getTableFromPPI]{getTableFromPPI()}} to
+PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}}
+to get igraph representation of the
+PPI \code{data.frame} and \code{\link[=getTableFromPPI]{getTableFromPPI()}} to
 get interpretable
 table representation of the PPI \code{data.frame}.
 
