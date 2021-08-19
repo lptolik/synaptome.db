@@ -17,3 +17,7 @@ data.frame
 \description{
 Extract the PPIs for my list of genes defined by GeneID
 }
+\examples{
+t <- getPPIbyIDs(c(48, 585, 710), type='limited') #(16 rows)
+t <- getPPIbyIDs(c(48, 585, 710), type='induced') #306 rows
+}
