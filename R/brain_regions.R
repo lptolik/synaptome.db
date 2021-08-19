@@ -23,7 +23,7 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>%
         dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
-    return(idsC)
+    return(getGenesByID(idsC))
 }
 
 #' Select genes from list that found in particular BrainRegion
@@ -43,7 +43,7 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
                 SpeciesTaxID == taxID &
                 GeneID %in% ids) %>%
         dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
-    return(idsC)
+    return(getGenesByID(idsC))
 }
 
 #' Prepare induces network for compartment
@@ -55,8 +55,8 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
 #' @return  tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
-    cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
-    aids<-getAllGenes4BrainRegion(brainRegion,taxID)
+    cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
+    aids<-getAllGenes4BrainRegion(brainRegion,taxID)$GeneID
     gns<-getPPIQuery() %>% dplyr::filter(A %in% cids | B %in% cids) %>%
         dplyr::filter(A %in% aids & B %in% aids)
     return(gns)
@@ -71,7 +71,7 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @return  tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
-    cids<-getGenes4BrainRegion(ids,brainRegion,taxID)
+    cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
     gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
     return(gns)
 }
