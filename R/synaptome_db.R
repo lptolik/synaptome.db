@@ -1,10 +1,14 @@
-#' synamptome.db: programmatic access to the Synaptic proteome database
+#' synaptome.db: programmatic access to the Synaptic proteome database
 #'
 #' The package contains local copy of the Synaptic proteome database together
 #' with a set of utility R functions to query and analyse its content.
 #'
 #' @docType package
-#' @name synamptome.db
+#' @name synaptome.db
+#'
+#' @references
+#' \insertRef{Sorokina:2021hl}{synaptome.db}
+#' @importFrom Rdpack reprompt
 "_PACKAGE"
 
 # Update this function call
