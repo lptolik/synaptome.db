@@ -11,11 +11,25 @@ getIGraphFromPPI(ppi)
 from functions like \code{\link{getPPIbyName}}}
 }
 \value{
-
+\code{\link{igraph}} object with specified PPI network.
 }
 \description{
-Get Igraph representation of PPI
+Combine information from PPI \code{data.frame} obtained with functions like
+\code{\link{getPPIbyName}} or \code{\link{getPPIbyEntrez}} with information
+about genes obtained from
+\code{\link{getGenesByID}} to make  interpretable undirected PPI graph in
+\code{\link{igraph}} format. In this format network could be further
+analysed and visualized by algorithms in \code{\link{igraph}} package.
 }
 \examples{
-
+library(igraph)
+g<-getIGraphFromPPI(
+    getPPIbyIDs(c(48, 129,  975,  4422, 5715, 5835), type='lim'))
+plot(g,vertex.label=V(g)$RatName,vertex.size=35)
 }
+\seealso{
+\code{\link[=getPPIbyName]{getPPIbyName()}}, \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
+PPI \code{data.frame},  \code{\link[=getTableFromPPI]{getTableFromPPI()}} to get interpretable
+table representation of the PPI \code{data.frame}.
+}
+\concept{{ppi_functions} {graph_functions}}

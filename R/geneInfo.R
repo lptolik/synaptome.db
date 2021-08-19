@@ -187,6 +187,7 @@ findGenesByName<-function(name){
 #' @return \code{data.frame} with 8 columns specified above.
 #'
 #' @importFrom dplyr tbl select filter rename collect
+#' @export
 #' @examples
 #' gdf<-synaptome.db:::getGenesByID(c(46,6,15,1))
 getGenesByID<-function(ids){

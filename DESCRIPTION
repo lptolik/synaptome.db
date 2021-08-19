@@ -2,12 +2,17 @@ Package: synaptome.db
 Type: Package
 Title: Synamptosome Proteome Database
 Version: 0.0.1
+Date: 2021-08-19
 Authors@R: c(
     person("Anatoly", "Sorokin", 
-        email="lptolik@gmail.com", role=c("aut", "cre")), 
+        email="lptolik@gmail.com", role=c("aut")), 
     person("Oksana", "Sorokina", 
-        email="oksankasster@gmail.com", role=c("aut", "ctb")))
-Description: Database of the Synaptic proteome.
+        email="oksankasster@gmail.com", role=c("aut", "cre")))
+Description: The package contains local copy of the Synaptic proteome 
+    database together with a set of utility R functions to query and analyse 
+    its content. It allows extraction of information for specific genes and 
+    building the protein-protein interaction maps for gene sets, synaptic 
+    compartments, and brain regions.
 Depends: R (>= 3.5.0)
 Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack
 RdMacros: Rdpack

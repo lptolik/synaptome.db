@@ -9,11 +9,34 @@ getPPIbyName(name, type = c("induced", "limited"))
 \arguments{
 \item{name}{Gene names}
 
-\item{type}{type of the PPI network}
+\item{type}{type of the PPI network should be either \code{induced} (for
+all the PPIs for specific genes, including external genes) or
+\code{limited} (for PPIs between the genes specified in the query).
+Type could be shortened to recognizable minimum like 'ind'
+or 'lim'.}
 }
 \value{
 data.frame
 }
 \description{
-Extract the PPIs for my list of genes defined by Gene name
+Get Protein-Protein interactions (PPIs) for the set of gene names.
+Function lookups for PPIs for the list of GeneIDs and returns either
+“induced” (all interaction for this GeneID) or “limited” (only
+interactions between GeneIDs specified in the query) table of
+interacting genes A and B, where A and B are respective gene names.
 }
+\examples{
+t <- getPPIbyName(c('CASK', 'DLG4', 'GRIN2A', 'GRIN2B', 'GRIN1'),type='lim')
+}
+\seealso{
+\code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
+PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
+representation of the PPI \code{data.frame} and \code{\link[=getTableFromPPI]{getTableFromPPI()}} to
+get interpretable
+table representation of the PPI \code{data.frame}.
+
+Other {ppi_functions}: 
+\code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs}()}
+}
+\concept{{ppi_functions}}
