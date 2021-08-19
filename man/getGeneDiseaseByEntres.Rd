@@ -2,16 +2,33 @@
 % Please edit documentation in R/diseases.R
 \name{getGeneDiseaseByEntres}
 \alias{getGeneDiseaseByEntres}
-\title{Get data about Gene-Disease mapping by Entres IDs}
+\title{Disease information for Human Entrez IDs}
 \usage{
 getGeneDiseaseByEntres(entrez)
 }
 \arguments{
-\item{entrez}{entrez IDs}
+\item{entrez}{\code{vector} of Human Entrez gene IDs}
 }
 \value{
-data.frame
+data.frame with following columns:
+\itemize{
+\item HumanEntrez
+\item HumanName
+\item HDOID
+\item Description
+}
 }
 \description{
-Get data about Gene-Disease mapping by Entres IDs
+Get Human disease information (HDO provided) for the set of
+Human Entrez IDs. Function lookups for diseases associated with
+Human Entrez IDs and returns list of available diseases.
 }
+\examples{
+t <- getGeneDiseaseByEntres (c(8573, 1742, 1739)) #(95 rows)
+}
+\seealso{
+Other {disease_functions}: 
+\code{\link{getGeneDiseaseByIDs}()},
+\code{\link{getGeneDiseaseByName}()}
+}
+\concept{{disease_functions}}

@@ -10,7 +10,13 @@ getGeneDiseaseByIDs(ids)
 \item{ids}{\code{vector} of gene IDs.}
 }
 \value{
-data.frame
+data.frame with following columns:
+\itemize{
+\item HumanEntrez
+\item HumanName
+\item HDOID
+\item Description
+}
 }
 \description{
 Get Human disease information (HDO provided) for the set of internal
@@ -20,3 +26,9 @@ GeneIDs and returns list of available diseases.
 \examples{
 t <- getGeneDiseaseByIDs (c(48, 585, 710))
 }
+\seealso{
+Other {disease_functions}: 
+\code{\link{getGeneDiseaseByEntres}()},
+\code{\link{getGeneDiseaseByName}()}
+}
+\concept{{disease_functions}}
