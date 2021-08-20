@@ -96,7 +96,7 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #' @family {brain_region_functions}
 #' @family {brain_region_gene_functions}
 #' @export
-#' @importFrom dplyr tbl select filter pull collect
+#' @importFrom dplyr tbl select filter pull collect "%>%"
 #' @examples
 #' Genes <- getGenes4BrainRegion(c(1, 15, 156, 1500, 3000, 7000),
 #' brainRegion = 'Striatum', taxID = 10090) #5 rows

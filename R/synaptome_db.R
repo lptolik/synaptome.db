@@ -20,4 +20,4 @@ utils::globalVariables(c(
     "SpeciesTaxID","Chromosome","Variant","cDNAvariant",
     "ProteinVariant","FunctionClass","DENOVO","SFARI",
     "RatEntrez","RatName","Localisation","PaperPMID",
-    "ClinVar",'dbconn'))
+    "Year","ClinVar",'dbconn'))
