@@ -3,6 +3,7 @@
 #'
 #' @return tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect distinct
+#' @keywords internal
 getPPIQuery<-function(){
     #  gns<-get_dbconn() %>% dplyr::tbl("AllPpiAllPapers") %>%
     gns<-get_dbconn() %>% dplyr::tbl("PPI") %>%

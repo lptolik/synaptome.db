@@ -5,6 +5,7 @@
 #'
 #' @return tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
+#' @keywords internal
 getGeneDiseaseQuery <- function() {
     gns <- get_dbconn() %>% dplyr::tbl("FullGeneFullDisease")  %>%
         dplyr::select(
