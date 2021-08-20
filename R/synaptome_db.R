@@ -19,5 +19,5 @@ utils::globalVariables(c(
     "BrainRegion","Description","LocalisationID",
     "SpeciesTaxID","Chromosome","Variant","cDNAvariant",
     "ProteinVariant","FunctionClass","DENOVO","SFARI",
-    "RatEntrez","RatName",
+    "RatEntrez","RatName","Localisation","PaperPMID",
     "ClinVar",'dbconn'))

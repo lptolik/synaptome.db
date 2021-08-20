@@ -2,20 +2,47 @@
 % Please edit documentation in R/brain_regions.R
 \name{getAllGenes4BrainRegion}
 \alias{getAllGenes4BrainRegion}
-\title{Get list of all genes found in particular BrainRegion for
-particular specie}
+\title{Get all genes for brain region for particular specie}
 \usage{
 getAllGenes4BrainRegion(brainRegion, taxID)
 }
 \arguments{
-\item{brainRegion}{region ID}
+\item{brainRegion}{ID for specific brain region}
 
-\item{taxID}{taxon ID}
+\item{taxID}{specie ID}
 }
 \value{
-data.frame
+data.frame with the following columns:
+\itemize{
+\item GeneID
+\item Localisation
+\item MGI
+\item HumanEntrez
+\item MouseEntrez
+\item HumanName
+\item MouseName
+\item PaperPMID
+\item Paper
+\item Year
+\item SpeciesTaxID
+\item BrainRegion
+}
 }
 \description{
-Get list of all genes found in particular BrainRegion for
-particular specie
+Get all genes annotated for specific brain region for specific specie.
+Function lookups Brain Region ID and Specie Tax ID columns and returns
+main information like internal Gene IDs, MGI ID, Human Entrez ID,
+Human Gene Name, Mouse Entrez ID, Mouse Gene Name,
+Localisation (presynaptic, postsynaptic, synaptosomal),
+PaperPMID and BrainRegion.
 }
+\seealso{
+Other {brain_region_functions}: 
+\code{\link{getBrainRegions}()},
+\code{\link{getGenes4BrainRegion}()}
+
+Other {brain_region_gene_functions}: 
+\code{\link{getGenes4BrainRegion}()}
+}
+\concept{{brain_region_functions}}
+\concept{{brain_region_gene_functions}}
