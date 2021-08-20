@@ -11,7 +11,7 @@ get_dbconn <- function() {
     if (!exists('dbconn') || !DBI::dbIsValid(dbconn)) {
         pkgname = "synaptome.db"#methods::getPackageName()
         dbfile <- system.file("extdata", "synaptome.sqlite", package = pkgname)
-        dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
+        dbconn <- DBI::dbConnect(RSQLite::SQLite(), dbfile)
         #cat('DB is connected with ',dbfile)
     }
     return(dbconn)

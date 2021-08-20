@@ -2,22 +2,50 @@
 % Please edit documentation in R/brain_regions.R
 \name{getGenes4BrainRegion}
 \alias{getGenes4BrainRegion}
-\title{Select genes from list that found in particular BrainRegion
-for particular specie}
+\title{Select genes from the list that found in brain region of particular specie}
 \usage{
 getGenes4BrainRegion(ids, brainRegion, taxID)
 }
 \arguments{
-\item{ids}{gene IDs}
+\item{ids}{internal IDs for list of genes}
 
-\item{brainRegion}{region ID}
+\item{brainRegion}{ID for the brain region of interest}
 
-\item{taxID}{taxon ID}
+\item{taxID}{taxon ID specie tax ID}
 }
 \value{
-data.frame
+data.frame with the following columns:
+\itemize{
+\item GeneID
+\item Localisation
+\item MGI
+\item HumanEntrez
+\item MouseEntrez
+\item HumanName
+\item MouseName
+\item PaperPMID
+\item Paper
+\item Year
+\item SpeciesTaxID
+\item BrainRegion
+}
 }
 \description{
-Select genes from list that found in particular BrainRegion
-for particular specie
+Select genes from your list annotated for specific brain region. Should
+be used with \code{\link[=findGenesByEntrez]{findGenesByEntrez()}}  or
+\code{\link[=findGenesByName]{findGenesByName()}} functions to obtain
+list of internal IDs for your list of genes. Function lookups the
+Gene table for specified localisation and returns main gene information
+like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name,
+Mouse Entrez ID, Mouse Gene Name, PaperPMID, Localisation and BrainRegion.
 }
+\seealso{
+Other {brain_region_functions}: 
+\code{\link{getAllGenes4BrainRegion}()},
+\code{\link{getBrainRegions}()}
+
+Other {brain_region_gene_functions}: 
+\code{\link{getAllGenes4BrainRegion}()}
+}
+\concept{{brain_region_functions}}
+\concept{{brain_region_gene_functions}}
