@@ -23,7 +23,7 @@ data.frame with the following columns:
 \item MouseEntrez
 \item HumanName
 \item MouseName
-\item PaperPMID
+\item PMID
 \item Paper
 \item Year
 \item SpeciesTaxID
@@ -38,6 +38,10 @@ list of internal IDs for your list of genes. Function lookups the
 Gene table for specified localisation and returns main gene information
 like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name,
 Mouse Entrez ID, Mouse Gene Name, PaperPMID, Localisation and BrainRegion.
+}
+\examples{
+Genes <- getGenes4BrainRegion(c(1, 15, 156, 1500, 3000, 7000),
+brainRegion = 'Striatum', taxID = 10090) #5 rows
 }
 \seealso{
 Other {brain_region_functions}: 

@@ -21,7 +21,7 @@ data.frame with the following columns:
 \item MouseEntrez
 \item HumanName
 \item MouseName
-\item PaperPMID
+\item PMID
 \item Paper
 \item Year
 \item SpeciesTaxID
