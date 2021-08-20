@@ -2,7 +2,7 @@
 % Please edit documentation in R/brain_regions.R
 \name{getPPIbyIDs4BrainRegion}
 \alias{getPPIbyIDs4BrainRegion}
-\title{Extract the PPIs for specific compartment}
+\title{Prepare induced or limited network for brain region}
 \usage{
 getPPIbyIDs4BrainRegion(
   ids,
@@ -24,5 +24,13 @@ getPPIbyIDs4BrainRegion(
 data.frame
 }
 \description{
-Extract the PPIs for specific compartment
+Prepare PPI network for genes from your list annotated
+for specific brain region. Should be used with
+[findGenesByEntrez()])
+or [findGenesByName()]
+functions to obtain list of internal IDs for your list of genes.
+Could be used with getAllGenes4BrainRegion functions to obtain
+all genes belonging to respective brain region. Function lookups
+the PPI table for gene IDs from the list and returns “limited”
+or “induced” interactors GeneIDs for the specified region.
 }

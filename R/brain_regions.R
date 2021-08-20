@@ -115,14 +115,14 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
     return(idsC)
 }
 
-#' Prepare induces network for compartment
-#'
-#' @param brainRegion region ID
-#' @param taxID taxon ID
-#' @param ids gene IDs
-#'
-#' @return  tbl_lazy
-#' @importFrom dplyr tbl select filter pull collect
+# Prepare induces network for compartment
+#
+# @param brainRegion region ID
+# @param taxID taxon ID
+# @param ids gene IDs
+#
+# @return  tbl_lazy
+# @importFrom dplyr tbl select filter pull collect
 getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
     aids<-getAllGenes4BrainRegion(brainRegion,taxID)$GeneID
@@ -131,20 +131,30 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     return(gns)
 }
 
-#' Prepare limited network for compartment
-#'
-#' @param brainRegion region ID
-#' @param taxID taxon ID
-#' @param ids gene IDs
-#'
-#' @return  tbl_lazy
-#' @importFrom dplyr tbl select filter pull collect
+# Prepare limited network for compartment
+#
+# @param brainRegion region ID
+# @param taxID taxon ID
+# @param ids gene IDs
+#
+# @return  tbl_lazy
+# @importFrom dplyr tbl select filter pull collect
 getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
     gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
     return(gns)
 }
-#' Extract the PPIs for specific compartment
+#' Prepare induced or limited network for brain region
+#'
+#' Prepare PPI network for genes from your list annotated
+#' for specific brain region. Should be used with
+#' [findGenesByEntrez()])
+#' or [findGenesByName()]
+#' functions to obtain list of internal IDs for your list of genes.
+#' Could be used with getAllGenes4BrainRegion functions to obtain
+#' all genes belonging to respective brain region. Function lookups
+#' the PPI table for gene IDs from the list and returns “limited”
+#' or “induced” interactors GeneIDs for the specified region.
 #'
 #' @param ids gene IDs
 #' @param type type of the PPI network
