@@ -108,7 +108,7 @@ gns <- getAllGenes4Compartment(compartmentID = 1)
 head(gns)
 
 #getting full PPI network for postsynaptic compartment
-ppi <- getPPIbyIDs4Compartment(gns$ID,compartmentID =1, type = "induced")
+ppi <- getPPIbyIDs4Compartment(gns$GeneID,compartmentID =1, type = "induced")
 head(ppi)
 
 ```
@@ -134,12 +134,13 @@ head(ppi)
 ## 8.Visualisatiion of PPI network with Igraph.
 Combine information from PPI data.frame obtained with functions like getPPIbyName, getPPIbyEntrez, getPPIbyIDs4Compartment or getPPIbyIDs4BrainRegion with information about genes obtained from getGenesByID to make interpretable undirected PPI graph in igraph format. In this format network could be further analysed and visualized by algorithms in igraph package.
 
-```{r PPI_igraph}
+```{r PPI_igraph,fig.width=7,fig.height=7, out.width="70%", fig.align = "center"}
 library(igraph)
 g<-getIGraphFromPPI(
     getPPIbyIDs(c(48, 129,  975,  4422, 5715, 5835), type='lim'))
-plot(g,vertex.label=V(g)$RatName,vertex.size=35)
+plot(g,vertex.label=V(g)$RatName,vertex.size=25)
 ```
+
 ## 9.Export of PPI network as a table.
 If Igraph is not an option, the PPI network could be exported as an interpretible table to be processed with other tools, e.g. Cytoscape,etc.
 
