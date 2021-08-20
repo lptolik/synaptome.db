@@ -12,3 +12,4 @@ tbl_lazy
 \description{
 Utility furnction for construction queries.
 }
+\keyword{internal}

@@ -132,6 +132,7 @@ findGenesByEntrez<-function(entrez){
 #'
 #' @return \code{vector} of GeneID values.
 #'
+#' @keywords internal
 #' @examples
 #' t <- synaptome.db:::getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
 getGeneIdByEntrez<-function(entrez){
@@ -216,6 +217,7 @@ getGenesByID<-function(ids){
 #'
 #' @return \code{vector} of GeneID values.
 #'
+#' @keywords internal
 #' @examples
 #' t <- synaptome.db:::getGeneIdByName(c('Src', 'Srcin1', 'Fyn'))
 getGeneIdByName<-function(name){

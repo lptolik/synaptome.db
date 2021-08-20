@@ -21,3 +21,4 @@ Rat Entrez ID columns and returns obtained GeneIDs.
 \examples{
 t <- synaptome.db:::getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
 }
+\keyword{internal}

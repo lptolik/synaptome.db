@@ -115,14 +115,15 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
     return(idsC)
 }
 
-# Prepare induces network for compartment
-#
-# @param brainRegion region ID
-# @param taxID taxon ID
-# @param ids gene IDs
-#
-# @return  tbl_lazy
-# @importFrom dplyr tbl select filter pull collect
+#' Prepare induces network for compartment
+#'
+#' @param brainRegion region ID
+#' @param taxID taxon ID
+#' @param ids gene IDs
+#'
+#' @return  tbl_lazy
+#' @importFrom dplyr tbl select filter pull collect
+#' @keywords internal
 getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
     aids<-getAllGenes4BrainRegion(brainRegion,taxID)$GeneID
@@ -131,14 +132,15 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     return(gns)
 }
 
-# Prepare limited network for compartment
-#
-# @param brainRegion region ID
-# @param taxID taxon ID
-# @param ids gene IDs
-#
-# @return  tbl_lazy
-# @importFrom dplyr tbl select filter pull collect
+#' Prepare limited network for compartment
+#'
+#' @param brainRegion region ID
+#' @param taxID taxon ID
+#' @param ids gene IDs
+#'
+#' @return  tbl_lazy
+#' @importFrom dplyr tbl select filter pull collect
+#' @keywords internal
 getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
     cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
     gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
