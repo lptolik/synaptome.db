@@ -71,13 +71,13 @@ getGenes4Compartment<-function(ids,compartmentID){
     return(getGenesByID(idsC))
 }
 
-#' Prepare induces network for compartment
-#'
-#' @param ids gene IDs
-#' @param compartmentID compartment ID
-#'
-#' @return  tbl_lazy
-#' @importFrom dplyr tbl select filter pull collect
+# Prepare induces network for compartment
+#
+# @param ids gene IDs
+# @param compartmentID compartment ID
+#
+# @return  tbl_lazy
+# @importFrom dplyr tbl select filter pull collect
 getInducedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)$GeneID
     aids<-getAllGenes4Compartment(compartmentID)$GeneID
@@ -87,13 +87,13 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
     return(gns)
 }
 
-#' Prepare limited network for compartment
-#'
-#' @param ids Gene IDs
-#' @param compartmentID compartment ID
-#'
-#' @return tbl_lazy
-#' @importFrom dplyr tbl select filter pull collect
+# Prepare limited network for compartment
+#
+# @param ids Gene IDs
+# @param compartmentID compartment ID
+#
+# @return tbl_lazy
+# @importFrom dplyr tbl select filter pull collect
 getLimitedPPI4Compartment<-function(ids, compartmentID){
     cids<-getGenes4Compartment(ids,compartmentID)$GeneID
     gns<-getPPIQuery() %>%
