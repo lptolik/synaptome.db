@@ -18,13 +18,131 @@ knitr::opts_chunk$set(
 library(synaptome.db)
 ```
 
-Title
+# Title   SynaptomeDB: database for Synaptic proteome
+## subtitle Manual for querying SynaptomeDB
+##  Authors: Oksana Sorokina, Anatoly Sorokin
 
-# Appendix {.tabset}
-## Functions
-```{r functions, eval=FALSE, include=TRUE}
+# Introduction
+
+We integrated 58 published synaptic proteomic datasets (2000-2020 years) that describe over 8,000 proteins and combined them with direct protein-protein interactions and functional metadata to build a network resource. 
+The database includes: proteomic and interactomic data with supporting information on compartment, specie and brain region, GO function information for three species: mouse, rat and human, disease annotation for human (based on Human Disease Ontology (HDO)) and GeneToModel table, which links certain synaptic proteins to existing computational models of synaptic plasticity and synaptic signal transduction
+
+The original files are maintained at Eidnburgh Datashare https://doi.org/10.7488/ds/3017
+
+The original manuscript describing this dataset is:
+Sorokina, O., Mclean, C., Croning, M.D.R. et al. A unified resource and configurable model of the synapse proteome and its role in disease. Sci Rep 11, 9967 (2021). 
+
+The database contains the following main data tables:
+* Gene: list of genes including IDs (MGI, Entrez Human and Mouse) and gene names (Human, Mouse, Rat).
+* Specie: Tax ID (Human, Mouse, Rat)
+* Paper: list of papers with PMID ID, name (in format “FirstAuthor_year”), year of publication
+* Location: postsynaptic, presynaptic, synaptosome
+* Method: shotgun or IP
+* Brain region: list of regions where the samples originate, including hierarchical  region structure (Figure1).
+* SpecieRegion: species specific projection of regions structure shown on Figure 1
+* PPI: human protein-protein interactions combined from BioGRID, Intact and DIP databases, contain information on methods, interaction type ( PSI-MI nomenclature) and PMID info for each of the interactions.
+* PaperGene: table links gene to respective papers and the metadata above
+* GO: BP, CC and MF GO annotation for Human, Mouse and Rat species
+* GOGene: gene to GO association list
+* Disease: List of diseases from HDO for Human
+* DiseaseGene: genes to disease association list
+* GeneToModel: genes with found association with published model of synaptic plasticity
+
+
+# Overview of capabilities
+##1.Get information for a specific gene or gene set.
+The dataset can be used to answer frequent questions such as “What is known about my favourite gene? Is it pre- or postsynaptic? Which brain region was it identified in?”. Beyond that, users can extend these queries to extract custom networks based on bespoke subsets of molecules. 
+Information could be obtained by sumitting gene EntrezID or Gene name
+
+```{r gene_info}
+t <- getGeneInfoByEntrez(1742) 
+head(t)
+
+t <- getGeneInfoByName("CASK")
+head(t)
+
+t <- getGeneInfoByName(c("CASK", "DLG2"))
+head(t)                      
 ```
 
+##2.Get internal GeneIDs for the list of genes.
+Obtaining Internal database geneIDs is a usefil intermediate step for more complex queries including those for building protein-protein interaction (PPI) networks for compartments and brain regions.Internal ID is specie-neutral and unique, which allows exact indentification of the object of interest in case of redundancy (e.g. one Human genes matchs on a few mouse ones, etc.)
+
+```{r  findIDs}
+t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
+head(t)
+
+t <- findGenesByName(c("SRC", "SRCIN1", "FYN"))
+head(t)
+
+```
+
+##3.Get disease information for the gene set
+Synaptic genes are annotated with disease information from Human Disease Ontology, where available. To get disease information one can submit the list of Human Entrez Is or Human genes names, it could be also the list of Internal Geneids if using getGeneDiseaseByIDs function
+
+
+```{r disease }
+t <- getGeneDiseaseByName (c("CASK", "DLG2", "DLG1"))
+head(t)
+
+t <- getGeneDiseaseByEntres (c(8573, 1742, 1739))
+head(t)
+
+```
+
+##5.Get PPI network for my list of genes
+Protein-protein interactions could be extracted in two general ways: "induced" and "limited". In the first case, the command will return all possible interactors for the genes within the whole interactome. In the second case it will return only interactions between the genes of interest. PPIs could be obtained by submitting list of EntrezIDs or gene names (you  will need to specify the specie), or Internal IDs - in all cases the interactions will be returned as a list of interacting pairs of Intenal GeneIDs.
+
+```{r PPI}
+t <- getPPIbyName(c("CASK", "DLG4", "GRIN2A", "GRIN2B","GRIN1"), type = c("limited"), specie = c("human"))
+head(t)
+
+t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type=c('induced'), specie = c('human'))
+head(t)
+
+```
+
+##5.Get the molecular structure of synaptic compartment
+Three main synaptic compartments considered in the database are "presynaptic", "postsynaptic" and "synaptosome". Genes are classified to compartments based on respective publications, so that each gene can belong to one or two, or even three compartments. The full list of genes for speciifiic compartment could be obtained wuth command getAllGenes4Compartment, which returns the table with main gene identifiers, like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name, Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
+If you need to check which genes of your list belong to specific compartment, you can use getGenes4Compartment command, which will select from your list only genes associated with specific compartment.
+To obtain the PPI network for compartment one has to submit the lis of Internal IDs obtained with previous commands.
+
+
+```{r compPPI}
+#getting the list of compartment
+comp <- getCompartments()
+pander(comp)
+
+#getting all genes for postsynaptic compartment
+gns <- getAllGenes4Compartment(compartmentID = 1) 
+head(gns)
+
+#getting full PPI network for postsynaptic compartment
+ppi <- getPPIbyIDs4Compartment(gns$ID,compartmentID =1, type = "induced")
+head(ppi)
+
+```
+
+##6.Get the molecular structure of the brain region.
+Three are 12 brain regions considered in the database based on respective publications, so that each gene can belong to the single or to the several brain regions. Brain regions differ between species, and specie brain region information is not 100% covered in the database(e.g. we don't have yet studies for Human Striatum, but do have for Mouse and Rat), that's why when querying the database for brain region information you will need to specify the specie. The full list of genes for speciifiic region could be obtained wuth command getAllGenes4BrainRegion, which returns the table with main gene identifiers, like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name, Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
+If you need to check which genes of your list were identified in specific region, you can use getGenes4BrainRegion command, which will select only genes associated with specific region from your list.
+To obtain the PPI network for brain region you need to submit the list of Internal IDs obtained with previous commands.
+
+```{r regPPI}
+#getting the full list of brain regions
+reg <- getBrainRegions()
+pander(reg)
+
+#getting all genes for mouse Striatum
+gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+head(gns)
+
+#getting full PPI network for postsynaptic compartment
+ppi <- getInducedPPI4Compartment(gns$ID, brainRegion = "Striatum", taxID = 10090, type = "limited")
+head(ppi)
+```
+
+# Appendix {.tabset}
 ## Versions
 
 ### Session Info
