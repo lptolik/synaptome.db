@@ -25,6 +25,20 @@ test_that("Proper row number in geneInfo", {
     expect_equal(dim(t), c(110,12))
 })
 
+test_that("Proper row number in brain regions",{
+    expect_equal(dim(getBrainRegions()),c(18,5))
+    expect_equal(
+        dim(
+            getAllGenes4BrainRegion(brainRegion = 'Striatum',taxID = 10090)),
+        c(1371,12))
+    expect_equal(
+        dim(
+            getGenes4BrainRegion(
+                c(1, 15, 156, 1500, 3000, 7000),
+                brainRegion = 'Striatum',
+                taxID = 10090)),
+        c(5,12))
+})
 test_that("Proper row number in compartments",{
     c<-getCompartments()
     expect_equal(dim(c), c(3,3))

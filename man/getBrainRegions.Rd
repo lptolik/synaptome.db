@@ -7,8 +7,25 @@
 getBrainRegions()
 }
 \value{
-data.frame
+data.frame with following columns:
+\itemize{
+\item ID: Brain region internal ID
+\item Name: name of the region
+\item Description: extended description of the region
+\item InterlexID
+\item ParentID: ID of the containing brain region
+}
 }
 \description{
-Get list of all Brain regions in the database
+Get full list of brain regions considered in the database. Returns
+table with regions and their respective IDs.
 }
+\examples{
+t<-getBrainRegions()
+}
+\seealso{
+Other {brain_region_functions}: 
+\code{\link{getAllGenes4BrainRegion}()},
+\code{\link{getGenes4BrainRegion}()}
+}
+\concept{{brain_region_functions}}
