@@ -7,11 +7,12 @@
 getTableFromPPI(ppi)
 }
 \arguments{
-\item{ppi}{PPI \code{data.frame} with columns A and B, obtaioed
+\item{ppi}{PPI \code{data.frame} with columns A and B, obtained
 from functions like \code{\link{getPPIbyName}}}
 }
 \value{
-table with the following columns added for both interactors (A and B):
+table with the following columns added for both
+interactors (A and B):
 \itemize{
 \item{GeneID internal database ID}
 \item{MGI MGI ID}
@@ -33,9 +34,11 @@ about genes obtained from
 tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
 }
 \seealso{
-\code{\link[=getPPIbyName]{getPPIbyName()}}, \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}}
+\code{\link[=getPPIbyName]{getPPIbyName()}},
+\code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}}
 and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
-PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to
+PPI \code{data.frame},
+\code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to
 get igraph representation of the PPI \code{data.frame}.
 
 Other {PPI functions}: 

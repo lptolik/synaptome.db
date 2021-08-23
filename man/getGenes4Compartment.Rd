@@ -16,8 +16,10 @@ data.frame described in \code{\link[=getGenesByID]{getGenesByID()}}
 }
 \description{
 Select all genes from your list annotated for specific
-compartment. Should be used with \code{\link[=findGenesByEntrez]{findGenesByEntrez()}}
-or \code{\link[=findGenesByName]{findGenesByName()}} functions to obtain list of internal
+compartment. Should be used with
+\code{\link[=findGenesByEntrez]{findGenesByEntrez()}}
+or \code{\link[=findGenesByName]{findGenesByName()}}
+functions to obtain list of internal
 IDs for your list of genes. Function lookups the Gene table
 for specified localisation and returns main gene information
 like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name,

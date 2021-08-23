@@ -29,9 +29,12 @@ interacting genes A and B, where A and B are respective gene names.
 t <- getPPIbyName(c('CASK', 'DLG4', 'GRIN2A', 'GRIN2B', 'GRIN1'),type='lim')
 }
 \seealso{
-\code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
-PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
-representation of the PPI \code{data.frame} and \code{\link[=getTableFromPPI]{getTableFromPPI()}} to
+\code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and
+\code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
+PPI \code{data.frame},
+\code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
+representation of the PPI \code{data.frame} and
+\code{\link[=getTableFromPPI]{getTableFromPPI()}} to
 get interpretable
 table representation of the PPI \code{data.frame}.
 

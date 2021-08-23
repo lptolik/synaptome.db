@@ -2,7 +2,8 @@
 % Please edit documentation in R/brain_regions.R
 \name{getGenes4BrainRegion}
 \alias{getGenes4BrainRegion}
-\title{Select genes from the list that found in brain region of particular specie}
+\title{Select genes from the list that found in brain region of
+particular specie}
 \usage{
 getGenes4BrainRegion(ids, brainRegion, taxID)
 }
