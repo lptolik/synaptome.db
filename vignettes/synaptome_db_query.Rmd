@@ -1,0 +1,236 @@
+---
+title: "synaptome.db vignette"
+author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
+date: '`r format(Sys.time(), "%d.%m.%Y")`'
+output: rmarkdown::html_vignette
+bibliography: references.bib  
+vignette: >
+    %\VignetteIndexEntry{synaptome.db}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+```{r setup}
+suppressMessages(library(synaptome.db))
+suppressMessages(library(dplyr))
+library(pander)
+```
+
+# Title   SynaptomeDB: database for Synaptic proteome
+##  Manual for querying SynaptomeDB
+##  Authors: Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong 
+
+# Introduction
+
+58 published synaptic proteomic datasets (2000-2020 years) that describe 
+over 8,000 proteins were  integrated and combined with direct protein-protein 
+interactions and functional metadata to build a network resource. 
+
+The set includes 29 post synaptic proteome (PSP) studies (2000 to 2019) 
+contributing a total of 5,560 mouse and human unique gene identifiers; 
+18 presynaptic studies (2004 to 2020) describe 2,772 unique human and 
+mouse gene IDs, and 11 studies that span the whole synaptosome and 
+report 7,198 unique genes. 
+
+To reconstruct protein-protein interaction (PPI) networks for the pre- and 
+post-synaptic proteomes we used human PPI data filtered for the highest 
+confidence direct and physical interactions from BioGRID, Intact and DIP. 
+The resulting postsynaptic proteome (PSP) network contains 4,817 nodes 
+and 27,788 edges in the Largest Connected Component (LCC). The presynaptic 
+network is significantly smaller and comprises 2,221 nodes and 8,678 edges 
+in the LCC.
+
+The database includes: proteomic and interactomic data with supporting 
+information on compartment, specie and brain region, GO function 
+information for three species: mouse, rat and human, disease annotation 
+for human (based on Human Disease Ontology (HDO)) and GeneToModel table, 
+which links certain synaptic proteins to existing computational models of 
+synaptic plasticity and synaptic signal transduction
+
+The original files are maintained at 
+Eidnburgh Datashare https://doi.org/10.7488/ds/3017
+
+The dataset was described in the @Sorokina:2021hl.
+
+# Overview of capabilities
+## 1.Get information for a specific gene or gene set.
+The dataset can be used to answer frequent questions such as “What is known 
+about my favourite gene? Is it pre- or postsynaptic? Which brain region was 
+it identified in?”, "Which publication it was reported in?"
+Information could be obtained by submitting gene EntrezID or Gene name
+
+```{r gene_info}
+t <- getGeneInfoByEntrez(1742) 
+head(t)
+
+t <- getGeneInfoByName("CASK")
+head(t)
+
+t <- getGeneInfoByName(c("CASK", "DLG2"))
+head(t)                      
+```
+
+## 2.Get internal GeneIDs for the list of genes.
+Obtaining Internal database GeneIDs is a usefil intermediate step for more 
+complex queries including those for building protein-protein interaction (PPI) 
+networks for compartments and brain regions. Internal GeneID is specie-neutral 
+and unique, which allows exact indentification of the object of interest in 
+case of redundancy (e.g. one Human genes matchs on a few mouse ones, etc.)
+
+```{r  findIDs}
+t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
+head(t)
+
+t <- findGenesByName(c("SRC", "SRCIN1", "FYN"))
+head(t)
+
+```
+
+## 3.Get disease information for the gene set
+Synaptic genes are annotated with disease information from Human Disease 
+Ontology, where available. To get disease information one can submit the 
+list of Human Entrez Is or Human genes names, it could be also the list of 
+Internal GeneIDs if using `getGeneDiseaseByIDs` function
+
+
+```{r disease }
+t <- getGeneDiseaseByName (c("CASK", "DLG2", "DLG1"))
+head(t)
+
+t <- getGeneDiseaseByEntres (c(8573, 1742, 1739))
+head(t)
+
+```
+
+## 5.Get PPI interactions for my list of genes
+Custom Protein-protein interactions based on bespoke subsets of molecules 
+could be extracted in two general ways: "induced" and "limited". In the 
+first case, the command will return all possible interactors for the genes 
+within the whole interactome. In the second case it will return only 
+interactions between the genes of interest. PPIs could be obtained by 
+submitting list of EntrezIDs or gene names, or Internal IDs - in all 
+cases the interactions will be returned as a list of interacting pairs 
+of Intenal GeneIDs.
+
+```{r PPI}
+t <- getPPIbyName(
+    c("CASK", "DLG4", "GRIN2A", "GRIN2B","GRIN1"), 
+    type = "limited")
+head(t)
+
+t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type='induced')
+head(t)
+
+```
+
+## 6.Get the molecular structure of synaptic compartment
+Three main synaptic compartments considered in the database are "presynaptic", 
+"postsynaptic" and "synaptosome". Genes are classified to compartments based 
+on respective publications, so that each gene can belong to one or two, or 
+even three compartments. The full list of genes for specific compartment 
+could be obtained wuth command `getAllGenes4Compartment`, which returns 
+the table with main gene identifiers, like internal GeneIDs, MGI ID, 
+Human Entrez ID, Human Gene Name, Mouse Entrez ID, Mouse Gene Name, 
+Rat Entrez ID, Rat Gene Name.
+
+If you need to check which genes of your list belong to specific compartment, 
+you can use `getGenes4Compartment` command, which will select from your list 
+only genes associated with specific compartment.
+To obtain the PPI network for compartment one has to submit the lis of 
+Internal GeneIDs obtained with previous commands.
+
+
+```{r compPPI}
+#getting the list of compartment
+comp <- getCompartments()
+pander(comp)
+
+#getting all genes for postsynaptic compartment
+gns <- getAllGenes4Compartment(compartmentID = 1) 
+head(gns)
+
+#getting full PPI network for postsynaptic compartment
+ppi <- getPPIbyIDs4Compartment(gns$GeneID,compartmentID =1, type = "induced")
+head(ppi)
+
+```
+
+## 7.Get the molecular structure of the brain region.
+Three are 12 brain regions considered in the database based on respective 
+publications, so that each gene can belong to the single or to the several 
+brain regions. Brain regions differ between species, and specie brain region 
+information is not 100% covered in the database(e.g. we don't have yet studies 
+for Human Striatum, but do have for Mouse and Rat), that's why when querying 
+the database for brain region information you will need to specify the specie. 
+The full list of genes for speciifiic region could be obtained wuth command 
+`getAllGenes4BrainRegion`, which returns the table with main gene identifiers, 
+like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name, 
+Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
+
+If you need to check which genes of your list were identified in 
+specific region, you can use `getGenes4BrainRegion` command, which will 
+select only genes associated with specific region from your list.
+
+To obtain the PPI network for brain region you need to submit the list of 
+Internal GGeneIDs obtained with previous commands.
+
+```{r regPPI}
+#getting the full list of brain regions
+reg <- getBrainRegions()
+pander(reg)
+
+#getting all genes for mouse Striatum
+gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+head(gns)
+
+#getting full PPI network for postsynaptic compartment
+ppi <- getPPIbyIDs4BrainRegion(
+    gns$GeneID, brainRegion = "Striatum", 
+    taxID = 10090, type = "limited")
+head(ppi)
+```
+## 8.Visualisatiion of PPI network with Igraph.
+Combine information from PPI data.frame obtained with functions like 
+`getPPIbyName`, `getPPIbyEntrez`, `getPPIbyIDs4Compartment` or 
+`getPPIbyIDs4BrainRegion` with information about genes obtained 
+from `getGenesByID` to make interpretable undirected PPI graph in 
+igraph format. In this format network could be further analysed and 
+visualized by algorithms from igraph package.
+
+```{r PPI_igraph,fig.width=7,fig.height=7,out.width="70%",fig.align = "center"}
+library(igraph)
+g<-getIGraphFromPPI(
+    getPPIbyIDs(c(48, 129,  975,  4422, 5715, 5835), type='lim'))
+plot(g,vertex.label=V(g)$RatName,vertex.size=25)
+```
+
+## 9.Export of PPI network as a table.
+If Igraph is not an option, the PPI network could be exported as an 
+interpretible table to be processed with other tools, e.g. Cytoscape,etc.
+
+```{r PPI_table}
+tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
+tbl
+```
+
+# References
+
+<div id="refs"></div>
+
+# Appendix {.tabset}
+## Versions
+
+### Session Info
+```{r sessionInfo, echo=FALSE, results='asis', class='text', warning=FALSE}
+c<-devtools::session_info()
+pander::pander(t(data.frame(c(c$platform))))
+pander::pander(as.data.frame(c$packages)[,-c(4,5,10,11)])
+```
