@@ -20,6 +20,8 @@ test_that("Proper row number in geneInfo", {
     #get information for specific gene
     t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
     expect_equal(dim(t), c(4,8))
+    t <- findGenesByName(c('DLG4', "Dlg2", 'Dlg3', "Dlg1"))
+    expect_equal(dim(t), c(4,8))
     #' Find information for gene IDs
     t <- getGeneInfoByIDs (c(48, 585, 710))
     expect_equal(dim(t), c(110,12))
@@ -38,6 +40,24 @@ test_that("Proper row number in brain regions",{
                 brainRegion = 'Striatum',
                 taxID = 10090)),
         c(5,12))
+    expect_equal(
+        dim(
+            getPPIbyIDs4BrainRegion(
+                1:7,
+                brainRegion = "Striatum",
+                taxID = 10090,
+                type = "limited")
+        ),c(11,2)
+    )
+    expect_equal(
+        dim(
+            getPPIbyIDs4BrainRegion(
+                1:7,
+                brainRegion = "Striatum",
+                taxID = 10090,
+                type = "ind")
+        ),c(103,2)
+    )
 })
 test_that("Proper row number in compartments",{
     c<-getCompartments()
@@ -53,6 +73,11 @@ test_that("Proper row number in compartments",{
             getPPIbyIDs4Compartment(
                 c(1, 15, 156, 1500, 3000, 7000),
                 compartmentID =1, type = 'induced')),c(248,2))
+    expect_equal(
+        dim(
+            getPPIbyIDs4Compartment(
+                c(1, 15, 156, 1500, 3000, 7000),
+                compartmentID =1, type = 'lim')),c(7,2))
 })
 
 test_that("Proper row number in diseases",{
