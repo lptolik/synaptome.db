@@ -56,7 +56,7 @@ head(t)
 ```
 
 ## 2.Get internal GeneIDs for the list of genes.
-Obtaining Internal database geneIDs is a usefil intermediate step for more complex queries including those for building protein-protein interaction (PPI) networks for compartments and brain regions. Internal ID is specie-neutral and unique, which allows exact indentification of the object of interest in case of redundancy (e.g. one Human genes matchs on a few mouse ones, etc.)
+Obtaining Internal database GeneIDs is a usefil intermediate step for more complex queries including those for building protein-protein interaction (PPI) networks for compartments and brain regions. Internal GeneID is specie-neutral and unique, which allows exact indentification of the object of interest in case of redundancy (e.g. one Human genes matchs on a few mouse ones, etc.)
 
 ```{r  findIDs}
 t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
@@ -68,7 +68,7 @@ head(t)
 ```
 
 ## 3.Get disease information for the gene set
-Synaptic genes are annotated with disease information from Human Disease Ontology, where available. To get disease information one can submit the list of Human Entrez Is or Human genes names, it could be also the list of Internal Geneids if using getGeneDiseaseByIDs function
+Synaptic genes are annotated with disease information from Human Disease Ontology, where available. To get disease information one can submit the list of Human Entrez Is or Human genes names, it could be also the list of Internal GeneIDs if using `getGeneDiseaseByIDs` function
 
 
 ```{r disease }
@@ -81,7 +81,7 @@ head(t)
 ```
 
 ## 5.Get PPI interactions for my list of genes
-Custom Protein-protein interactions based on bespoke subsets of molecules could be extracted in two general ways: "induced" and "limited". In the first case, the command will return all possible interactors for the genes within the whole interactome. In the second case it will return only interactions between the genes of interest. PPIs could be obtained by submitting list of EntrezIDs or gene names (you  will need to specify the specie), or Internal IDs - in all cases the interactions will be returned as a list of interacting pairs of Intenal GeneIDs.
+Custom Protein-protein interactions based on bespoke subsets of molecules could be extracted in two general ways: "induced" and "limited". In the first case, the command will return all possible interactors for the genes within the whole interactome. In the second case it will return only interactions between the genes of interest. PPIs could be obtained by submitting list of EntrezIDs or gene names, or Internal IDs - in all cases the interactions will be returned as a list of interacting pairs of Intenal GeneIDs.
 
 ```{r PPI}
 t <- getPPIbyName(c("CASK", "DLG4", "GRIN2A", "GRIN2B","GRIN1"), type = "limited")
@@ -93,9 +93,10 @@ head(t)
 ```
 
 ## 6.Get the molecular structure of synaptic compartment
-Three main synaptic compartments considered in the database are "presynaptic", "postsynaptic" and "synaptosome". Genes are classified to compartments based on respective publications, so that each gene can belong to one or two, or even three compartments. The full list of genes for speciifiic compartment could be obtained wuth command getAllGenes4Compartment, which returns the table with main gene identifiers, like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name, Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
-If you need to check which genes of your list belong to specific compartment, you can use getGenes4Compartment command, which will select from your list only genes associated with specific compartment.
-To obtain the PPI network for compartment one has to submit the lis of Internal IDs obtained with previous commands.
+Three main synaptic compartments considered in the database are "presynaptic", "postsynaptic" and "synaptosome". Genes are classified to compartments based on respective publications, so that each gene can belong to one or two, or even three compartments. The full list of genes for specific compartment could be obtained wuth command `getAllGenes4Compartment`, which returns the table with main gene identifiers, like internal GeneIDs, MGI ID, Human Entrez ID, Human Gene Name, Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
+
+If you need to check which genes of your list belong to specific compartment, you can use `getGenes4Compartment` command, which will select from your list only genes associated with specific compartment.
+To obtain the PPI network for compartment one has to submit the lis of Internal GeneIDs obtained with previous commands.
 
 
 ```{r compPPI}
@@ -132,7 +133,7 @@ ppi <- getPPIbyIDs4BrainRegion(gns$GeneID, brainRegion = "Striatum", taxID = 100
 head(ppi)
 ```
 ## 8.Visualisatiion of PPI network with Igraph.
-Combine information from PPI data.frame obtained with functions like getPPIbyName, getPPIbyEntrez, getPPIbyIDs4Compartment or getPPIbyIDs4BrainRegion with information about genes obtained from getGenesByID to make interpretable undirected PPI graph in igraph format. In this format network could be further analysed and visualized by algorithms in igraph package.
+Combine information from PPI data.frame obtained with functions like `getPPIbyName`, `getPPIbyEntrez`, `getPPIbyIDs4Compartment` or `getPPIbyIDs4BrainRegion` with information about genes obtained from `getGenesByID` to make interpretable undirected PPI graph in igraph format. In this format network could be further analysed and visualized by algorithms from igraph package.
 
 ```{r PPI_igraph,fig.width=7,fig.height=7, out.width="70%", fig.align = "center"}
 library(igraph)
