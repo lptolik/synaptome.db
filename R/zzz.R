@@ -2,11 +2,10 @@
 #' Get dbcon. Return connection to the database.
 #'
 #' @return dbConnect
-#' @export
 #' @import DBI
 #' @import RSQLite
 #' @import dbplyr
-#'
+#' @keywords internal
 get_dbconn <- function() {
     if (!exists('dbconn') || !DBI::dbIsValid(dbconn)) {
         pkgname = "synaptome.db"#methods::getPackageName()
@@ -17,7 +16,6 @@ get_dbconn <- function() {
     return(dbconn)
 }
 
-#' @export
 .onLoad <- function(libname, pkgname)
 {
     dbfile <- system.file(
@@ -29,7 +27,6 @@ get_dbconn <- function() {
 }
 
 
-#' @export
 .onUnload <- function(libpath)
 {
     dbDisconnect(get_dbconn())
