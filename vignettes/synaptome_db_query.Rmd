@@ -5,16 +5,16 @@ date: '`r format(Sys.time(), "%d.%m.%Y")`'
 output: rmarkdown::html_vignette
 bibliography: references.bib  
 vignette: >
-  %\VignetteIndexEntry{synaptome.db}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{synaptome.db}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 library(knitr)
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+    collapse = TRUE,
+    comment = "#>"
 )
 ```
 

@@ -15,7 +15,7 @@ with a set of utility R functions to query and analyse its content.
 \seealso{
 Useful links:
 \itemize{
-  \item Report bugs at \url{https://github.com/lptolik/synaptome.db/issues/}
+    \item Report bugs at \url{https://github.com/lptolik/synaptome.db/issues/}
 }
 
 }
@@ -24,8 +24,8 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Anatoly Sorokin \email{lptolik@gmail.com}
-  \item J. Douglas Armstrong
+    \item Anatoly Sorokin \email{lptolik@gmail.com}
+    \item J. Douglas Armstrong
 }
 
 }
