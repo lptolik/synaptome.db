@@ -52,6 +52,9 @@ getBrainRegions<-function(){
 #' @family {BrainRegion functions}
 #' @family {BrainRegion Gene functions}
 #' @importFrom dplyr tbl select filter pull collect
+#' @examples
+#' gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+#' head(gns)
 getAllGenes4BrainRegion<-function(brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>%
@@ -174,7 +177,17 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
+#' #getting all genes for mouse Striatum
+#' gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+#' head(gns)
 #'
+#' #getting full PPI network for postsynaptic compartment
+#' ppi <- getPPIbyIDs4BrainRegion(
+#' gns$GeneID,
+#' brainRegion = "Striatum",
+#' taxID = 10090,
+#' type = "limited")
+#' head(ppi)
 getPPIbyIDs4BrainRegion<-function(
     ids,brainRegion,taxID,type=c('induced','limited')){
     netType<-match.arg(type)

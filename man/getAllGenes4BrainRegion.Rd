@@ -36,6 +36,10 @@ Human Gene Name, Mouse Entrez ID, Mouse Gene Name,
 Localisation (presynaptic, postsynaptic, synaptosomal),
 PaperPMID and BrainRegion.
 }
+\examples{
+gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+head(gns)
+}
 \seealso{
 Other {BrainRegion functions}: 
 \code{\link{getBrainRegions}()},
