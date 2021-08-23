@@ -3,8 +3,8 @@
 #' Get full list of compartments
 #'
 #' Get list of synaptic compartments considered in the database.
-#'  Returns table with compartments: “Presynaptic”, “Postsynaptic”,
-#'  “Synaptosome”, and their internal IDs.
+#' Returns table with compartments: “Presynaptic”, “Postsynaptic”,
+#' “Synaptosome”, and their internal IDs.
 #'
 #' @return data.frame described above
 #' @family {Compartment functions}
@@ -45,8 +45,10 @@ getAllGenes4Compartment<-function(compartmentID){
 #' Select genes from the list that found in compartment
 #'
 #' Select all genes from your list annotated for specific
-#' compartment. Should be used with [findGenesByEntrez()]
-#' or [findGenesByName()] functions to obtain list of internal
+#' compartment. Should be used with
+#' [findGenesByEntrez()]
+#' or [findGenesByName()]
+#' functions to obtain list of internal
 #' IDs for your list of genes. Function lookups the Gene table
 #' for specified localisation and returns main gene information
 #' like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene Name,

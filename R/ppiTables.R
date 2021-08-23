@@ -81,7 +81,8 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 #' @export
 #'
 #' @family {PPI functions}
-#' @seealso [getPPIbyName()] and [getPPIbyIDs()] to get
+#' @seealso [getPPIbyName()] and
+#'     [getPPIbyIDs()] to get
 #'     PPI \code{data.frame},  [getIGraphFromPPI()]
 #'     to get igraph representation of the
 #'     PPI \code{data.frame} and [getTableFromPPI()] to
@@ -138,10 +139,11 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 #' about genes obtained from
 #' \code{\link{getGenesByID}} to make  interpretable table representation.
 #'
-#' @param ppi PPI \code{data.frame} with columns A and B, obtaioed
+#' @param ppi PPI \code{data.frame} with columns A and B, obtained
 #' from functions like \code{\link{getPPIbyName}}
 #'
-#' @return table with the following columns added for both interactors (A and B):
+#' @return table with the following columns added for both
+#' interactors (A and B):
 #' \itemize{
 #' \item{GeneID internal database ID}
 #' \item{MGI MGI ID}
