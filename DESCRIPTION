@@ -24,4 +24,4 @@ VignetteBuilder: knitr
 BugReports: https://github.com/lptolik/synaptome.db/issues/
 biocViews: FunctionalAnnotation, CustomDBSchema
 Suggests: 
-    rmarkdown, knitr, pander, testthat, devtools
+    rmarkdown, knitr, pander, testthat, devtools, markdown
