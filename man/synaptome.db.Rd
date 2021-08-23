@@ -12,12 +12,20 @@ with a set of utility R functions to query and analyse its content.
 \references{
 \insertRef{Sorokina:2021hl}{synaptome.db}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item Report bugs at \url{https://github.com/lptolik/synaptome.db/issues/}
+}
+
+}
 \author{
 \strong{Maintainer}: Oksana Sorokina \email{oksankasster@gmail.com}
 
 Authors:
 \itemize{
   \item Anatoly Sorokin \email{lptolik@gmail.com}
+  \item J. Douglas Armstrong
 }
 
 }

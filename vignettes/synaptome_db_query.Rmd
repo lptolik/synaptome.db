@@ -1,5 +1,6 @@
 ---
 title: "synaptome.db"
+author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{synaptome.db}
