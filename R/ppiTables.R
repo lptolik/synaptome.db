@@ -38,9 +38,12 @@ getPPIQuery<-function(){
 #' @export
 #'
 #' @family {PPI functions}
-#' @seealso [getPPIbyName()] and [getPPIbyEntrez()] to get
-#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
-#'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
+#' @seealso [getPPIbyName()] and
+#'     [getPPIbyEntrez()] to get
+#'     PPI \code{data.frame},
+#'     [getIGraphFromPPI()] to get igraph
+#'     representation of the PPI \code{data.frame} and
+#'     [getTableFromPPI()] to
 #'     get interpretable
 #'     table representation of the PPI \code{data.frame}.
 #'
@@ -83,9 +86,11 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 #' @family {PPI functions}
 #' @seealso [getPPIbyName()] and
 #'     [getPPIbyIDs()] to get
-#'     PPI \code{data.frame},  [getIGraphFromPPI()]
+#'     PPI \code{data.frame},
+#'     [getIGraphFromPPI()]
 #'     to get igraph representation of the
-#'     PPI \code{data.frame} and [getTableFromPPI()] to
+#'     PPI \code{data.frame} and
+#'     [getTableFromPPI()] to
 #'     get interpretable
 #'     table representation of the PPI \code{data.frame}.
 #'
@@ -117,9 +122,12 @@ getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
 #' @export
 #'
 #' @family {PPI functions}
-#' @seealso [getPPIbyEntrez()] and [getPPIbyIDs()] to get
-#'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
-#'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
+#' @seealso [getPPIbyEntrez()] and
+#'     [getPPIbyIDs()] to get
+#'     PPI \code{data.frame},
+#'     [getIGraphFromPPI()] to get igraph
+#'     representation of the PPI \code{data.frame} and
+#'     [getTableFromPPI()] to
 #'     get interpretable
 #'     table representation of the PPI \code{data.frame}.
 #'
@@ -160,9 +168,11 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 #'
 #' @family {PPI functions}
 #' @family {DF functions}
-#' @seealso [getPPIbyName()], [getPPIbyEntrez()]
+#' @seealso [getPPIbyName()],
+#'     [getPPIbyEntrez()]
 #'     and [getPPIbyIDs()] to get
-#'     PPI \code{data.frame},  [getIGraphFromPPI()] to
+#'     PPI \code{data.frame},
+#'     [getIGraphFromPPI()] to
 #'     get igraph representation of the PPI \code{data.frame}.
 #'
 #' @md
@@ -195,9 +205,11 @@ getTableFromPPI<-function(ppi){
 #'
 #' @family {PPI functions}
 #' @family {Igraph functions}
-#' @seealso [getPPIbyName()], [getPPIbyEntrez()]
+#' @seealso [getPPIbyName()],
+#'     [getPPIbyEntrez()]
 #'     and [getPPIbyIDs()] to get
-#'     PPI \code{data.frame},  [getTableFromPPI()]
+#'     PPI \code{data.frame},
+#'     [getTableFromPPI()]
 #'     to get interpretable table representation of
 #'     the PPI \code{data.frame}.
 #'

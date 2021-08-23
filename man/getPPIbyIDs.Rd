@@ -30,9 +30,12 @@ t <- getPPIbyIDs(c(48, 585, 710), type='limited') #(16 rows)
 t <- getPPIbyIDs(c(48, 585, 710), type='induced') #306 rows
 }
 \seealso{
-\code{\link[=getPPIbyName]{getPPIbyName()}} and \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} to get
-PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
-representation of the PPI \code{data.frame} and \code{\link[=getTableFromPPI]{getTableFromPPI()}} to
+\code{\link[=getPPIbyName]{getPPIbyName()}} and
+\code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} to get
+PPI \code{data.frame},
+\code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to get igraph
+representation of the PPI \code{data.frame} and
+\code{\link[=getTableFromPPI]{getTableFromPPI()}} to
 get interpretable
 table representation of the PPI \code{data.frame}.
 

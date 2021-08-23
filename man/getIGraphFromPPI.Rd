@@ -28,9 +28,11 @@ g<-getIGraphFromPPI(
 plot(g,vertex.label=V(g)$RatName,vertex.size=35)
 }
 \seealso{
-\code{\link[=getPPIbyName]{getPPIbyName()}}, \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}}
+\code{\link[=getPPIbyName]{getPPIbyName()}},
+\code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}}
 and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
-PPI \code{data.frame},  \code{\link[=getTableFromPPI]{getTableFromPPI()}}
+PPI \code{data.frame},
+\code{\link[=getTableFromPPI]{getTableFromPPI()}}
 to get interpretable table representation of
 the PPI \code{data.frame}.
 

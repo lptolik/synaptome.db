@@ -11,8 +11,8 @@ data.frame described above
 }
 \description{
 Get list of synaptic compartments considered in the database.
- Returns table with compartments: “Presynaptic”, “Postsynaptic”,
- “Synaptosome”, and their internal IDs.
+Returns table with compartments: “Presynaptic”, “Postsynaptic”,
+“Synaptosome”, and their internal IDs.
 }
 \examples{
 c<-getCompartments()
