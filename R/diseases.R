@@ -30,7 +30,7 @@ getGeneDiseaseQuery <- function() {
 #' * HDOID
 #' * Description
 #'
-#' @family {disease_functions}
+#' @family {Disease functions}
 #' @export
 #'
 #' @md
@@ -60,7 +60,7 @@ getGeneDiseaseByIDs<-function(ids){
 #'
 #' @md
 #' @export
-#' @family {disease_functions}
+#' @family {Disease functions}
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' t <- getGeneDiseaseByEntres (c(8573, 1742, 1739)) #(95 rows)
@@ -81,7 +81,7 @@ getGeneDiseaseByEntres<-function(entrez){
 #' @return data.frame
 #' @export
 #' @md
-#' @family {disease_functions}
+#' @family {Disease functions}
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' t <- getGeneDiseaseByName (c('CASK', 'DLG2', 'DLG1')) #(115 rows)

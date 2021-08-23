@@ -27,8 +27,8 @@ GeneIDs and returns list of available diseases.
 t <- getGeneDiseaseByIDs (c(48, 585, 710))
 }
 \seealso{
-Other {disease_functions}: 
+Other {Disease functions}: 
 \code{\link{getGeneDiseaseByEntres}()},
 \code{\link{getGeneDiseaseByName}()}
 }
-\concept{{disease_functions}}
+\concept{{Disease functions}}

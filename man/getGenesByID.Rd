@@ -27,13 +27,13 @@ all found genes:
 }
 }
 \examples{
-gdf<-synaptome.db:::getGenesByID(c(46,6,15,1))
+gdf<-getGenesByID(c(46,6,15,1))
 }
 \seealso{
-Other {gene_functions}: 
+Other {Gene functions}: 
 \code{\link{findGenesByEntrez}()},
 \code{\link{findGenesByName}()},
 \code{\link{getAllGenes4Compartment}()},
 \code{\link{getGenes4Compartment}()}
 }
-\concept{{gene_functions}}
+\concept{{Gene functions}}

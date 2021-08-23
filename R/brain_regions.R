@@ -13,7 +13,7 @@
 #' * ParentID: ID of the containing brain region
 #' @export
 #' @md
-#' @family {brain_region_functions}
+#' @family {BrainRegion functions}
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' t<-getBrainRegions()
@@ -49,8 +49,8 @@ getBrainRegions<-function(){
 #' * BrainRegion
 #' @export
 #' @md
-#' @family {brain_region_functions}
-#' @family {brain_region_gene_functions}
+#' @family {BrainRegion functions}
+#' @family {BrainRegion Gene functions}
 #' @importFrom dplyr tbl select filter pull collect
 getAllGenes4BrainRegion<-function(brainRegion,taxID){
     idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
@@ -93,8 +93,8 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #' * BrainRegion
 #' @export
 #' @md
-#' @family {brain_region_functions}
-#' @family {brain_region_gene_functions}
+#' @family {BrainRegion functions}
+#' @family {BrainRegion Gene functions}
 #' @export
 #' @importFrom dplyr tbl select filter pull collect "%>%"
 #' @examples
@@ -159,13 +159,22 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' or “induced” interactors GeneIDs for the specified region.
 #'
 #' @param ids gene IDs
-#' @param type type of the PPI network
 #' @param brainRegion region ID
 #' @param taxID taxon ID
+#' @param type type of the PPI network should be either `induced` (for
+#'     all the PPIs for specific genes, including external genes) or
+#'     `limited` (for PPIs between the genes specified in the query).
+#'     Type could be shortened to recognizable minimum like 'ind'
+#'     or 'lim'.
 #'
-#' @return data.frame
+#' @return data.frame with interactors internal GeneID in columns A and B
+#' @family {PPI functions}
+#' @family {BrainRegion functions}
+#' @md
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
+#' @examples
+#'
 getPPIbyIDs4BrainRegion<-function(
     ids,brainRegion,taxID,type=c('induced','limited')){
     netType<-match.arg(type)

@@ -12,3 +12,4 @@ dbConnect
 \description{
 Get dbcon. Return connection to the database.
 }
+\keyword{internal}

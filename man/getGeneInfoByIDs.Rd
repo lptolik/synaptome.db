@@ -47,8 +47,8 @@ following features for all found genes:
 gdf<-getGeneInfoByIDs(c(46,6,15,1))
 }
 \seealso{
-Other {geneInfo_functions}: 
+Other {GeneInfo functions}: 
 \code{\link{getGeneInfoByEntrez}()},
 \code{\link{getGeneInfoByName}()}
 }
-\concept{{geneInfo_functions}}
+\concept{{GeneInfo functions}}

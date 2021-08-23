@@ -36,11 +36,12 @@ representation of the PPI \code{data.frame} and \code{\link[=getTableFromPPI]{ge
 get interpretable
 table representation of the PPI \code{data.frame}.
 
-Other {ppi_functions}: 
+Other {PPI functions}: 
 \code{\link{getIGraphFromPPI}()},
 \code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs4BrainRegion}()},
 \code{\link{getPPIbyIDs4Compartment}()},
 \code{\link{getPPIbyName}()},
 \code{\link{getTableFromPPI}()}
 }
-\concept{{ppi_functions}}
+\concept{{PPI functions}}

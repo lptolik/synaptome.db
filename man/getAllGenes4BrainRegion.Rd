@@ -37,12 +37,13 @@ Localisation (presynaptic, postsynaptic, synaptosomal),
 PaperPMID and BrainRegion.
 }
 \seealso{
-Other {brain_region_functions}: 
+Other {BrainRegion functions}: 
 \code{\link{getBrainRegions}()},
-\code{\link{getGenes4BrainRegion}()}
+\code{\link{getGenes4BrainRegion}()},
+\code{\link{getPPIbyIDs4BrainRegion}()}
 
-Other {brain_region_gene_functions}: 
+Other {BrainRegion Gene functions}: 
 \code{\link{getGenes4BrainRegion}()}
 }
-\concept{{brain_region_functions}}
-\concept{{brain_region_gene_functions}}
+\concept{{BrainRegion Gene functions}}
+\concept{{BrainRegion functions}}

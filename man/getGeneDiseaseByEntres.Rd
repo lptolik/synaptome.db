@@ -27,8 +27,8 @@ Human Entrez IDs and returns list of available diseases.
 t <- getGeneDiseaseByEntres (c(8573, 1742, 1739)) #(95 rows)
 }
 \seealso{
-Other {disease_functions}: 
+Other {Disease functions}: 
 \code{\link{getGeneDiseaseByIDs}()},
 \code{\link{getGeneDiseaseByName}()}
 }
-\concept{{disease_functions}}
+\concept{{Disease functions}}

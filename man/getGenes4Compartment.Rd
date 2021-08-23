@@ -28,16 +28,16 @@ Genes <- getGenes4Compartment(c(1, 15, 156, 1500, 3000, 7000),
 compartmentID = 1)
 }
 \seealso{
-Other {gene_functions}: 
+Other {Gene functions}: 
 \code{\link{findGenesByEntrez}()},
 \code{\link{findGenesByName}()},
 \code{\link{getAllGenes4Compartment}()},
 \code{\link{getGenesByID}()}
 
-Other {compartment_functions}: 
+Other {Compartment functions}: 
 \code{\link{getAllGenes4Compartment}()},
 \code{\link{getCompartments}()},
 \code{\link{getPPIbyIDs4Compartment}()}
 }
-\concept{{compartment_functions}}
-\concept{{gene_functions}}
+\concept{{Compartment functions}}
+\concept{{Gene functions}}

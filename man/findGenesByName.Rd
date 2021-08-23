@@ -31,14 +31,14 @@ specie-specific.
 t <- findGenesByName(c('Src', 'Srcin1', 'Fyn'))
 }
 \seealso{
-Other {find_functions}: 
+Other {Lookup functions}: 
 \code{\link{findGenesByEntrez}()}
 
-Other {gene_functions}: 
+Other {Gene functions}: 
 \code{\link{findGenesByEntrez}()},
 \code{\link{getAllGenes4Compartment}()},
 \code{\link{getGenes4Compartment}()},
 \code{\link{getGenesByID}()}
 }
-\concept{{find_functions}}
-\concept{{gene_functions}}
+\concept{{Gene functions}}
+\concept{{Lookup functions}}

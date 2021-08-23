@@ -38,12 +38,13 @@ and \code{\link[=getPPIbyIDs]{getPPIbyIDs()}} to get
 PPI \code{data.frame},  \code{\link[=getIGraphFromPPI]{getIGraphFromPPI()}} to
 get igraph representation of the PPI \code{data.frame}.
 
-Other {ppi_functions}: 
+Other {PPI functions}: 
 \code{\link{getIGraphFromPPI}()},
 \code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs4BrainRegion}()},
 \code{\link{getPPIbyIDs4Compartment}()},
 \code{\link{getPPIbyIDs}()},
 \code{\link{getPPIbyName}()}
 }
-\concept{{df_functions}}
-\concept{{ppi_functions}}
+\concept{{DF functions}}
+\concept{{PPI functions}}

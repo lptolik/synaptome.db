@@ -35,17 +35,18 @@ ppi <- getPPIbyIDs4Compartment(c(1, 15, 156, 1500, 3000, 7000),
 compartmentID =1, type = 'induced')#201 rows
 }
 \seealso{
-Other {ppi_functions}: 
+Other {PPI functions}: 
 \code{\link{getIGraphFromPPI}()},
 \code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs4BrainRegion}()},
 \code{\link{getPPIbyIDs}()},
 \code{\link{getPPIbyName}()},
 \code{\link{getTableFromPPI}()}
 
-Other {compartment_functions}: 
+Other {Compartment functions}: 
 \code{\link{getAllGenes4Compartment}()},
 \code{\link{getCompartments}()},
 \code{\link{getGenes4Compartment}()}
 }
-\concept{{compartment_functions}}
-\concept{{ppi_functions}}
+\concept{{Compartment functions}}
+\concept{{PPI functions}}
