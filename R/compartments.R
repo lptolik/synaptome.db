@@ -11,9 +11,11 @@
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' c<-getCompartments()
-getCompartments<-function(){
-    gns<-get_dbconn() %>% dplyr::tbl("Localisation") %>% collect
+#' c <- getCompartments()
+getCompartments <- function() {
+    gns <- get_dbconn() %>%
+        dplyr::tbl("Localisation") %>%
+        collect()
     return(gns)
 }
 
@@ -34,10 +36,13 @@ getCompartments<-function(){
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' G <- getAllGenes4Compartment(compartmentID = 1) # 5560 rows
-getAllGenes4Compartment<-function(compartmentID){
-    idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
+getAllGenes4Compartment <- function(compartmentID) {
+    idsC <- get_dbconn() %>%
+        dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID) %>%
-        dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
+        dplyr::select(GeneID) %>%
+        dplyr::pull(GeneID) %>%
+        unique()
 
     return(getGenesByID(idsC))
 }
@@ -65,11 +70,15 @@ getAllGenes4Compartment<-function(compartmentID){
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' Genes <- getGenes4Compartment(c(1, 15, 156, 1500, 3000, 7000),
-#' compartmentID = 1)
-getGenes4Compartment<-function(ids,compartmentID){
-    idsC<-get_dbconn() %>% dplyr::tbl("FullGenePaper") %>%
+#'     compartmentID = 1
+#' )
+getGenes4Compartment <- function(ids, compartmentID) {
+    idsC <- get_dbconn() %>%
+        dplyr::tbl("FullGenePaper") %>%
         dplyr::filter(LocalisationID == compartmentID & GeneID %in% ids) %>%
-        dplyr::select(GeneID) %>% dplyr::pull(GeneID) %>% unique
+        dplyr::select(GeneID) %>%
+        dplyr::pull(GeneID) %>%
+        unique()
     return(getGenesByID(idsC))
 }
 
@@ -81,10 +90,10 @@ getGenes4Compartment<-function(ids,compartmentID){
 #' @return  tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 #' @keywords internal
-getInducedPPI4Compartment<-function(ids, compartmentID){
-    cids<-getGenes4Compartment(ids,compartmentID)$GeneID
-    aids<-getAllGenes4Compartment(compartmentID)$GeneID
-    gns<-getPPIQuery() %>%
+getInducedPPI4Compartment <- function(ids, compartmentID) {
+    cids <- getGenes4Compartment(ids, compartmentID)$GeneID
+    aids <- getAllGenes4Compartment(compartmentID)$GeneID
+    gns <- getPPIQuery() %>%
         dplyr::filter(A %in% cids | B %in% cids) %>%
         dplyr::filter(A %in% aids & B %in% aids)
     return(gns)
@@ -98,9 +107,9 @@ getInducedPPI4Compartment<-function(ids, compartmentID){
 #' @return tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 #' @keywords internal
-getLimitedPPI4Compartment<-function(ids, compartmentID){
-    cids<-getGenes4Compartment(ids,compartmentID)$GeneID
-    gns<-getPPIQuery() %>%
+getLimitedPPI4Compartment <- function(ids, compartmentID) {
+    cids <- getGenes4Compartment(ids, compartmentID)$GeneID
+    gns <- getPPIQuery() %>%
         dplyr::filter(A %in% cids & B %in% cids)
     return(gns)
 }
@@ -131,15 +140,15 @@ getLimitedPPI4Compartment<-function(ids, compartmentID){
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
 #' ppi <- getPPIbyIDs4Compartment(c(1, 15, 156, 1500, 3000, 7000),
-#' compartmentID =1, type = 'induced')#201 rows
-getPPIbyIDs4Compartment<-function(
-    ids, compartmentID,type=c('induced','limited')){
-    netType<-match.arg(type)
-    gns<- switch (
-        netType,
+#'     compartmentID = 1, type = "induced"
+#' ) # 201 rows
+getPPIbyIDs4Compartment <- function(ids, compartmentID,
+    type = c("induced", "limited")) {
+    netType <- match.arg(type)
+    gns <- switch(netType,
         induced = getInducedPPI4Compartment(ids, compartmentID),
         limited = getLimitedPPI4Compartment(ids, compartmentID)
     )
-    df <- gns %>% collect
+    df <- gns %>% collect()
     return(df)
 }

@@ -15,7 +15,7 @@ Returns table with compartments: “Presynaptic”, “Postsynaptic”,
 “Synaptosome”, and their internal IDs.
 }
 \examples{
-c<-getCompartments()
+c <- getCompartments()
 }
 \seealso{
 Other {Compartment functions}: 

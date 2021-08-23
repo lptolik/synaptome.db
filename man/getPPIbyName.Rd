@@ -26,7 +26,10 @@ interactions between GeneIDs specified in the query) table of
 interacting genes A and B, where A and B are respective gene names.
 }
 \examples{
-t <- getPPIbyName(c('CASK', 'DLG4', 'GRIN2A', 'GRIN2B', 'GRIN1'),type='lim')
+t <- getPPIbyName(
+    c("CASK", "DLG4", "GRIN2A", "GRIN2B", "GRIN1"),
+    type = "lim"
+)
 }
 \seealso{
 \code{\link[=getPPIbyEntrez]{getPPIbyEntrez()}} and

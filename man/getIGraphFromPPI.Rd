@@ -23,9 +23,10 @@ analysed and visualized by algorithms in \code{\link{igraph}} package.
 }
 \examples{
 library(igraph)
-g<-getIGraphFromPPI(
-    getPPIbyIDs(c(48, 129,  975,  4422, 5715, 5835), type='lim'))
-plot(g,vertex.label=V(g)$RatName,vertex.size=35)
+g <- getIGraphFromPPI(
+    getPPIbyIDs(c(48, 129, 975, 4422, 5715, 5835), type = "lim")
+)
+plot(g, vertex.label = V(g)$RatName, vertex.size = 35)
 }
 \seealso{
 \code{\link[=getPPIbyName]{getPPIbyName()}},

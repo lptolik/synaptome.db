@@ -7,27 +7,26 @@
 #' @import dbplyr
 #' @keywords internal
 get_dbconn <- function() {
-    if (!exists('dbconn') || !DBI::dbIsValid(dbconn)) {
-        pkgname = "synaptome.db"#methods::getPackageName()
+    if (!exists("dbconn") || !DBI::dbIsValid(dbconn)) {
+        pkgname <- "synaptome.db" # methods::getPackageName()
         dbfile <- system.file("extdata", "synaptome.sqlite", package = pkgname)
         dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
-        #cat('DB is connected with ',dbfile)
+        # cat('DB is connected with ',dbfile)
     }
     return(dbconn)
 }
 
-.onLoad <- function(libname, pkgname)
-{
+.onLoad <- function(libname, pkgname) {
     dbfile <- system.file(
-        "extdata", "synaptome.sqlite", package=pkgname, lib.loc=libname)
-    #cat(pkgname,libname)
+        "extdata", "synaptome.sqlite",
+        package = pkgname, lib.loc = libname
+    )
+    # cat(pkgname,libname)
     db <- dbfile
     dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
-    #packageStartupMessage(paste("Package Synaptome.DB loaded with db fram",db))
 }
 
 
-.onUnload <- function(libpath)
-{
+.onUnload <- function(libpath) {
     dbDisconnect(get_dbconn())
 }

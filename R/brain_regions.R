@@ -16,9 +16,11 @@
 #' @family {BrainRegion functions}
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' t<-getBrainRegions()
-getBrainRegions<-function(){
-    gns<-get_dbconn() %>% dplyr::tbl("BrainRegion") %>% collect
+#' t <- getBrainRegions()
+getBrainRegions <- function() {
+    gns <- get_dbconn() %>%
+        dplyr::tbl("BrainRegion") %>%
+        collect()
     return(gns)
 }
 
@@ -53,17 +55,19 @@ getBrainRegions<-function(){
 #' @family {BrainRegion Gene functions}
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+#' gns <- getAllGenes4BrainRegion(brainRegion = "Striatum", taxID = 10090)
 #' head(gns)
-getAllGenes4BrainRegion<-function(brainRegion,taxID){
-    idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+getAllGenes4BrainRegion <- function(brainRegion, taxID) {
+    idsC <- get_dbconn() %>%
+        dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(BrainRegion == brainRegion & SpeciesTaxID == taxID) %>%
         dplyr::select(
-            GeneID,Localisation,MGI,HumanEntrez,MouseEntrez,
-            HumanName,MouseName,PaperPMID,Paper,Year,
-            SpeciesTaxID,BrainRegion) %>%
-        dplyr::rename(PMID=PaperPMID) %>%
-        collect
+            GeneID, Localisation, MGI, HumanEntrez, MouseEntrez,
+            HumanName, MouseName, PaperPMID, Paper, Year,
+            SpeciesTaxID, BrainRegion
+        ) %>%
+        dplyr::rename(PMID = PaperPMID) %>%
+        collect()
     return(idsC)
 }
 
@@ -103,19 +107,23 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
 #' @importFrom dplyr tbl select filter pull collect "%>%"
 #' @examples
 #' Genes <- getGenes4BrainRegion(c(1, 15, 156, 1500, 3000, 7000),
-#' brainRegion = 'Striatum', taxID = 10090) #5 rows
-getGenes4BrainRegion<-function(ids,brainRegion,taxID){
-    idsC<-get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+#'     brainRegion = "Striatum", taxID = 10090
+#' ) # 5 rows
+getGenes4BrainRegion <- function(ids, brainRegion, taxID) {
+    idsC <- get_dbconn() %>%
+        dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(
             BrainRegion == brainRegion &
                 SpeciesTaxID == taxID &
-                GeneID %in% ids) %>%
+                GeneID %in% ids
+        ) %>%
         dplyr::select(
-            GeneID,Localisation,MGI,HumanEntrez,MouseEntrez,
-            HumanName,MouseName,PaperPMID,Paper,Year,
-            SpeciesTaxID,BrainRegion) %>%
-        dplyr::rename(PMID=PaperPMID) %>%
-        collect
+            GeneID, Localisation, MGI, HumanEntrez, MouseEntrez,
+            HumanName, MouseName, PaperPMID, Paper, Year,
+            SpeciesTaxID, BrainRegion
+        ) %>%
+        dplyr::rename(PMID = PaperPMID) %>%
+        collect()
     return(idsC)
 }
 
@@ -128,10 +136,11 @@ getGenes4BrainRegion<-function(ids,brainRegion,taxID){
 #' @return  tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 #' @keywords internal
-getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
-    cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
-    aids<-getAllGenes4BrainRegion(brainRegion,taxID)$GeneID
-    gns<-getPPIQuery() %>% dplyr::filter(A %in% cids | B %in% cids) %>%
+getInducedPPI4BrainRegion <- function(ids, brainRegion, taxID) {
+    cids <- getGenes4BrainRegion(ids, brainRegion, taxID)$GeneID
+    aids <- getAllGenes4BrainRegion(brainRegion, taxID)$GeneID
+    gns <- getPPIQuery() %>%
+        dplyr::filter(A %in% cids | B %in% cids) %>%
         dplyr::filter(A %in% aids & B %in% aids)
     return(gns)
 }
@@ -145,9 +154,9 @@ getInducedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @return  tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect
 #' @keywords internal
-getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
-    cids<-getGenes4BrainRegion(ids,brainRegion,taxID)$GeneID
-    gns<-getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
+getLimitedPPI4BrainRegion <- function(ids, brainRegion, taxID) {
+    cids <- getGenes4BrainRegion(ids, brainRegion, taxID)$GeneID
+    gns <- getPPIQuery() %>% dplyr::filter(A %in% ids & B %in% ids)
     return(gns)
 }
 #' Prepare induced or limited network for brain region
@@ -178,26 +187,25 @@ getLimitedPPI4BrainRegion<-function(ids, brainRegion,taxID){
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' #getting all genes for mouse Striatum
-#' gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+#' # getting all genes for mouse Striatum
+#' gns <- getAllGenes4BrainRegion(brainRegion = "Striatum", taxID = 10090)
 #' head(gns)
 #'
-#' #getting full PPI network for postsynaptic compartment
+#' # getting full PPI network for postsynaptic compartment
 #' ppi <- getPPIbyIDs4BrainRegion(
-#' gns$GeneID,
-#' brainRegion = "Striatum",
-#' taxID = 10090,
-#' type = "limited")
+#'     gns$GeneID,
+#'     brainRegion = "Striatum",
+#'     taxID = 10090,
+#'     type = "limited"
+#' )
 #' head(ppi)
-getPPIbyIDs4BrainRegion<-function(
-    ids,brainRegion,taxID,type=c('induced','limited')){
-    netType<-match.arg(type)
-    gns<- switch (
-        netType,
-        induced = getInducedPPI4BrainRegion(ids, brainRegion,taxID),
-        limited = getLimitedPPI4BrainRegion(ids, brainRegion,taxID)
+getPPIbyIDs4BrainRegion <- function(ids, brainRegion, taxID,
+    type = c("induced", "limited")) {
+    netType <- match.arg(type)
+    gns <- switch(netType,
+        induced = getInducedPPI4BrainRegion(ids, brainRegion, taxID),
+        limited = getLimitedPPI4BrainRegion(ids, brainRegion, taxID)
     )
-    df <- gns %>% collect
+    df <- gns %>% collect()
     return(df)
 }
-

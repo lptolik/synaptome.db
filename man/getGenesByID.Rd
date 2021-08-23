@@ -27,7 +27,7 @@ all found genes:
 }
 }
 \examples{
-gdf<-getGenesByID(c(46,6,15,1))
+gdf <- getGenesByID(c(46, 6, 15, 1))
 }
 \seealso{
 Other {Gene functions}: 

@@ -21,7 +21,7 @@ Get full list of brain regions considered in the database. Returns
 table with regions and their respective IDs.
 }
 \examples{
-t<-getBrainRegions()
+t <- getBrainRegions()
 }
 \seealso{
 Other {BrainRegion functions}: 

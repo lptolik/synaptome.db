@@ -32,7 +32,8 @@ same compartment.
 }
 \examples{
 ppi <- getPPIbyIDs4Compartment(c(1, 15, 156, 1500, 3000, 7000),
-compartmentID =1, type = 'induced')#201 rows
+    compartmentID = 1, type = "induced"
+) # 201 rows
 }
 \seealso{
 Other {PPI functions}: 

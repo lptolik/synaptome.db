@@ -4,17 +4,20 @@
 #' @return tbl_lazy
 #' @importFrom dplyr tbl select filter pull collect distinct
 #' @keywords internal
-getPPIQuery<-function(){
+getPPIQuery <- function() {
     #  gns<-get_dbconn() %>% dplyr::tbl("AllPpiAllPapers") %>%
-    gns<-get_dbconn() %>% dplyr::tbl("PPI") %>%
+    gns <- get_dbconn() %>%
+        dplyr::tbl("PPI") %>%
         dplyr::select(
             # ID,#ppiID,
             A,
-            B) %>% distinct
-            #,
-            # method,
-            # type,
-            # taxID)
+            B
+        ) %>%
+        distinct()
+    # ,
+    # method,
+    # type,
+    # taxID)
     return(gns)
 }
 
@@ -50,18 +53,17 @@ getPPIQuery<-function(){
 #' @md
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' t <- getPPIbyIDs(c(48, 585, 710), type='limited') #(16 rows)
-#' t <- getPPIbyIDs(c(48, 585, 710), type='induced') #306 rows
-getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
+#' t <- getPPIbyIDs(c(48, 585, 710), type = "limited") # (16 rows)
+#' t <- getPPIbyIDs(c(48, 585, 710), type = "induced") # 306 rows
+getPPIbyIDs <- function(ids, type = c("induced", "limited")) {
     netType <- match.arg(type)
-    gns <- switch (
-        netType,
+    gns <- switch(netType,
         induced = getPPIQuery() %>%
             dplyr::filter(A %in% ids | B %in% ids),
         limited = getPPIQuery() %>%
             dplyr::filter(A %in% ids & B %in% ids)
     )
-    df <- gns %>% collect
+    df <- gns %>% collect()
     return(df)
 }
 
@@ -96,10 +98,10 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 #'
 #' @md
 #' @examples
-#' t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type='ind')
-getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
-    ids<-getGeneIdByEntrez(entrez)
-    df<-getPPIbyIDs(ids,type)
+#' t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type = "ind")
+getPPIbyEntrez <- function(entrez, type = c("induced", "limited")) {
+    ids <- getGeneIdByEntrez(entrez)
+    df <- getPPIbyIDs(ids, type)
     return(df)
 }
 
@@ -133,10 +135,13 @@ getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
 #'
 #' @md
 #' @examples
-#' t <- getPPIbyName(c('CASK', 'DLG4', 'GRIN2A', 'GRIN2B', 'GRIN1'),type='lim')
-getPPIbyName<-function(name, type=c('induced','limited')){
-    ids<-getGeneIdByName(name)
-    df<-getPPIbyIDs(ids,type)
+#' t <- getPPIbyName(
+#'     c("CASK", "DLG4", "GRIN2A", "GRIN2B", "GRIN1"),
+#'     type = "lim"
+#' )
+getPPIbyName <- function(name, type = c("induced", "limited")) {
+    ids <- getGeneIdByName(name)
+    df <- getPPIbyIDs(ids, type)
     return(df)
 }
 
@@ -177,15 +182,15 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 #'
 #' @md
 #' @examples
-#' tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
-getTableFromPPI<-function(ppi){
-    aTbl<-getGenesByID(ppi$A)
-    names(aTbl)<-paste0(names(aTbl),'.A')
-    bTbl<-getGenesByID(ppi$B)
-    names(bTbl)<-paste0(names(bTbl),'.B')
-    res<- ppi %>%
-        dplyr::inner_join(aTbl,by=c('A'='GeneID.A')) %>%
-        dplyr::inner_join(bTbl,by=c('B'='GeneID.B'))
+#' tbl <- getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type = "limited"))
+getTableFromPPI <- function(ppi) {
+    aTbl <- getGenesByID(ppi$A)
+    names(aTbl) <- paste0(names(aTbl), ".A")
+    bTbl <- getGenesByID(ppi$B)
+    names(bTbl) <- paste0(names(bTbl), ".B")
+    res <- ppi %>%
+        dplyr::inner_join(aTbl, by = c("A" = "GeneID.A")) %>%
+        dplyr::inner_join(bTbl, by = c("B" = "GeneID.B"))
     return(res)
 }
 
@@ -219,11 +224,12 @@ getTableFromPPI<-function(ppi){
 #' @md
 #' @examples
 #' library(igraph)
-#' g<-getIGraphFromPPI(
-#'     getPPIbyIDs(c(48, 129,  975,  4422, 5715, 5835), type='lim'))
-#' plot(g,vertex.label=V(g)$RatName,vertex.size=35)
-getIGraphFromPPI<-function(ppi){
-    nids<-unique(c(ppi$A,ppi$B))
-    nodes<-getGenesByID(nids)
-    g<-graph_from_data_frame(ppi,directed = FALSE,vertices = nodes)
+#' g <- getIGraphFromPPI(
+#'     getPPIbyIDs(c(48, 129, 975, 4422, 5715, 5835), type = "lim")
+#' )
+#' plot(g, vertex.label = V(g)$RatName, vertex.size = 35)
+getIGraphFromPPI <- function(ppi) {
+    nids <- unique(c(ppi$A, ppi$B))
+    nodes <- getGenesByID(nids)
+    g <- graph_from_data_frame(ppi, directed = FALSE, vertices = nodes)
 }

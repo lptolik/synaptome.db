@@ -1,7 +1,8 @@
 ##### Use cases 4 Show mutations for specific disease for my list of genes#####
 
 getMutDiseaseQuery <- function() {
-    gns <- get_dbconn() %>% dplyr::tbl("AllMutationsAllPapers") %>%
+    gns <- get_dbconn() %>%
+        dplyr::tbl("AllMutationsAllPapers") %>%
         dplyr::select(
             GeneID,
             MGI,
@@ -26,25 +27,25 @@ getMutDiseaseQuery <- function() {
     return(gns)
 }
 
-getMutations4DiseaseByIDs<-function(ids,hdoid){
+getMutations4DiseaseByIDs <- function(ids, hdoid) {
     gns <- getMutDiseaseQuery() %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
-    df<-gns %>% dplyr::collect()
+    df <- gns %>% dplyr::collect()
     return(df)
 }
 
-getMutations4DiseaseByEntres<-function(entrez,hdoid){
-    ids<-getGeneIdByEntrez(entrez)
+getMutations4DiseaseByEntres <- function(entrez, hdoid) {
+    ids <- getGeneIdByEntrez(entrez)
     gns <- getMutDiseaseQuery() %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
-    df<-gns %>% dplyr::collect()
+    df <- gns %>% dplyr::collect()
     return(df)
 }
 
-getMutations4DiseaseByName<-function(name,hdoid){
-    ids<-getGeneIdByName(name)
+getMutations4DiseaseByName <- function(name, hdoid) {
+    ids <- getGeneIdByName(name)
     gns <- getMutDiseaseQuery() %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
-    df<-gns %>% dplyr::collect()
+    df <- gns %>% dplyr::collect()
     return(df)
 }

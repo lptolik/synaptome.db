@@ -26,7 +26,7 @@ interactions between genes specified in the query) table of
 interacting genes A and B, where A and B are respective Internal IDs.
 }
 \examples{
-t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type='ind')
+t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type = "ind")
 }
 \seealso{
 \code{\link[=getPPIbyName]{getPPIbyName()}} and

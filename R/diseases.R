@@ -7,12 +7,14 @@
 #' @importFrom dplyr tbl select filter pull collect
 #' @keywords internal
 getGeneDiseaseQuery <- function() {
-    gns <- get_dbconn() %>% dplyr::tbl("FullGeneFullDisease")  %>%
+    gns <- get_dbconn() %>%
+        dplyr::tbl("FullGeneFullDisease") %>%
         dplyr::select(
             HumanEntrez,
             HumanName,
             HDOID,
-            Description)
+            Description
+        )
     return(gns)
 }
 
@@ -36,11 +38,11 @@ getGeneDiseaseQuery <- function() {
 #' @md
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' t <- getGeneDiseaseByIDs (c(48, 585, 710))
-getGeneDiseaseByIDs<-function(ids){
-    ginf<-getGeneInfoByIDs(ids) %>% dplyr::pull(HumanEntrez)
-    gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% ginf)
-    df<-gns %>% dplyr::collect()
+#' t <- getGeneDiseaseByIDs(c(48, 585, 710))
+getGeneDiseaseByIDs <- function(ids) {
+    ginf <- getGeneInfoByIDs(ids) %>% dplyr::pull(HumanEntrez)
+    gns <- getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% ginf)
+    df <- gns %>% dplyr::collect()
     return(df)
 }
 
@@ -63,10 +65,10 @@ getGeneDiseaseByIDs<-function(ids){
 #' @family {Disease functions}
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' t <- getGeneDiseaseByEntres (c(8573, 1742, 1739)) #(95 rows)
-getGeneDiseaseByEntres<-function(entrez){
-    gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% entrez)
-    df<-gns %>% dplyr::collect()
+#' t <- getGeneDiseaseByEntres(c(8573, 1742, 1739)) # (95 rows)
+getGeneDiseaseByEntres <- function(entrez) {
+    gns <- getGeneDiseaseQuery() %>% dplyr::filter(HumanEntrez %in% entrez)
+    df <- gns %>% dplyr::collect()
     return(df)
 }
 
@@ -84,9 +86,9 @@ getGeneDiseaseByEntres<-function(entrez){
 #' @family {Disease functions}
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
-#' t <- getGeneDiseaseByName (c('CASK', 'DLG2', 'DLG1')) #(115 rows)
-getGeneDiseaseByName<-function(names){
-    gns<-getGeneDiseaseQuery() %>% dplyr::filter(HumanName %in% names)
-    df<-gns %>% dplyr::collect()
+#' t <- getGeneDiseaseByName(c("CASK", "DLG2", "DLG1")) # (115 rows)
+getGeneDiseaseByName <- function(names) {
+    gns <- getGeneDiseaseQuery() %>% dplyr::filter(HumanName %in% names)
+    df <- gns %>% dplyr::collect()
     return(df)
 }

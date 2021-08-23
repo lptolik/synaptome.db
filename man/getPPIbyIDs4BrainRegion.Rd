@@ -39,16 +39,17 @@ the PPI table for gene IDs from the list and returns “limited”
 or “induced” interactors GeneIDs for the specified region.
 }
 \examples{
-#getting all genes for mouse Striatum
-gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
+# getting all genes for mouse Striatum
+gns <- getAllGenes4BrainRegion(brainRegion = "Striatum", taxID = 10090)
 head(gns)
 
-#getting full PPI network for postsynaptic compartment
+# getting full PPI network for postsynaptic compartment
 ppi <- getPPIbyIDs4BrainRegion(
-gns$GeneID,
-brainRegion = "Striatum",
-taxID = 10090,
-type = "limited")
+    gns$GeneID,
+    brainRegion = "Striatum",
+    taxID = 10090,
+    type = "limited"
+)
 head(ppi)
 }
 \seealso{

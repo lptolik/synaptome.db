@@ -18,7 +18,7 @@ Human Gene Names. Function lookups for diseases associated with
 internal Human gene names and returns list of available diseases.
 }
 \examples{
-t <- getGeneDiseaseByName (c('CASK', 'DLG2', 'DLG1')) #(115 rows)
+t <- getGeneDiseaseByName(c("CASK", "DLG2", "DLG1")) # (115 rows)
 }
 \seealso{
 Other {Disease functions}: 
