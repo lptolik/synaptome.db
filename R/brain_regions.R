@@ -67,7 +67,8 @@ getAllGenes4BrainRegion<-function(brainRegion,taxID){
     return(idsC)
 }
 
-#' Select genes from the list that found in brain region of particular specie
+#' Select genes from the list that found in brain region of
+#' particular specie
 #'
 #' Select genes from your list annotated for specific brain region. Should
 #' be used with [findGenesByEntrez()]  or
