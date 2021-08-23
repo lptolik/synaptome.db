@@ -5,9 +5,10 @@ Version: 0.0.1
 Date: 2021-08-19
 Authors@R: c(
     person("Anatoly", "Sorokin", 
-        email="lptolik@gmail.com", role=c("aut")), 
+        email="lptolik@gmail.com", role="aut"), 
     person("Oksana", "Sorokina", 
-        email="oksankasster@gmail.com", role=c("aut", "cre")))
+        email="oksankasster@gmail.com", role=c("aut", "cre")),
+    person("J. Douglas", "Armstrong", role = "aut") )
 Description: The package contains local copy of the Synaptic proteome 
     database. On top of this it provide a set of utility R functions 
     to query and analyse its content. It allows extraction of information 
@@ -20,6 +21,7 @@ License: Artistic-2.0
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+BugReports: https://github.com/lptolik/synaptome.db/issues/
 biocViews: FunctionalAnnotation, CustomDBSchema
 Suggests: 
     rmarkdown, knitr, pander, testthat, devtools
