@@ -18,9 +18,9 @@ Get list of synaptic compartments considered in the database.
 c<-getCompartments()
 }
 \seealso{
-Other {compartment_functions}: 
+Other {Compartment functions}: 
 \code{\link{getAllGenes4Compartment}()},
 \code{\link{getGenes4Compartment}()},
 \code{\link{getPPIbyIDs4Compartment}()}
 }
-\concept{{compartment_functions}}
+\concept{{Compartment functions}}

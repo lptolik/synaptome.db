@@ -21,8 +21,8 @@ internal Human gene names and returns list of available diseases.
 t <- getGeneDiseaseByName (c('CASK', 'DLG2', 'DLG1')) #(115 rows)
 }
 \seealso{
-Other {disease_functions}: 
+Other {Disease functions}: 
 \code{\link{getGeneDiseaseByEntres}()},
 \code{\link{getGeneDiseaseByIDs}()}
 }
-\concept{{disease_functions}}
+\concept{{Disease functions}}

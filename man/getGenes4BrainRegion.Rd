@@ -44,12 +44,13 @@ Genes <- getGenes4BrainRegion(c(1, 15, 156, 1500, 3000, 7000),
 brainRegion = 'Striatum', taxID = 10090) #5 rows
 }
 \seealso{
-Other {brain_region_functions}: 
+Other {BrainRegion functions}: 
 \code{\link{getAllGenes4BrainRegion}()},
-\code{\link{getBrainRegions}()}
+\code{\link{getBrainRegions}()},
+\code{\link{getPPIbyIDs4BrainRegion}()}
 
-Other {brain_region_gene_functions}: 
+Other {BrainRegion Gene functions}: 
 \code{\link{getAllGenes4BrainRegion}()}
 }
-\concept{{brain_region_functions}}
-\concept{{brain_region_gene_functions}}
+\concept{{BrainRegion Gene functions}}
+\concept{{BrainRegion functions}}

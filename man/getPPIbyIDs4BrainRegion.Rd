@@ -18,19 +18,42 @@ getPPIbyIDs4BrainRegion(
 
 \item{taxID}{taxon ID}
 
-\item{type}{type of the PPI network}
+\item{type}{type of the PPI network should be either \code{induced} (for
+all the PPIs for specific genes, including external genes) or
+\code{limited} (for PPIs between the genes specified in the query).
+Type could be shortened to recognizable minimum like 'ind'
+or 'lim'.}
 }
 \value{
-data.frame
+data.frame with interactors internal GeneID in columns A and B
 }
 \description{
 Prepare PPI network for genes from your list annotated
 for specific brain region. Should be used with
-[findGenesByEntrez()])
-or [findGenesByName()]
+\code{\link[=findGenesByEntrez]{findGenesByEntrez()}})
+or \code{\link[=findGenesByName]{findGenesByName()}}
 functions to obtain list of internal IDs for your list of genes.
 Could be used with getAllGenes4BrainRegion functions to obtain
 all genes belonging to respective brain region. Function lookups
 the PPI table for gene IDs from the list and returns “limited”
 or “induced” interactors GeneIDs for the specified region.
 }
+\examples{
+
+}
+\seealso{
+Other {PPI functions}: 
+\code{\link{getIGraphFromPPI}()},
+\code{\link{getPPIbyEntrez}()},
+\code{\link{getPPIbyIDs4Compartment}()},
+\code{\link{getPPIbyIDs}()},
+\code{\link{getPPIbyName}()},
+\code{\link{getTableFromPPI}()}
+
+Other {BrainRegion functions}: 
+\code{\link{getAllGenes4BrainRegion}()},
+\code{\link{getBrainRegions}()},
+\code{\link{getGenes4BrainRegion}()}
+}
+\concept{{BrainRegion functions}}
+\concept{{PPI functions}}

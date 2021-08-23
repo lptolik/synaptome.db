@@ -24,8 +24,9 @@ table with regions and their respective IDs.
 t<-getBrainRegions()
 }
 \seealso{
-Other {brain_region_functions}: 
+Other {BrainRegion functions}: 
 \code{\link{getAllGenes4BrainRegion}()},
-\code{\link{getGenes4BrainRegion}()}
+\code{\link{getGenes4BrainRegion}()},
+\code{\link{getPPIbyIDs4BrainRegion}()}
 }
-\concept{{brain_region_functions}}
+\concept{{BrainRegion functions}}

@@ -37,7 +37,7 @@ getPPIQuery<-function(){
 
 #' @export
 #'
-#' @family {ppi_functions}
+#' @family {PPI functions}
 #' @seealso [getPPIbyName()] and [getPPIbyEntrez()] to get
 #'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
 #'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
@@ -80,7 +80,7 @@ getPPIbyIDs <- function(ids, type = c('induced', 'limited')) {
 #' @return data.frame with interactors internal GeneID in columns A and B
 #' @export
 #'
-#' @family {ppi_functions}
+#' @family {PPI functions}
 #' @seealso [getPPIbyName()] and [getPPIbyIDs()] to get
 #'     PPI \code{data.frame},  [getIGraphFromPPI()]
 #'     to get igraph representation of the
@@ -115,7 +115,7 @@ getPPIbyEntrez<-function(entrez, type=c('induced','limited')){
 #' @return data.frame with interactors internal GeneID in columns A and B
 #' @export
 #'
-#' @family {ppi_functions}
+#' @family {PPI functions}
 #' @seealso [getPPIbyEntrez()] and [getPPIbyIDs()] to get
 #'     PPI \code{data.frame},  [getIGraphFromPPI()] to get igraph
 #'     representation of the PPI \code{data.frame} and [getTableFromPPI()] to
@@ -156,8 +156,8 @@ getPPIbyName<-function(name, type=c('induced','limited')){
 #' @export
 #' @importFrom dplyr inner_join
 #'
-#' @family {ppi_functions}
-#' @family {df_functions}
+#' @family {PPI functions}
+#' @family {DF functions}
 #' @seealso [getPPIbyName()], [getPPIbyEntrez()]
 #'     and [getPPIbyIDs()] to get
 #'     PPI \code{data.frame},  [getIGraphFromPPI()] to
@@ -191,8 +191,8 @@ getTableFromPPI<-function(ppi){
 #'
 #' @return \code{\link{igraph}} object with specified PPI network.
 #'
-#' @family {ppi_functions}
-#' @family {graph_functions}
+#' @family {PPI functions}
+#' @family {Igraph functions}
 #' @seealso [getPPIbyName()], [getPPIbyEntrez()]
 #'     and [getPPIbyIDs()] to get
 #'     PPI \code{data.frame},  [getTableFromPPI()]

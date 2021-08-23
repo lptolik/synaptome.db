@@ -7,7 +7,7 @@
 #'  “Synaptosome”, and their internal IDs.
 #'
 #' @return data.frame described above
-#' @family {compartment_functions}
+#' @family {Compartment functions}
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples
@@ -27,8 +27,8 @@ getCompartments<-function(){
 #' @param compartmentID ID for specific compartment
 #'
 #' @return data.frame described in [getGenesByID()]
-#' @family {gene_functions}
-#' @family {compartment_functions}
+#' @family {Gene functions}
+#' @family {Compartment functions}
 #' @export
 #' @md
 #' @importFrom dplyr tbl select filter pull collect
@@ -56,8 +56,8 @@ getAllGenes4Compartment<-function(compartmentID){
 #' @param compartmentID compartment ID
 #'
 #' @return data.frame described in [getGenesByID()]
-#' @family {gene_functions}
-#' @family {compartment_functions}
+#' @family {Gene functions}
+#' @family {Compartment functions}
 #' @export
 #' @md
 #' @importFrom dplyr tbl select filter pull collect
@@ -123,8 +123,8 @@ getLimitedPPI4Compartment<-function(ids, compartmentID){
 #'     or 'lim'.
 #'
 #' @return data.frame with interactors internal GeneID in columns A and B
-#' @family {ppi_functions}
-#' @family {compartment_functions}
+#' @family {PPI functions}
+#' @family {Compartment functions}
 #' @export
 #' @importFrom dplyr tbl select filter pull collect
 #' @examples

@@ -22,16 +22,16 @@ Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
 G <- getAllGenes4Compartment(compartmentID = 1) # 5560 rows
 }
 \seealso{
-Other {gene_functions}: 
+Other {Gene functions}: 
 \code{\link{findGenesByEntrez}()},
 \code{\link{findGenesByName}()},
 \code{\link{getGenes4Compartment}()},
 \code{\link{getGenesByID}()}
 
-Other {compartment_functions}: 
+Other {Compartment functions}: 
 \code{\link{getCompartments}()},
 \code{\link{getGenes4Compartment}()},
 \code{\link{getPPIbyIDs4Compartment}()}
 }
-\concept{{compartment_functions}}
-\concept{{gene_functions}}
+\concept{{Compartment functions}}
+\concept{{Gene functions}}

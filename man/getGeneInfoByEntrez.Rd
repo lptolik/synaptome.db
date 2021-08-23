@@ -36,8 +36,8 @@ t <- getGeneInfoByEntrez('1742')
 t <- getGeneInfoByName(c(1741, 1742, 1739, 1740))
 }
 \seealso{
-Other {geneInfo_functions}: 
+Other {GeneInfo functions}: 
 \code{\link{getGeneInfoByIDs}()},
 \code{\link{getGeneInfoByName}()}
 }
-\concept{{geneInfo_functions}}
+\concept{{GeneInfo functions}}

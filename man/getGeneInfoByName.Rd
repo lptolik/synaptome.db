@@ -53,8 +53,8 @@ t <- getGeneInfoByName('CASK')
 t <- getGeneInfoByName(c('CASK', 'DLG2'))
 }
 \seealso{
-Other {geneInfo_functions}: 
+Other {GeneInfo functions}: 
 \code{\link{getGeneInfoByEntrez}()},
 \code{\link{getGeneInfoByIDs}()}
 }
-\concept{{geneInfo_functions}}
+\concept{{GeneInfo functions}}
