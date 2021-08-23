@@ -28,7 +28,7 @@ specie-specific.
 }
 \examples{
 # Find GeneIDs for names
-t <- findGenesByName(c('Src', 'Srcin1', 'Fyn'))
+t <- findGenesByName(c("Src", "Srcin1", "Fyn"))
 }
 \seealso{
 Other {Lookup functions}: 

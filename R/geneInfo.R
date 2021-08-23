@@ -40,14 +40,14 @@
 #' @family {GeneInfo functions}
 #'
 #' @examples
-#' #get information for specific gene
-#' t <- getGeneInfoByName('CASK')
+#' # get information for specific gene
+#' t <- getGeneInfoByName("CASK")
 #'
-#' #get information for the list of genes
-#' t <- getGeneInfoByName(c('CASK', 'DLG2'))
-getGeneInfoByName<-function(name){
-    ids<-getGeneIdByName(name)
-    df<-getGeneInfoByIDs(ids)
+#' # get information for the list of genes
+#' t <- getGeneInfoByName(c("CASK", "DLG2"))
+getGeneInfoByName <- function(name) {
+    ids <- getGeneIdByName(name)
+    df <- getGeneInfoByIDs(ids)
     return(df)
 }
 
@@ -74,16 +74,16 @@ getGeneInfoByName<-function(name){
 #' @family {GeneInfo functions}
 #'
 #' @examples
-#' #get information for specific gene
+#' # get information for specific gene
 #' t <- getGeneInfoByEntrez(1742)
-#' #get information for specific character string Entres representation
-#' t <- getGeneInfoByEntrez('1742')
+#' # get information for specific character string Entres representation
+#' t <- getGeneInfoByEntrez("1742")
 #'
-#' #get information for the list of genes
+#' # get information for the list of genes
 #' t <- getGeneInfoByName(c(1741, 1742, 1739, 1740))
-getGeneInfoByEntrez<-function(entrez){
-    ids<-getGeneIdByEntrez(entrez)
-    df<-getGeneInfoByIDs(ids)
+getGeneInfoByEntrez <- function(entrez) {
+    ids <- getGeneIdByEntrez(entrez)
+    df <- getGeneInfoByIDs(ids)
     return(df)
 }
 
@@ -114,10 +114,10 @@ getGeneInfoByEntrez<-function(entrez){
 #'
 #' @md
 #' @examples
-#' #get information for specific gene
+#' # get information for specific gene
 #' t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
-findGenesByEntrez<-function(entrez){
-    ids<-getGeneIdByEntrez(entrez)
+findGenesByEntrez <- function(entrez) {
+    ids <- getGeneIdByEntrez(entrez)
     return(getGenesByID(ids))
 }
 
@@ -135,13 +135,17 @@ findGenesByEntrez<-function(entrez){
 #' @keywords internal
 #' @examples
 #' t <- synaptome.db:::getGeneIdByEntrez(c(1742, 1741, 1739, 1740))
-getGeneIdByEntrez<-function(entrez){
-    idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
+getGeneIdByEntrez <- function(entrez) {
+    idsH <- get_dbconn() %>%
+        dplyr::tbl("Gene") %>%
         dplyr::filter(
             HumanEntrez %in% entrez |
                 MouseEntrez %in% entrez |
-                RatEntrez %in% entrez) %>%
-        dplyr::select(ID) %>% dplyr::pull(ID) %>% unique
+                RatEntrez %in% entrez
+        ) %>%
+        dplyr::select(ID) %>%
+        dplyr::pull(ID) %>%
+        unique()
     return(idsH)
 }
 
@@ -169,9 +173,9 @@ getGeneIdByEntrez<-function(entrez){
 #' @family {Gene functions}
 #' @examples
 #' # Find GeneIDs for names
-#' t <- findGenesByName(c('Src', 'Srcin1', 'Fyn'))
-findGenesByName<-function(name){
-    ids<-getGeneIdByName(name)
+#' t <- findGenesByName(c("Src", "Srcin1", "Fyn"))
+findGenesByName <- function(name) {
+    ids <- getGeneIdByName(name)
     return(getGenesByID(ids))
 }
 
@@ -198,15 +202,18 @@ findGenesByName<-function(name){
 #' @family {Gene functions}
 #' @export
 #' @examples
-#' gdf<-getGenesByID(c(46,6,15,1))
-getGenesByID<-function(ids){
-    genes<-get_dbconn() %>% dplyr::tbl("Gene") %>%
+#' gdf <- getGenesByID(c(46, 6, 15, 1))
+getGenesByID <- function(ids) {
+    genes <- get_dbconn() %>%
+        dplyr::tbl("Gene") %>%
         dplyr::select(
-            ID,MGI,
-            HumanEntrez,MouseEntrez,RatEntrez,
-            HumanName,MouseName,RatName) %>%
-        dplyr::filter(ID %in% ids) %>% rename(GeneID=ID) %>%
-        collect
+            ID, MGI,
+            HumanEntrez, MouseEntrez, RatEntrez,
+            HumanName, MouseName, RatName
+        ) %>%
+        dplyr::filter(ID %in% ids) %>%
+        rename(GeneID = ID) %>%
+        collect()
     return(genes)
 }
 
@@ -219,14 +226,18 @@ getGenesByID<-function(ids){
 #'
 #' @keywords internal
 #' @examples
-#' t <- synaptome.db:::getGeneIdByName(c('Src', 'Srcin1', 'Fyn'))
-getGeneIdByName<-function(name){
-    idsH<-get_dbconn() %>% dplyr::tbl("Gene") %>%
+#' t <- synaptome.db:::getGeneIdByName(c("Src", "Srcin1", "Fyn"))
+getGeneIdByName <- function(name) {
+    idsH <- get_dbconn() %>%
+        dplyr::tbl("Gene") %>%
         dplyr::filter(
             HumanName %in% name |
                 MouseName %in% name |
-                RatName %in% name) %>%
-        dplyr::select(ID) %>% dplyr::pull(ID) %>% unique
+                RatName %in% name
+        ) %>%
+        dplyr::select(ID) %>%
+        dplyr::pull(ID) %>%
+        unique()
     return(idsH)
 }
 
@@ -270,23 +281,24 @@ getGeneIdByName<-function(name){
 #' @family {GeneInfo functions}
 #'
 #' @examples
-#' gdf<-getGeneInfoByIDs(c(46,6,15,1))
+#' gdf <- getGeneInfoByIDs(c(46, 6, 15, 1))
 getGeneInfoByIDs <- function(ids) {
-    gns <- get_dbconn() %>% dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+    gns <- get_dbconn() %>%
+        dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(GeneID %in% ids) %>%
         dplyr::select(
-            'GeneID',
-            'Localisation',
-            'MGI',
-            'HumanEntrez',
-            'MouseEntrez',
-            'HumanName',
-            'MouseName',
-            'PaperPMID',
-            'Paper',
-            'Year',
-            'SpeciesTaxID',
-            'BrainRegion'
+            "GeneID",
+            "Localisation",
+            "MGI",
+            "HumanEntrez",
+            "MouseEntrez",
+            "HumanName",
+            "MouseName",
+            "PaperPMID",
+            "Paper",
+            "Year",
+            "SpeciesTaxID",
+            "BrainRegion"
         )
     df <- gns %>% dplyr::collect()
     return(df)

@@ -42,7 +42,8 @@ Mouse Entrez ID, Mouse Gene Name, PaperPMID, Localisation and BrainRegion.
 }
 \examples{
 Genes <- getGenes4BrainRegion(c(1, 15, 156, 1500, 3000, 7000),
-brainRegion = 'Striatum', taxID = 10090) #5 rows
+    brainRegion = "Striatum", taxID = 10090
+) # 5 rows
 }
 \seealso{
 Other {BrainRegion functions}: 

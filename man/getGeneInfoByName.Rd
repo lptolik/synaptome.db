@@ -46,11 +46,11 @@ following features for all found genes:
 }
 }
 \examples{
-#get information for specific gene
-t <- getGeneInfoByName('CASK')
+# get information for specific gene
+t <- getGeneInfoByName("CASK")
 
-#get information for the list of genes
-t <- getGeneInfoByName(c('CASK', 'DLG2'))
+# get information for the list of genes
+t <- getGeneInfoByName(c("CASK", "DLG2"))
 }
 \seealso{
 Other {GeneInfo functions}: 

@@ -26,8 +26,8 @@ GeneIDs specified in the query) table of A and B interacting genes, where
 A and B are respective GeneIDs.
 }
 \examples{
-t <- getPPIbyIDs(c(48, 585, 710), type='limited') #(16 rows)
-t <- getPPIbyIDs(c(48, 585, 710), type='induced') #306 rows
+t <- getPPIbyIDs(c(48, 585, 710), type = "limited") # (16 rows)
+t <- getPPIbyIDs(c(48, 585, 710), type = "induced") # 306 rows
 }
 \seealso{
 \code{\link[=getPPIbyName]{getPPIbyName()}} and

@@ -24,7 +24,7 @@ Human Entrez IDs. Function lookups for diseases associated with
 Human Entrez IDs and returns list of available diseases.
 }
 \examples{
-t <- getGeneDiseaseByEntres (c(8573, 1742, 1739)) #(95 rows)
+t <- getGeneDiseaseByEntres(c(8573, 1742, 1739)) # (95 rows)
 }
 \seealso{
 Other {Disease functions}: 

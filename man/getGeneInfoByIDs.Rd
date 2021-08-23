@@ -44,7 +44,7 @@ following features for all found genes:
 }
 }
 \examples{
-gdf<-getGeneInfoByIDs(c(46,6,15,1))
+gdf <- getGeneInfoByIDs(c(46, 6, 15, 1))
 }
 \seealso{
 Other {GeneInfo functions}: 

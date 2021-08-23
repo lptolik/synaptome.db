@@ -27,12 +27,12 @@ was performed on), BrainRegion (Brain region where the specific genes
 were identified, according to the paper)
 }
 \examples{
-#get information for specific gene
+# get information for specific gene
 t <- getGeneInfoByEntrez(1742)
-#get information for specific character string Entres representation
-t <- getGeneInfoByEntrez('1742')
+# get information for specific character string Entres representation
+t <- getGeneInfoByEntrez("1742")
 
-#get information for the list of genes
+# get information for the list of genes
 t <- getGeneInfoByName(c(1741, 1742, 1739, 1740))
 }
 \seealso{

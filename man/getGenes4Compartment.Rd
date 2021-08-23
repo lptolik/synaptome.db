@@ -27,7 +27,8 @@ Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
 }
 \examples{
 Genes <- getGenes4Compartment(c(1, 15, 156, 1500, 3000, 7000),
-compartmentID = 1)
+    compartmentID = 1
+)
 }
 \seealso{
 Other {Gene functions}: 

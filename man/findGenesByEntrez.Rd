@@ -29,7 +29,7 @@ correspond to the
 specific gene name or Entrez ID, which could be specie-specific.
 }
 \examples{
-#get information for specific gene
+# get information for specific gene
 t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
 }
 \seealso{

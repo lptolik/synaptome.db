@@ -24,7 +24,7 @@ gene IDs. Function lookups for diseases associated with internal
 GeneIDs and returns list of available diseases.
 }
 \examples{
-t <- getGeneDiseaseByIDs (c(48, 585, 710))
+t <- getGeneDiseaseByIDs(c(48, 585, 710))
 }
 \seealso{
 Other {Disease functions}: 

@@ -31,7 +31,7 @@ about genes obtained from
 \code{\link{getGenesByID}} to make  interpretable table representation.
 }
 \examples{
-tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
+tbl <- getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type = "limited"))
 }
 \seealso{
 \code{\link[=getPPIbyName]{getPPIbyName()}},
