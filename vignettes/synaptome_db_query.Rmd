@@ -1,7 +1,9 @@
 ---
-title: "synaptome.db"
+title: "synaptome.db vignette"
 author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
+date: '`r format(Sys.time(), "%d.%m.%Y")`'
 output: rmarkdown::html_vignette
+bibliography: references.bib  
 vignette: >
   %\VignetteIndexEntry{synaptome.db}
   %\VignetteEngine{knitr::rmarkdown}
@@ -9,6 +11,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+library(knitr)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -16,14 +19,14 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(synaptome.db)
-library(dplyr)
+suppressMessages(library(synaptome.db))
+suppressMessages(library(dplyr))
 library(pander)
 ```
 
 # Title   SynaptomeDB: database for Synaptic proteome
 ##  Manual for querying SynaptomeDB
-##  Authors: Oksana Sorokina, Anatoly Sorokin
+##  Authors: Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong 
 
 # Introduction
 
@@ -37,8 +40,7 @@ The database includes: proteomic and interactomic data with supporting informati
 
 The original files are maintained at Eidnburgh Datashare https://doi.org/10.7488/ds/3017
 
-The original manuscript describing this dataset is:
-Sorokina, O., Mclean, C., Croning, M.D.R. et al. A unified resource and configurable model of the synapse proteome and its role in disease. Sci Rep 11, 9967 (2021). 
+The dataset was described in the @Sorokina:2021hl.
 
 # Overview of capabilities
 ## 1.Get information for a specific gene or gene set.
@@ -150,6 +152,10 @@ If Igraph is not an option, the PPI network could be exported as an interpretibl
 tbl<-getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type='limited'))
 tbl
 ```
+
+# References
+
+<div id="refs"></div>
 
 # Appendix {.tabset}
 ## Versions
