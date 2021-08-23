@@ -14,7 +14,7 @@ devtools::install_github('lptolik/synaptome.db')
 
 #### Stable version
 
-Install the latest stable version (see below for latest [development](https://github.com/lptolik/synaptome.db#development-version) version) of `synaptome.db` from `GitHub` (as bug-free as it can be):
+Install the latest stable version (see below for latest development version) of `synaptome.db` from `GitHub` (as bug-free as it can be):
 
 ```{r}
 devtools::install_github('lptolik/synaptome.db')
@@ -29,7 +29,7 @@ library(synaptome.db)
 
 ### Development version
 
-You can also install the [development version](https://github.com/lptolik/synaptome.db/blob/devel/DESCRIPTION#L4) for new features yet to be widely tested:
+You can also install the [development version](https://github.com/lptolik/synaptome.db/blob/develop/DESCRIPTION#L4) for new features yet to be widely tested:
 ```{r}
 devtools::install_github('lptolik/synaptome.db@devel")
 ```
