@@ -22,7 +22,9 @@
 
 on:
   push:
+      - nonBioconductorLFS
   pull_request:
+      - nonBioconductorLFS
 
 name: R-CMD-check-bioc
 
