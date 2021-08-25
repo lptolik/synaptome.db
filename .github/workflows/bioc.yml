@@ -3,12 +3,10 @@
 on:
   push:
     branches:
-      - main
-      - master
+      - nonBioconductorLFS
   pull_request:
     branches:
-      - main
-      - master
+      - nonBioconductorLFS
 
 name: R-CMD-check
 
