@@ -8,7 +8,7 @@
 #' @keywords internal
 get_dbconn <- function() {
     if (!exists("snptmdb") || !DBI::dbIsValid(snptmdb)) {
-        if(!file.exists(snptmdbfile)){
+        if(!exists("snptmdbfile") || !file.exists(snptmdbfile)){
             snptmdbfile <<-  .getdbfile()
         }
         snptmdb <<- DBI::dbConnect(RSQLite::SQLite(), snptmdbfile)
@@ -35,21 +35,23 @@ get_dbconn <- function() {
 
 #' Hidden function that creates a local copy of the database.
 #'
-#' @param AnnotationHub
-#' @param query
-#'
 #' @return path to the newly created database
 #' @import AnnotationHub
 #' @import synaptome.data
 #' @importFrom utils unzip
 #' @keywords internal
 .getdbfile <- function() {
-    ahub <- AnnotationHub::AnnotationHub(localHub=TRUE)
+    # ahub <- AnnotationHub::AnnotationHub(localHub=TRUE)
+    ahub <- AnnotationHub(hub='http://127.0.0.1:9393/')
     sdb<-AnnotationHub::query(ahub,'SynaptomeDB')
     zipF<-sdb[[1]]
     l<-unzip(zipF,list=TRUE)
     fname<-l$Name[which.max(l$Length)]
-    dbpath<-unzip(zipF,files=fname,exdir=hubCache(sdb))
+    dbpath<-file.path(hubCache(sdb),fname)
+    if(!file.exists(dbpath)){
+        dbpath<-unzip(zipF,files=fname,exdir=hubCache(sdb))
+    }
+    return(dbpath)
 }
 
 .onUnload <- function(libpath) {
