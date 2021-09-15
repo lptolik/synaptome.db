@@ -1,3 +1,4 @@
+snptm_env <- new.env(parent = emptyenv())
 
 #' Get dbcon. Return connection to the database.
 #'
@@ -7,14 +8,21 @@
 #' @import dbplyr
 #' @keywords internal
 get_dbconn <- function() {
-    if (!exists("snptmdb") || !DBI::dbIsValid(snptmdb)) {
-        if(!exists("snptmdbfile") || !file.exists(snptmdbfile)){
-            snptmdbfile <<-  .getdbfile()
+    if (!exists("snptmdb",envir = snptm_env) ||
+        !DBI::dbIsValid(get("snptmdb",envir = snptm_env))) {
+        if(!exists("snptmdbfile",envir = snptm_env) ||
+           !file.exists(get("snptmdbfile",envir = snptm_env))){
+            f <- .getdbfile()
+            assign("snptmdbfile",f,envir = snptm_env)
         }
-        snptmdb <<- DBI::dbConnect(RSQLite::SQLite(), snptmdbfile)
+        dbc <- DBI::dbConnect(RSQLite::SQLite(),
+                              get("snptmdbfile",envir = snptm_env))
+        assign("snptmdb",dbc,envir = snptm_env)
         # cat('DB is connected with ',dbfile)
+    }else{
+        dbc <- get("snptmdb",envir = snptm_env)
     }
-    return(snptmdb)
+    return(dbc)
 }
 
 #' Hidden load function.
@@ -29,8 +37,8 @@ get_dbconn <- function() {
 #'
 #' @keywords internal
 .onLoad <- function(libname, pkgname) {
-    snptmdbfile <<-  .getdbfile()
-    snptmdb <<- DBI::dbConnect(RSQLite::SQLite(), snptmdbfile)
+    f <- .getdbfile()
+    assign("snptmdbfile",f,envir = snptm_env)
 }
 
 #' Hidden function that creates a local copy of the database.
