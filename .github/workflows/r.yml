@@ -22,8 +22,10 @@
 
 on:
   push:
+    branches:
       - nonBioconductorLFS
   pull_request:
+    branches:
       - nonBioconductorLFS
 
 name: R-CMD-check-bioc
