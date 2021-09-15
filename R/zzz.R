@@ -42,7 +42,7 @@ get_dbconn <- function() {
 #' @keywords internal
 .getdbfile <- function() {
     # ahub <- AnnotationHub::AnnotationHub(localHub=TRUE)
-    ahub <- AnnotationHub(hub='http://127.0.0.1:9393/')
+    ahub <- AnnotationHub::AnnotationHub(hub='http://127.0.0.1:9393/')
     sdb<-AnnotationHub::query(ahub,'SynaptomeDB')
     zipF<-sdb[[1]]
     l<-unzip(zipF,list=TRUE)
