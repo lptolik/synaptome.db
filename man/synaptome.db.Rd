@@ -7,14 +7,18 @@
 \title{synaptome.db: programmatic access to the Synaptic proteome database}
 \description{
 The package obtains a local copy of the Synaptic proteome database
-from AnnotationHub package  \code{\link{synaptome.data}} and provides
-a set of utility R functions to query and analyse its content.
+from AnnotationHub package  \code{\link[synaptome.data]{synaptome.data}}
+and provides a set of utility R functions to query and analyse its content.
 }
 \references{
 \insertRef{Sorokina:2021hl}{synaptome.db}
 }
 \seealso{
-[synaptome.data]
+Useful links:
+\itemize{
+  \item Report bugs at \url{https://github.com/lptolik/synaptome.db/issues/}
+}
+
 }
 \author{
 \strong{Maintainer}: Oksana Sorokina \email{oksana.sorokina@ed.ac.uk}

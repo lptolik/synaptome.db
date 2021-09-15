@@ -3,15 +3,15 @@ library(testthat)
 context("Testing connection functions")
 
 test_that("Default connection is working", {
-    expect_true(exists("dbconn"))
-    expect_true(DBI::dbIsValid(dbconn))
+    expect_true(exists("mydb"))
+    expect_true(DBI::dbIsValid(mydb))
     con <- synaptome.db:::get_dbconn()
-    expect_identical(con, dbconn)
+    expect_identical(con, mydb)
 })
 
 test_that("get_dbconn setup new connection", {
-    DBI::dbDisconnect(dbconn)
+    DBI::dbDisconnect(mydb)
     con <- synaptome.db:::get_dbconn()
     expect_true(DBI::dbIsValid(con))
-    expect_identical(con, dbconn)
+    expect_identical(con, mydb)
 })
