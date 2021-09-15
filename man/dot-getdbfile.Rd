@@ -6,9 +6,6 @@
 \usage{
 .getdbfile()
 }
-\arguments{
-\item{query}{}
-}
 \value{
 path to the newly created database
 }
