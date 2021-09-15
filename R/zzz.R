@@ -7,13 +7,14 @@
 #' @import dbplyr
 #' @keywords internal
 get_dbconn <- function() {
-    if (!exists("mydb") || !DBI::dbIsValid(mydb)) {
-        pkgname <- "synaptome.db" # methods::getPackageName()
-        dbfile <- system.file("extdata", "synaptome.sqlite", package = pkgname)
-        mydb <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
+    if (!exists("snptmdb") || !DBI::dbIsValid(snptmdb)) {
+        if(!exists("snptmdbfile") || !file.exists(snptmdbfile)){
+            snptmdbfile <<-  .getdbfile()
+        }
+        snptmdb <<- DBI::dbConnect(RSQLite::SQLite(), snptmdbfile)
         # cat('DB is connected with ',dbfile)
     }
-    return(mydb)
+    return(snptmdb)
 }
 
 #' Hidden load function.
@@ -25,39 +26,33 @@ get_dbconn <- function() {
 #' @param pkgname name of the package
 #'
 #' @return dbConnect
+#'
+#' @keywords internal
+.onLoad <- function(libname, pkgname) {
+    snptmdbfile <<-  .getdbfile()
+    snptmdb <<- DBI::dbConnect(RSQLite::SQLite(), snptmdbfile)
+}
+
+#' Hidden function that creates a local copy of the database.
+#'
+#' @return path to the newly created database
 #' @import AnnotationHub
 #' @import synaptome.data
 #' @importFrom utils unzip
 #' @keywords internal
-.onLoad <- function(libname, pkgname) {
-    dbfile <- system.file(
-        "extdata", "synaptome.sqlite",
-        package = pkgname, lib.loc = libname
-    )
-    if(!file.exists(dbfile)){
-        ahub <- AnnotationHub::AnnotationHub(localHub=TRUE)
+.getdbfile <- function() {
+    # ahub <- AnnotationHub::AnnotationHub(localHub=TRUE)
+    ahub <- AnnotationHub(hub='http://127.0.0.1:9393/')
     sdb<-AnnotationHub::query(ahub,'SynaptomeDB')
-        zipF<-sdb[[1]]
-        l<-unzip(zipF,list=TRUE)
-        fname<-l$Name[which.max(l$Length)]
-        dbpath<-unzip(zipF,files=fname,exdir=tempdir())
-        file.copy(dbpath,paste0(
-            system.file(
-                "extdata",
-                package = pkgname, lib.loc = libname
-            ),.Platform$file.sep,
-            "synaptome.sqlite")
-        )
-        dbfile <- system.file(
-            "extdata", "synaptome.sqlite",
-            package = pkgname, lib.loc = libname
-        )
+    zipF<-sdb[[1]]
+    l<-unzip(zipF,list=TRUE)
+    fname<-l$Name[which.max(l$Length)]
+    dbpath<-file.path(hubCache(sdb),fname)
+    if(!file.exists(dbpath)){
+        dbpath<-unzip(zipF,files=fname,exdir=hubCache(sdb))
     }
-    # cat(pkgname,libname)
-    db <- dbfile
-    mydb <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
+    return(dbpath)
 }
-
 
 .onUnload <- function(libpath) {
     DBI::dbDisconnect(get_dbconn())
