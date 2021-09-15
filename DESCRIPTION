@@ -14,14 +14,14 @@ Description: The package contains local copy of the Synaptic proteome
     to query and analyse its content. It allows extraction of information 
     for specific genes and building the protein-protein interaction graph 
     for gene sets, synaptic compartments, and brain regions.
-Depends: R (>= 3.5.0)
-Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack
+Depends: R (>= 3.5.0), synaptome.data
+Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack, AnnotationHub
 RdMacros: Rdpack
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 BugReports: https://github.com/lptolik/synaptome.db/issues/
-biocViews: FunctionalAnnotation, CustomDBSchema
+biocViews: FunctionalAnnotation, CustomDBSchema, DataImport
 Suggests: 
     rmarkdown, knitr, pander, testthat, devtools, markdown
