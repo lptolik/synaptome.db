@@ -37,7 +37,6 @@ getPPIQuery <- function() {
 #'     or 'lim'.
 #'
 #' @return data.frame with interactors internal GeneID in columns A and B
-
 #' @export
 #'
 #' @family {PPI functions}
