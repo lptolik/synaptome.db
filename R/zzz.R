@@ -1,3 +1,4 @@
+snptm_env <- new.env(parent = emptyenv())
 
 #' Get dbcon. Return connection to the database.
 #'
@@ -7,26 +8,63 @@
 #' @import dbplyr
 #' @keywords internal
 get_dbconn <- function() {
-    if (!exists("dbconn") || !DBI::dbIsValid(dbconn)) {
-        pkgname <- "synaptome.db" # methods::getPackageName()
-        dbfile <- system.file("extdata", "synaptome.sqlite", package = pkgname)
-        dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
+    if (!exists("snptmdb",envir = snptm_env) ||
+        !DBI::dbIsValid(get("snptmdb",envir = snptm_env))) {
+        if(!exists("snptmdbfile",envir = snptm_env) ||
+           !file.exists(get("snptmdbfile",envir = snptm_env))){
+            f <- .getdbfile()
+            assign("snptmdbfile",f,envir = snptm_env)
+        }
+        dbc <- DBI::dbConnect(RSQLite::SQLite(),
+                              get("snptmdbfile",envir = snptm_env))
+        assign("snptmdb",dbc,envir = snptm_env)
         # cat('DB is connected with ',dbfile)
+    }else{
+        dbc <- get("snptmdb",envir = snptm_env)
     }
-    return(dbconn)
+    return(dbc)
 }
 
+#' Hidden load function.
+#' Check the presence of the database and load it with AnnotationHub
+#' if required.
+#' TODO: add timestamp validation.
+#'
+#' @param libname the path where the package is installed
+#' @param pkgname name of the package
+#'
+#' @return dbConnect
+#'
+#' @keywords internal
 .onLoad <- function(libname, pkgname) {
-    dbfile <- system.file(
-        "extdata", "synaptome.sqlite",
-        package = pkgname, lib.loc = libname
-    )
-    # cat(pkgname,libname)
-    db <- dbfile
-    dbconn <<- DBI::dbConnect(RSQLite::SQLite(), dbfile)
+    f <- .getdbfile()
+    assign("snptmdbfile",f,envir = snptm_env)
 }
 
+#' Hidden function that creates a local copy of the database.
+#'
+#' @return path to the newly created database
+#' @import AnnotationHub
+#' @import synaptome.data
+#' @importFrom utils unzip
+#' @keywords internal
+.getdbfile <- function() {
+    o<-options(show.error.messages = FALSE)
+    ahub <- try(AnnotationHub::AnnotationHub(localHub=TRUE))
+    if(inherits(ahub, "try-error")){
+        ahub <- AnnotationHub::AnnotationHub()#(hub='http://127.0.0.1:9393/')
+    }
+    sdb<-AnnotationHub::query(ahub,'SynaptomeDB')
+    zipF<-sdb[[1]]
+    l<-unzip(zipF,list=TRUE)
+    fname<-l$Name[which.max(l$Length)]
+    dbpath<-file.path(hubCache(sdb),fname)
+    if(!file.exists(dbpath)){
+        dbpath<-unzip(zipF,files=fname,exdir=hubCache(sdb))
+    }
+    return(dbpath)
+}
 
 .onUnload <- function(libpath) {
-    dbDisconnect(get_dbconn())
+    DBI::dbDisconnect(get_dbconn())
 }

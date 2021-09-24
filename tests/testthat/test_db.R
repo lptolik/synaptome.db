@@ -109,7 +109,7 @@ test_that("Proper row numbers in PPIs", {
     )
     expect_equal(
         dim(getPPIbyIDs(c(48, 585, 710), type = "induced")),
-        c(306, 2)
+        c(304, 2)
     )
     expect_equal(
         dim(getTableFromPPI(getPPIbyIDs(c(48, 585, 710), type = "limited"))),

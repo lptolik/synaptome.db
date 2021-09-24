@@ -1,7 +1,8 @@
 #' synaptome.db: programmatic access to the Synaptic proteome database
 #'
-#' The package contains local copy of the Synaptic proteome database together
-#' with a set of utility R functions to query and analyse its content.
+#' The package obtains a local copy of the Synaptic proteome database
+#' from AnnotationHub package  \code{\link[synaptome.data]{synaptome.data}}
+#' and provides a set of utility R functions to query and analyse its content.
 #'
 #' @docType package
 #' @name synaptome.db

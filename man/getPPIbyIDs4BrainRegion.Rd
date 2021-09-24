@@ -5,10 +5,10 @@
 \title{Prepare induced or limited network for brain region}
 \usage{
 getPPIbyIDs4BrainRegion(
-    ids,
-    brainRegion,
-    taxID,
-    type = c("induced", "limited")
+  ids,
+  brainRegion,
+  taxID,
+  type = c("induced", "limited")
 )
 }
 \arguments{
@@ -53,7 +53,7 @@ ppi <- getPPIbyIDs4BrainRegion(
 head(ppi)
 }
 \seealso{
-Other {PPI functions}:
+Other {PPI functions}: 
 \code{\link{getIGraphFromPPI}()},
 \code{\link{getPPIbyEntrez}()},
 \code{\link{getPPIbyIDs4Compartment}()},
@@ -61,7 +61,7 @@ Other {PPI functions}:
 \code{\link{getPPIbyName}()},
 \code{\link{getTableFromPPI}()}
 
-Other {BrainRegion functions}:
+Other {BrainRegion functions}: 
 \code{\link{getAllGenes4BrainRegion}()},
 \code{\link{getBrainRegions}()},
 \code{\link{getGenes4BrainRegion}()}
