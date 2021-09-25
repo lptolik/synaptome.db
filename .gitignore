@@ -42,3 +42,4 @@ inst/doc
 /doc/
 /Meta/
 synaptome.sqlite
+inst/extdata/synaptome.sqlite
