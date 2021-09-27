@@ -7,7 +7,7 @@
 \title{synaptome.db: programmatic access to the Synaptic proteome database}
 \description{
 The package obtains a local copy of the Synaptic proteome database
-from AnnotationHub package  \code{\link[synaptome.data]{synaptome.data}}
+from AnnotationHub package  synaptome.data
 and provides a set of utility R functions to query and analyse its content.
 }
 \references{
