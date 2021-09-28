@@ -54,6 +54,10 @@ get_dbconn <- function() {
         ahub <- AnnotationHub::AnnotationHub()#(hub='http://127.0.0.1:9393/')
     }
     sdb<-AnnotationHub::query(ahub,'SynaptomeDB')
+    if(length(sdb)==0){
+        ahub <- AnnotationHub::refreshHub(hubClass="AnnotationHub")
+        sdb<-AnnotationHub::query(ahub,'SynaptomeDB')
+    }
     zipF<-sdb[[1]]
     l<-unzip(zipF,list=TRUE)
     fname<-l$Name[which.max(l$Length)]
