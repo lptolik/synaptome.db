@@ -45,6 +45,7 @@ get_dbconn <- function() {
 #'
 #' @return path to the newly created database
 #' @import AnnotationHub
+#' @import synaptome.data
 #' @keywords internal
 .getdbfile <- function() {
     o<-options(show.error.messages = FALSE)
