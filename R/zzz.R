@@ -45,7 +45,6 @@ get_dbconn <- function() {
 #'
 #' @return path to the newly created database
 #' @import AnnotationHub
-#' @importFrom utils unzip
 #' @keywords internal
 .getdbfile <- function() {
     o<-options(show.error.messages = FALSE)
@@ -59,11 +58,11 @@ get_dbconn <- function() {
         sdb<-AnnotationHub::query(ahub,'SynaptomeDB')
     }
     zipF<-sdb[[1]]
-    l<-unzip(zipF,list=TRUE)
+    l<-utils::unzip(zipF,list=TRUE)
     fname<-l$Name[which.max(l$Length)]
     dbpath<-file.path(hubCache(sdb),fname)
     if(!file.exists(dbpath)){
-        dbpath<-unzip(zipF,files=fname,exdir=hubCache(sdb))
+        dbpath<-utils::unzip(zipF,files=fname,exdir=hubCache(sdb))
     }
     return(dbpath)
 }

@@ -1,5 +1,5 @@
 ---
-title: "synaptome.db vignette"
+title: "synaptome.db"
 author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
 date: '`r format(Sys.time(), "%d.%m.%Y")`'
 output: rmarkdown::html_vignette
