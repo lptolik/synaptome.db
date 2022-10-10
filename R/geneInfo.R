@@ -241,6 +241,51 @@ getGeneIdByName <- function(name) {
     return(idsH)
 }
 
+#' Get list of frequently found GeneIDs
+#'
+#' @param cnt minimal number of papers that mentioned gene
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' cntT<-
+getGeneIdByPaperCnt <- function(cnt) {
+}
+
+#' Get list of frequently found GeneIDs
+#'
+#' Get internal gene IDs and paper count for genes mentioned \code{cnt}
+#' or more times in different papers.
+#'
+#' @param cnt  minimal number of papers that mentioned gene
+#'
+#' @return tibble wiht GeneID and Npmid columns for genes and paper count
+#'         data respectively.
+#' @export
+#'
+#' @examples
+#' cntT <- findGeneIdByPaperCnt(47)
+#' head(cntT)
+findGeneIdByPaperCnt <- function(cnt) {
+    if(!is.numpcic(cnt)){
+        stop('Count shauld be natural number.\n')
+    }
+    if(length(cnt)>1){
+        cnt<-cnt[1]
+        warning("Count should be a single value. First element is used.\n")
+    }
+    if(cnt < 1){
+        stop('Count shauld be natural number. (',cnt,')\n')
+    }
+    idsCnt <- get_dbconn() %>%
+        dplyr::tbl('PaperGene') %>%
+        dplyr::group_by(GeneID) %>%
+        dplyr::summarise(Npmid=n_distinct(PaperPMID)) %>%
+        dplyr::filter( Npmid>=cnt) %>%
+        dplyr::collect()
+    return(idsCnt)
+}
 
 #' Get GeneInfo table for set of GeneIDs
 #'
