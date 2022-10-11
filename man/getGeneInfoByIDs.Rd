@@ -49,6 +49,7 @@ gdf <- getGeneInfoByIDs(c(46, 6, 15, 1))
 \seealso{
 Other {GeneInfo functions}: 
 \code{\link{getGeneInfoByEntrez}()},
-\code{\link{getGeneInfoByName}()}
+\code{\link{getGeneInfoByName}()},
+\code{\link{getGeneInfoByPapers}()}
 }
 \concept{{GeneInfo functions}}

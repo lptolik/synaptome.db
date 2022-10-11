@@ -261,8 +261,8 @@ getGenesByID <- function(ids) {
             HumanName, MouseName, RatName
         ) %>%
         dplyr::filter(ID %in% ids) %>%
-        rename(GeneID = ID) %>%
-        collect()
+        dplyr::rename(GeneID = ID) %>%
+        dplyr::collect()
     return(genes)
 }
 

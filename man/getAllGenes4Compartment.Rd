@@ -23,6 +23,8 @@ G <- getAllGenes4Compartment(compartmentID = 1) # 5560 rows
 }
 \seealso{
 Other {Gene functions}: 
+\code{\link{findGeneByPaperCnt}()},
+\code{\link{findGeneByPapers}()},
 \code{\link{findGenesByEntrez}()},
 \code{\link{findGenesByName}()},
 \code{\link{getGenes4Compartment}()},

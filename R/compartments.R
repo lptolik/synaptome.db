@@ -15,7 +15,7 @@
 getCompartments <- function() {
     gns <- get_dbconn() %>%
         dplyr::tbl("Localisation") %>%
-        collect()
+        dplyr::collect()
     return(gns)
 }
 
