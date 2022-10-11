@@ -1,9 +1,6 @@
 ##### Use cases 1 and 2 Show my favourite gene info#####
 #' Get gene information for set of gene names.
 #'
-#'
-#' Function lookup for name in Human Gene name and Mouse Gene name data
-#'
 #' Function lookup for name in Human Gene name, Rat Gene name and
 #' Mouse Gene name data and return following features for all found genes:
 #' GeneID (internal database ID), Localisation (one of the following:
@@ -51,6 +48,58 @@ getGeneInfoByName <- function(name) {
     return(df)
 }
 
+
+#' Get gene information for set of genes mentioned by certain papers.
+#'
+#' Function lookup for specified PubMedIDs in the gene reference data and
+#' return following features for genes referenced by requested papers at
+#' least \code{cnt} times:
+#' GeneID (internal database ID), Localisation (one of the following:
+#' presynaptic, postsynaptic, synaptosome),
+#' MGI (MGI ID), HumanEntrez (Human Entrez ID), MouseEntrez (Mouse Entrez ID),
+#' HumanName (Human gene name), MouseName (Mouse gene name),
+#' PaperPMID (PMID IDs for the publications where the genes were reported if
+#' it is within \code{pmids} list),
+#' Paper (papers where specific genes were reported in a format
+#' FIRSTAUTHOR_YEAR), Year, SpeciesTaxID (specie the original experiment
+#' was performed on), BrainRegion (Brain region where the specific genes
+#' were identified, according to the paper)
+#'
+#' This function then returns
+#' following features for all found genes:
+#' \itemize{
+#' \item GeneID,
+#' \item Localisation,
+#' \item MGI,
+#' \item HumanEntrez,
+#' \item MouseEntrez,
+#' \item HumanName,
+#' \item MouseName,
+#' \item PaperPMID,
+#' \item Paper,
+#' \item Year,
+#' \item SpeciesTaxID,
+#' \item BrainRegion
+#' }
+#'
+#' @param pmids vector of PMIDs to search for genes
+#' @param cnt minimal number of papers that mentioned gene
+#'
+#' @return \code{data.frame} with fields specified above.
+#' @export
+#' @family {GeneInfo functions}
+#'
+#' @examples
+#' res<- getAllGenes4Compartment(compartmentID = 1)
+#' gnt<-getGeneInfoByIDs(res$GeneID)
+#' pmids<-names(sort(table(gnt$PaperPMID))[1:5])
+#' cntT <- getGeneInfoByPapers(pmids,cnt=3)
+#' head(cntT)
+getGeneInfoByPapers <- function(pmids,cnt=1) {
+    ids <- getGeneIdByPapers(pmids,cnt)
+    df <- getGeneInfoByIDs(ids$GeneID) %>% dplyr::filter(PaperPMID %in% pmids)
+    return(df)
+}
 
 #' Gene information for given list of gene Entrez IDs
 #'
@@ -241,34 +290,57 @@ getGeneIdByName <- function(name) {
     return(idsH)
 }
 
-#' Get list of frequently found GeneIDs
+#' Get list of GeneIDs for genes found in specified papers
 #'
+#' @param pmids vector of PMIDs to search for genes
 #' @param cnt minimal number of papers that mentioned gene
 #'
-#' @return
-#' @export
+#' @return tibble wiht GeneID and Npmid columns for genes and paper count
+#'         data respectively.
+#' @keywords internal
 #'
 #' @examples
-#' cntT<-
-getGeneIdByPaperCnt <- function(cnt) {
+#' res<- getAllGenes4Compartment(compartmentID = 1)
+#' gnt<-getGeneInfoByIDs(res$GeneID)
+#' pmids<-names(sort(table(gnt$PaperPMID))[1:5])
+#' cntT<-getGeneIdByPapers(pmids,3)
+getGeneIdByPapers <- function(pmids,cnt=1) {
+    if(length(pmids)<1){
+        stop('At least one paper should be specified.\n',
+             'To search in all papers use getGeneIdByPaperCnt instead.\n')
+    }
+    if(!is.numeric(cnt)){
+        stop('Count shauld be natural number.\n')
+    }
+    if(length(cnt)>1){
+        cnt<-cnt[1]
+        warning("Count should be a single value. First element is used.\n")
+    }
+    if(cnt < 1){
+        stop('Count shauld be natural number. (',cnt,')\n')
+    }
+    idsCnt <- get_dbconn() %>%
+        dplyr::tbl('PaperGene') %>%
+        dplyr::filter(PaperPMID %in% pmids) %>%
+        dplyr::group_by(GeneID) %>%
+        dplyr::summarise(Npmid=n_distinct(PaperPMID)) %>%
+        dplyr::filter( Npmid>=cnt) %>%
+        dplyr::collect()
+    return(idsCnt)
 }
 
 #' Get list of frequently found GeneIDs
 #'
-#' Get internal gene IDs and paper count for genes mentioned \code{cnt}
-#' or more times in different papers.
-#'
-#' @param cnt  minimal number of papers that mentioned gene
+#' @param cnt minimal number of papers that mentioned gene
 #'
 #' @return tibble wiht GeneID and Npmid columns for genes and paper count
 #'         data respectively.
-#' @export
+#' @keywords internal
 #'
 #' @examples
-#' cntT <- findGeneIdByPaperCnt(47)
-#' head(cntT)
-findGeneIdByPaperCnt <- function(cnt) {
-    if(!is.numpcic(cnt)){
+#' cntT<-getGeneIdByPaperCnt(47)
+getGeneIdByPaperCnt <- function(cnt=1) {
+    if(!is.numeric(cnt)){
         stop('Count shauld be natural number.\n')
     }
     if(length(cnt)>1){
@@ -285,6 +357,56 @@ findGeneIdByPaperCnt <- function(cnt) {
         dplyr::filter( Npmid>=cnt) %>%
         dplyr::collect()
     return(idsCnt)
+}
+
+#' Get gene table of frequently found genes
+#'
+#' Get gene table and paper count for genes mentioned \code{cnt}
+#' or more times in different papers.
+#'
+#' @param cnt  minimal number of papers that mentioned gene
+#'
+#' @return \code{data.frame} with 9 columns: 8 specified in
+#'         \code{\link{getGenesByID}} and \code{Npmid} column for the paper
+#'         count.
+#' @export
+#' @seealso getGenesByID
+#' @family {Gene functions}
+#'
+#' @examples
+#' cntT <- findGeneByPaperCnt(47)
+#' head(cntT)
+findGeneByPaperCnt <- function(cnt=1) {
+    ids<-getGeneIdByPaperCnt(cnt)
+    gnt<-getGenesByID(ids$GeneID) %>% dplyr::left_join(res,by='GeneID')
+    return(gnt)
+}
+
+#' Get gene table of frequently found genes
+#'
+#' Get gene table and paper count for genes mentioned \code{cnt}
+#' or more times in different papers.
+#'
+#' @param pmids vector of PMIDs to search for genes
+#' @param cnt  minimal number of papers that mentioned gene
+#'
+#' @return \code{data.frame} with 9 columns: 8 specified in
+#'         \code{\link{getGenesByID}} and \code{Npmid} column for the paper
+#'         count.
+#' @export
+#' @seealso getGenesByID
+#' @family {Gene functions}
+#'
+#' @examples
+#' res<- getAllGenes4Compartment(compartmentID = 1)
+#' gnt<-getGeneInfoByIDs(res$GeneID)
+#' pmids<-names(sort(table(gnt$PaperPMID))[1:5])
+#' cntT <- findGeneByPapers(pmids,cnt=3)
+#' head(cntT)
+findGeneByPapers <- function(pmids,cnt=1) {
+    ids<-getGeneIdByPaper(pmids,cnt)
+    gnt<-getGenesByID(ids$GeneID) %>% dplyr::left_join(res,by='GeneID')
+    return(gnt)
 }
 
 #' Get GeneInfo table for set of GeneIDs
