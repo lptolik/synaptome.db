@@ -404,7 +404,7 @@ findGeneByPaperCnt <- function(cnt=1) {
 #' cntT <- findGeneByPapers(pmids,cnt=3)
 #' head(cntT)
 findGeneByPapers <- function(pmids,cnt=1) {
-    ids<-getGeneIdByPaper(pmids,cnt)
+    ids<-getGeneIdByPapers(pmids,cnt)
     gnt<-getGenesByID(ids$GeneID) %>% dplyr::left_join(res,by='GeneID')
     return(gnt)
 }
