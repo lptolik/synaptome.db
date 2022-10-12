@@ -51,7 +51,7 @@ in the LCC.
 The database includes: proteomic and interactomic data with supporting 
 information on compartment, specie and brain region, GO function 
 information for three species: mouse, rat and human, disease annotation 
-for human (based on Human Disease Ontology (HDO)) and GeneToModel table, 
+for human (based on Human Disease Ontology (HDO) and GeneToModel table, 
 which links certain synaptic proteins to existing computational models of 
 synaptic plasticity and synaptic signal transduction
 
@@ -69,13 +69,13 @@ Information could be obtained by submitting gene EntrezID or Gene name
 
 ```{r gene_info}
 t <- getGeneInfoByEntrez(1742) 
-head(t)
+pander(head(t))
 
 t <- getGeneInfoByName("CASK")
-head(t)
+pander(head(t))
 
 t <- getGeneInfoByName(c("CASK", "DLG2"))
-head(t)                      
+pander(head(t))                      
 ```
 
 ## 2.Get internal GeneIDs for the list of genes.
@@ -87,10 +87,10 @@ case of redundancy (e.g. one Human genes matchs on a few mouse ones, etc.)
 
 ```{r  findIDs}
 t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
-head(t)
+pander(head(t))
 
 t <- findGenesByName(c("SRC", "SRCIN1", "FYN"))
-head(t)
+pander(head(t))
 
 ```
 
@@ -103,16 +103,48 @@ Internal GeneIDs if using `getGeneDiseaseByIDs` function
 
 ```{r disease }
 t <- getGeneDiseaseByName (c("CASK", "DLG2", "DLG1"))
-head(t)
+pander(head(t))
 
 t <- getGeneDiseaseByEntres (c(8573, 1742, 1739))
-head(t)
+pander(head(t))
 
 ```
+## 5.Get information about the studies, combined into dataset
+One can obtain the overview of synaptic proteome papers combined into the database, which includes paper PMID, specie Tax ID, year of publication, subcellular localisation, brain region and number of proteins identified in the paper. This information may help to choose the specific study(ies) for further work.
+```{r paper}
 
-## 5.Get PPI interactions for my list of genes
+p <- getPapers()
+pander(head(p))
+```
+## 6.Get the table of frequently identified proteins
+It is also possible to obtain the list of proteins found in more than one study, for the whole synaptic proteome. For that, the user needs to provide a "count" value as a desired minimal number of identifications (e.g. 2 or more). The command returns the table with gene identifiers and "Npmid" column, which contains the number of studies where this gene was identified.
+```{r gene_count}
+
+gp <- findGeneByPaperCnt(cnt = 2)#find all proteins in synaptic proteome identified 2 times or more
+pander(head(gp))
+```
+## 7.Get the table of proteins dentified in specific studies
+Following section 5, when the information for all considered proteomic studies was obtained, user can select specific study(ies) by PMID and get the proteins identified in those studies. By providing "count" value user can extract either all proteins from specified studies (count = 1), or just frequently found ones (count >=2). As above, the command returns the table with gene identifiers with "Npmid" column, which contains the number of studies where this protein was identified
+
+```{r gene_papCount}
+spg <- findGeneByPapers(p$PaperPMID[1:5], cnt = 1)
+pander(head(spg))
+```
+## 8.Get the table of proteins frequently identified in specific compartment
+Most of the times, user is interested in the specific compartment rather then in total synaptic proteome. To help identify the genes most probably residenting in the specific compartment and exclude possible contaminants,  findGeneByCompartmentPaperCnt function provides the table of proteins found "cnt" or more times in different compartment-paper pairs.
+
+```{r gene_comp}
+gcp <- findGeneByCompartmentPaperCnt(cnt = 2)
+pander(head(gcp))
+# Now user can select the specific compartment and proceed working with obtained list of frequently found proteins
+presgp <- gcp[gcp$Localisation == "Presynaptic",]
+dim(presgp)
+pander(head(presgp))
+```
+
+## 9.Get PPI interactions for my list of genes
 Custom Protein-protein interactions based on bespoke subsets of molecules 
-could be extracted in two general ways: "induced" and "limited". In the 
+could be extracted in two general ways: "induced" and "limited". In the
 first case, the command will return all possible interactors for the genes 
 within the whole interactome. In the second case it will return only 
 interactions between the genes of interest. PPIs could be obtained by 
@@ -124,14 +156,16 @@ of Intenal GeneIDs.
 t <- getPPIbyName(
     c("CASK", "DLG4", "GRIN2A", "GRIN2B","GRIN1"), 
     type = "limited")
-head(t)
+pander(head(t))
 
 t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type='induced')
-head(t)
+pander(head(t))
 
+t <- getPPIbyEntrez(presgp$HumanEntrez, type='induced') #obtain PPIs for the list of frequently found genes in presynaptc compartment
+pander(head(t))
 ```
 
-## 6.Get the molecular structure of synaptic compartment
+## 10.Get the molecular structure of synaptic compartment
 Three main synaptic compartments considered in the database are "presynaptic", 
 "postsynaptic" and "synaptosome". Genes are classified to compartments based 
 on respective publications, so that each gene can belong to one or two, or 
@@ -155,15 +189,15 @@ pander(comp)
 
 #getting all genes for postsynaptic compartment
 gns <- getAllGenes4Compartment(compartmentID = 1) 
-head(gns)
+pander(head(gns))
 
 #getting full PPI network for postsynaptic compartment
 ppi <- getPPIbyIDs4Compartment(gns$GeneID,compartmentID =1, type = "induced")
-head(ppi)
+pander(head(ppi))
 
 ```
 
-## 7.Get the molecular structure of the brain region.
+## 11.Get the molecular structure of the brain region.
 Three are 12 brain regions considered in the database based on respective 
 publications, so that each gene can belong to the single or to the several 
 brain regions. Brain regions differ between species, and specie brain region 
@@ -189,15 +223,15 @@ pander(reg)
 
 #getting all genes for mouse Striatum
 gns <- getAllGenes4BrainRegion(brainRegion = "Striatum",taxID = 10090)
-head(gns)
+pander(head(gns))
 
 #getting full PPI network for postsynaptic compartment
 ppi <- getPPIbyIDs4BrainRegion(
     gns$GeneID, brainRegion = "Striatum", 
     taxID = 10090, type = "limited")
-head(ppi)
+pander(head(ppi))
 ```
-## 8.Visualisatiion of PPI network with Igraph.
+## 12.Visualisatiion of PPI network with Igraph.
 Combine information from PPI data.frame obtained with functions like 
 `getPPIbyName`, `getPPIbyEntrez`, `getPPIbyIDs4Compartment` or 
 `getPPIbyIDs4BrainRegion` with information about genes obtained 
@@ -212,7 +246,7 @@ g<-getIGraphFromPPI(
 plot(g,vertex.label=V(g)$RatName,vertex.size=25)
 ```
 
-## 9.Export of PPI network as a table.
+## 13.Export of PPI network as a table.
 If Igraph is not an option, the PPI network could be exported as an 
 interpretible table to be processed with other tools, e.g. Cytoscape,etc.
 
