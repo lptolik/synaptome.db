@@ -359,6 +359,53 @@ getGeneIdByPaperCnt <- function(cnt=1) {
     return(idsCnt)
 }
 
+#' Get synaptome papers overview
+#'
+#' @return tibble with following columns:
+#' \itemset{
+#' \item PaperPMID
+#' \item SpeciesTaxID
+#' \item BrainRegionID
+#' \item LocalisationID
+#' \item MethodID
+#' \item Ngenes
+#' \item Year
+#' \item Name
+#' \item BrainRegion
+#' \item Localisation
+#' }
+#' @export
+#'
+#' @examples
+#' p <- getPapers()
+#' head(p)
+getPapers <- function(){
+    p <- get_dbconn() %>%
+        dplyr::tbl('Paper') %>%
+        dplyr::select(PMID,Year,Name)
+    b <- get_dbconn() %>%
+        dplyr::tbl("BrainRegion") %>%
+        dplyr::select(ID,Name) %>%
+        dplyr::rename("BrainRegion"='Name')
+    c <- get_dbconn() %>%
+        dplyr::tbl("Localisation") %>%
+        dplyr::select(ID,Name) %>%
+        dplyr::rename("Localisation"='Name')
+
+    papers <- get_dbconn() %>%
+        dplyr::tbl('PaperGene') %>%
+        dplyr::group_by(PaperPMID,
+                        #Dataset,
+                        SpeciesTaxID,
+                        BrainRegionID,
+                        LocalisationID,
+                        MethodID) %>%
+        dplyr::summarise(Ngenes=n_distinct(GeneID)) %>%
+        dplyr::inner_join(p,by=c('PaperPMID'='PMID')) %>%
+        dplyr::inner_join(b,by=c('BrainRegionID'='ID')) %>%
+        dplyr::inner_join(c,by=c('LocalisationID'='ID')) %>%
+        dplyr::collect()
+}
 #' Get gene table of frequently found genes
 #'
 #' Get gene table and paper count for genes mentioned \code{cnt}
