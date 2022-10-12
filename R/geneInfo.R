@@ -362,17 +362,15 @@ getGeneIdByPaperCnt <- function(cnt=1) {
 #' Get synaptome papers overview
 #'
 #' @return tibble with following columns:
-#' \itemset{
+#' \itemize{
 #' \item PaperPMID
 #' \item SpeciesTaxID
-#' \item BrainRegionID
-#' \item LocalisationID
-#' \item MethodID
-#' \item Ngenes
 #' \item Year
 #' \item Name
-#' \item BrainRegion
 #' \item Localisation
+#' \item BrainRegion
+#' \item Method
+#' \item Ngenes
 #' }
 #' @export
 #'
@@ -391,6 +389,10 @@ getPapers <- function(){
         dplyr::tbl("Localisation") %>%
         dplyr::select(ID,Name) %>%
         dplyr::rename("Localisation"='Name')
+    m <- get_dbconn() %>%
+        dplyr::tbl("Method") %>%
+        dplyr::select(ID,Name) %>%
+        dplyr::rename("Method"='Name')
 
     papers <- get_dbconn() %>%
         dplyr::tbl('PaperGene') %>%
@@ -404,6 +406,9 @@ getPapers <- function(){
         dplyr::inner_join(p,by=c('PaperPMID'='PMID')) %>%
         dplyr::inner_join(b,by=c('BrainRegionID'='ID')) %>%
         dplyr::inner_join(c,by=c('LocalisationID'='ID')) %>%
+        dplyr::inner_join(m,by=c('MethodID'='ID')) %>%
+        dplyr::select(PaperPMID,SpeciesTaxID,Year,Name,
+                      Localisation,BrainRegion,Method,Ngenes)
         dplyr::collect()
 }
 

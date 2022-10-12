@@ -8,17 +8,15 @@ getPapers()
 }
 \value{
 tibble with following columns:
-\itemset{
+\itemize{
 \item PaperPMID
 \item SpeciesTaxID
-\item BrainRegionID
-\item LocalisationID
-\item MethodID
-\item Ngenes
 \item Year
 \item Name
-\item BrainRegion
 \item Localisation
+\item BrainRegion
+\item Method
+\item Ngenes
 }
 }
 \description{
