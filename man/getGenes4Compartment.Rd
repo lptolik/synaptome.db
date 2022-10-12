@@ -32,6 +32,7 @@ Genes <- getGenes4Compartment(c(1, 15, 156, 1500, 3000, 7000),
 }
 \seealso{
 Other {Gene functions}: 
+\code{\link{findGeneByCompartmentPaperCnt}()},
 \code{\link{findGeneByPaperCnt}()},
 \code{\link{findGeneByPapers}()},
 \code{\link{findGenesByEntrez}()},

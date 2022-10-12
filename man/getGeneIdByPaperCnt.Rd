@@ -17,6 +17,6 @@ tibble wiht GeneID and Npmid columns for genes and paper count
 Get list of frequently found GeneIDs
 }
 \examples{
-cntT<-getGeneIdByPaperCnt(47)
+cntT<-synaptome.db:::getGeneIdByPaperCnt(47)
 }
 \keyword{internal}

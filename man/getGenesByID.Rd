@@ -31,6 +31,7 @@ gdf <- getGenesByID(c(46, 6, 15, 1))
 }
 \seealso{
 Other {Gene functions}: 
+\code{\link{findGeneByCompartmentPaperCnt}()},
 \code{\link{findGeneByPaperCnt}()},
 \code{\link{findGeneByPapers}()},
 \code{\link{findGenesByEntrez}()},

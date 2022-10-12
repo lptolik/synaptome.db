@@ -303,7 +303,7 @@ getGeneIdByName <- function(name) {
 #' res<- getAllGenes4Compartment(compartmentID = 1)
 #' gnt<-getGeneInfoByIDs(res$GeneID)
 #' pmids<-names(sort(table(gnt$PaperPMID))[1:5])
-#' cntT<-getGeneIdByPapers(pmids,3)
+#' cntT<-synaptome.db:::getGeneIdByPapers(pmids,3)
 getGeneIdByPapers <- function(pmids,cnt=1) {
     if(length(pmids)<1){
         stop('At least one paper should be specified.\n',
@@ -338,7 +338,7 @@ getGeneIdByPapers <- function(pmids,cnt=1) {
 #' @keywords internal
 #'
 #' @examples
-#' cntT<-getGeneIdByPaperCnt(47)
+#' cntT<-synaptome.db:::getGeneIdByPaperCnt(47)
 getGeneIdByPaperCnt <- function(cnt=1) {
     if(!is.numeric(cnt)){
         stop('Count shauld be natural number.\n')
@@ -353,6 +353,92 @@ getGeneIdByPaperCnt <- function(cnt=1) {
     idsCnt <- get_dbconn() %>%
         dplyr::tbl('PaperGene') %>%
         dplyr::group_by(GeneID) %>%
+        dplyr::summarise(Npmid=n_distinct(PaperPMID)) %>%
+        dplyr::filter( Npmid>=cnt) %>%
+        dplyr::collect()
+    return(idsCnt)
+}
+
+#' Get synaptome papers overview
+#'
+#' @return data.frame with following columns:
+#' \itemize{
+#' \item PaperPMID
+#' \item SpeciesTaxID
+#' \item Year
+#' \item Name
+#' \item Localisation
+#' \item BrainRegion
+#' \item Method
+#' \item Ngenes
+#' }
+#' @export
+#'
+#' @examples
+#' p <- getPapers()
+#' head(p)
+getPapers <- function(){
+    p <- get_dbconn() %>%
+        dplyr::tbl('Paper') %>%
+        dplyr::select(PMID,Year,Name)
+    b <- get_dbconn() %>%
+        dplyr::tbl("BrainRegion") %>%
+        dplyr::select(ID,Name) %>%
+        dplyr::rename("BrainRegion"='Name')
+    c <- get_dbconn() %>%
+        dplyr::tbl("Localisation") %>%
+        dplyr::select(ID,Name) %>%
+        dplyr::rename("Localisation"='Name')
+    m <- get_dbconn() %>%
+        dplyr::tbl("Method") %>%
+        dplyr::select(ID,Name) %>%
+        dplyr::rename("Method"='Name')
+
+    papers <- get_dbconn() %>%
+        dplyr::tbl('PaperGene') %>%
+        dplyr::group_by(PaperPMID,
+                        #Dataset,
+                        SpeciesTaxID,
+                        BrainRegionID,
+                        LocalisationID,
+                        MethodID) %>%
+        dplyr::summarise(Ngenes=n_distinct(GeneID)) %>%
+        dplyr::inner_join(p,by=c('PaperPMID'='PMID')) %>%
+        dplyr::inner_join(b,by=c('BrainRegionID'='ID')) %>%
+        dplyr::inner_join(c,by=c('LocalisationID'='ID')) %>%
+        dplyr::inner_join(m,by=c('MethodID'='ID')) %>%
+        dplyr::collect()
+    papers<- papers %>% as.data.frame %>%
+        dplyr::select(PaperPMID,SpeciesTaxID,Year,Name,
+                      Localisation,BrainRegion,Method,Ngenes)
+    return(papers)
+}
+
+#' Get list of frequently found in `Compartment GeneIDs
+#'
+#' @param cnt minimal number of papers that mentioned gene
+#'
+#' @return tibble wiht GeneID, LocalisationID, and Npmid
+#'         columns for genes and paper count
+#'         data respectively.
+#' @keywords internal
+#'
+#' @examples
+#' cntT<-synaptome.db:::getGeneIdByCompartmentPaperCnt(4)
+getGeneIdByCompartmentPaperCnt <- function(cnt=1) {
+    if(!is.numeric(cnt)){
+        stop('Count shauld be natural number.\n')
+    }
+    if(length(cnt)>1){
+        cnt<-cnt[1]
+        warning("Count should be a single value. First element is used.\n")
+    }
+    if(cnt < 1){
+        stop('Count shauld be natural number. (',cnt,')\n')
+    }
+    idsCnt <- get_dbconn() %>%
+        dplyr::tbl('PaperGene') %>%
+        dplyr::group_by(GeneID,LocalisationID) %>%
         dplyr::summarise(Npmid=n_distinct(PaperPMID)) %>%
         dplyr::filter( Npmid>=cnt) %>%
         dplyr::collect()
@@ -382,6 +468,35 @@ findGeneByPaperCnt <- function(cnt=1) {
     return(gnt)
 }
 
+
+#' Get gene table of frequently found genes within compartments
+#'
+#' Get gene table and paper count for genes mentioned \code{cnt}
+#' or more times in different compartment-paper pairs.
+#'
+#' @param cnt  minimal number of times mentioned gene
+#'
+#' @return \code{data.frame} with 9 columns: 8 specified in
+#'         \code{\link{getGenesByID}} and \code{Npmid} column for the paper
+#'         count.
+#' @export
+#' @seealso getGenesByID
+#' @family {Gene functions}
+#'
+#' @examples
+#' cntT <- findGeneByPaperCnt(47)
+#' head(cntT)
+findGeneByCompartmentPaperCnt <- function(cnt=1) {
+    ids<-getGeneIdByCompartmentPaperCnt(cnt) %>%
+        dplyr::left_join(getCompartments(),
+                         by=c("LocalisationID"='ID')) %>%
+        rename('Localisation'='Name') %>%
+        select('GeneID','Localisation','Npmid')
+    gnt<-getGenesByID(ids$GeneID) %>%
+        dplyr::left_join(ids,by='GeneID')
+    return(gnt)
+}
+
 #' Get gene table of frequently found genes
 #'
 #' Get gene table and paper count for genes mentioned \code{cnt}
@@ -404,7 +519,7 @@ findGeneByPaperCnt <- function(cnt=1) {
 #' cntT <- findGeneByPapers(pmids,cnt=3)
 #' head(cntT)
 findGeneByPapers <- function(pmids,cnt=1) {
-    ids<-getGeneIdByPaper(pmids,cnt)
+    ids<-getGeneIdByPapers(pmids,cnt)
     gnt<-getGenesByID(ids$GeneID) %>% dplyr::left_join(ids,by='GeneID')
     return(gnt)
 }

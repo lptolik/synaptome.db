@@ -22,6 +22,6 @@ Get list of GeneIDs for genes found in specified papers
 res<- getAllGenes4Compartment(compartmentID = 1)
 gnt<-getGeneInfoByIDs(res$GeneID)
 pmids<-names(sort(table(gnt$PaperPMID))[1:5])
-cntT<-getGeneIdByPapers(pmids,3)
+cntT<-synaptome.db:::getGeneIdByPapers(pmids,3)
 }
 \keyword{internal}
