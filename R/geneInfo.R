@@ -406,6 +406,38 @@ getPapers <- function(){
         dplyr::inner_join(c,by=c('LocalisationID'='ID')) %>%
         dplyr::collect()
 }
+
+#' Get list of frequently found in `Compartment GeneIDs
+#'
+#' @param cnt minimal number of papers that mentioned gene
+#'
+#' @return tibble wiht GeneID, LocalisationID, and Npmid
+#'         columns for genes and paper count
+#'         data respectively.
+#' @keywords internal
+#'
+#' @examples
+#' cntT<-getGeneIdByCompartmentPaperCnt(4)
+getGeneIdByCompartmentPaperCnt <- function(cnt=1) {
+    if(!is.numeric(cnt)){
+        stop('Count shauld be natural number.\n')
+    }
+    if(length(cnt)>1){
+        cnt<-cnt[1]
+        warning("Count should be a single value. First element is used.\n")
+    }
+    if(cnt < 1){
+        stop('Count shauld be natural number. (',cnt,')\n')
+    }
+    idsCnt <- get_dbconn() %>%
+        dplyr::tbl('PaperGene') %>%
+        dplyr::group_by(GeneID,LocalisationID) %>%
+        dplyr::summarise(Npmid=n_distinct(PaperPMID)) %>%
+        dplyr::filter( Npmid>=cnt) %>%
+        dplyr::collect()
+    return(idsCnt)
+}
+
 #' Get gene table of frequently found genes
 #'
 #' Get gene table and paper count for genes mentioned \code{cnt}
@@ -426,6 +458,35 @@ getPapers <- function(){
 findGeneByPaperCnt <- function(cnt=1) {
     ids<-getGeneIdByPaperCnt(cnt)
     gnt<-getGenesByID(ids$GeneID) %>% dplyr::left_join(ids,by='GeneID')
+    return(gnt)
+}
+
+
+#' Get gene table of frequently found genes within compartments
+#'
+#' Get gene table and paper count for genes mentioned \code{cnt}
+#' or more times in different compartment-paper pairs.
+#'
+#' @param cnt  minimal number of times mentioned gene
+#'
+#' @return \code{data.frame} with 9 columns: 8 specified in
+#'         \code{\link{getGenesByID}} and \code{Npmid} column for the paper
+#'         count.
+#' @export
+#' @seealso getGenesByID
+#' @family {Gene functions}
+#'
+#' @examples
+#' cntT <- findGeneByPaperCnt(47)
+#' head(cntT)
+findGeneByCompartmentPaperCnt <- function(cnt=1) {
+    ids<-getGeneIdByCompartmentPaperCnt(cnt) %>%
+        dplyr::left_join(getCompartments(),
+                         by=c("LocalisationID"='ID')) %>%
+        rename('Localisation'='Name') %>%
+        select('GeneID','Localisation','Npmid')
+    gnt<-getGenesByID(ids$GeneID) %>%
+        dplyr::left_join(ids,by='GeneID')
     return(gnt)
 }
 
