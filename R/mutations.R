@@ -4,11 +4,15 @@
 #'
 #' @return \code{\link[dbplyr]{tbl_sql}} of table join
 #' @keywords internal
+#' @examples
+#' mdf<-synaptome.db:::getMutDiseaseQuery()
+#' is.null(mdf)
 getMutDiseaseQuery <- function() {
     mtbl <- get_dbconn() %>%
         dplyr::tbl('Mutation') %>% try(silent = TRUE)
     if(inherits(mtbl,'try-error')){
-        stop('This version of DB do not support mutations.')
+        warning('This version of DB do not support mutations.')
+        return(NULL)
     }
     gtbl <- get_dbconn() %>%
         dplyr::tbl('Gene')
@@ -91,8 +95,13 @@ getMutDiseaseQuery <- function() {
 #' hdoid<-'DOID:0060041'
 #' ids<-c(6,32,127,181,240,267,558)
 #' mdf<-getMutations4DiseaseByIDs(ids, hdoid)
+#' is.null(mdf)
 getMutations4DiseaseByIDs <- function(ids, hdoid) {
-    gns <- getMutDiseaseQuery() %>%
+    gns <- getMutDiseaseQuery()
+    if(is.null(gns)){
+        return(NULL)
+    }
+    gns <- gns %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
     df <- gns %>% dplyr::collect() %>% as.data.frame
     return(df)
@@ -116,9 +125,14 @@ getMutations4DiseaseByIDs <- function(ids, hdoid) {
 #' hdoid<-'DOID:0060041'
 #' entrez<-c("23859", "17754", "18673", "268566", "12293", "320840", "24012")
 #' mdf<-getMutations4DiseaseByEntres(entrez, hdoid)
+#' is.null(mdf)
 getMutations4DiseaseByEntres <- function(entrez, hdoid) {
     ids <- getGeneIdByEntrez(entrez)
-    gns <- getMutDiseaseQuery() %>%
+    gns <- getMutDiseaseQuery()
+    if(is.null(gns)){
+        return(NULL)
+    }
+    gns <- gns %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
     df <- gns %>% dplyr::collect() %>% as.data.frame
     return(df)
@@ -144,9 +158,14 @@ getMutations4DiseaseByEntres <- function(entrez, hdoid) {
 #' hdoid<-'DOID:0060041'
 #' name<-c("Dlg2", "Map1a", "Phb", "Gphn", "Cacna2d1", "Negr1", "Rgs7")
 #' mdf<-getMutations4DiseaseByName(name, hdoid)
+#' is.null(mdf)
 getMutations4DiseaseByName <- function(name, hdoid) {
     ids <- getGeneIdByName(name)
-    gns <- getMutDiseaseQuery() %>%
+    gns <- getMutDiseaseQuery()
+    if(is.null(gns)){
+        return(NULL)
+    }
+    gns <- gns %>%
         dplyr::filter(GeneID %in% ids & HDOID == hdoid)
     df <- gns %>% dplyr::collect() %>% as.data.frame
     return(df)

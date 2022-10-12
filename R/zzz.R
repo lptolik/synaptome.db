@@ -8,19 +8,19 @@ snptm_env <- new.env(parent = emptyenv())
 #' @import dbplyr
 #' @keywords internal
 get_dbconn <- function() {
-    if (!exists("snptmdb",envir = snptm_env) ||
-        !DBI::dbIsValid(get("snptmdb",envir = snptm_env))) {
-        if(!exists("snptmdbfile",envir = snptm_env) ||
-           !file.exists(get("snptmdbfile",envir = snptm_env))){
+    if (!exists("snptmdb", envir = snptm_env) ||
+        !DBI::dbIsValid(get("snptmdb", envir = snptm_env))) {
+        if (!exists("snptmdbfile", envir = snptm_env) ||
+            !file.exists(get("snptmdbfile", envir = snptm_env))) {
             f <- .getdbfile()
-            assign("snptmdbfile",f,envir = snptm_env)
+            assign("snptmdbfile", f, envir = snptm_env)
         }
         dbc <- DBI::dbConnect(RSQLite::SQLite(),
-                              get("snptmdbfile",envir = snptm_env))
-        assign("snptmdb",dbc,envir = snptm_env)
+                              get("snptmdbfile", envir = snptm_env))
+        assign("snptmdb", dbc, envir = snptm_env)
         # cat('DB is connected with ',dbfile)
-    }else{
-        dbc <- get("snptmdb",envir = snptm_env)
+    } else{
+        dbc <- get("snptmdb", envir = snptm_env)
     }
     return(dbc)
 }

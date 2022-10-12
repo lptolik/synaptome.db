@@ -12,4 +12,8 @@ getMutDiseaseQuery()
 \description{
 Prepare mutation access query
 }
+\examples{
+mdf<-synaptome.db:::getMutDiseaseQuery()
+is.null(mdf)
+}
 \keyword{internal}

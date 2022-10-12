@@ -304,27 +304,29 @@ getGeneIdByName <- function(name) {
 #' gnt<-getGeneInfoByIDs(res$GeneID)
 #' pmids<-names(sort(table(gnt$PaperPMID))[1:5])
 #' cntT<-synaptome.db:::getGeneIdByPapers(pmids,3)
-getGeneIdByPapers <- function(pmids,cnt=1) {
-    if(length(pmids)<1){
-        stop('At least one paper should be specified.\n',
-             'To search in all papers use getGeneIdByPaperCnt instead.\n')
+getGeneIdByPapers <- function(pmids, cnt = 1) {
+    if (length(pmids) < 1) {
+        stop(
+            'At least one paper should be specified.\n',
+            'To search in all papers use getGeneIdByPaperCnt instead.\n'
+        )
     }
-    if(!is.numeric(cnt)){
+    if (!is.numeric(cnt)) {
         stop('Count shauld be natural number.\n')
     }
-    if(length(cnt)>1){
-        cnt<-cnt[1]
+    if (length(cnt) > 1) {
+        cnt <- cnt[1]
         warning("Count should be a single value. First element is used.\n")
     }
-    if(cnt < 1){
-        stop('Count shauld be natural number. (',cnt,')\n')
+    if (cnt < 1) {
+        stop('Count shauld be natural number. (', cnt, ')\n')
     }
     idsCnt <- get_dbconn() %>%
         dplyr::tbl('PaperGene') %>%
         dplyr::filter(PaperPMID %in% pmids) %>%
         dplyr::group_by(GeneID) %>%
-        dplyr::summarise(Npmid=n_distinct(PaperPMID)) %>%
-        dplyr::filter( Npmid>=cnt) %>%
+        dplyr::summarise(Npmid = n_distinct(PaperPMID)) %>%
+        dplyr::filter(Npmid >= cnt) %>%
         dplyr::collect()
     return(idsCnt)
 }
@@ -377,22 +379,22 @@ getGeneIdByPaperCnt <- function(cnt=1) {
 #' @examples
 #' p <- getPapers()
 #' head(p)
-getPapers <- function(){
+getPapers <- function() {
     p <- get_dbconn() %>%
         dplyr::tbl('Paper') %>%
-        dplyr::select(PMID,Year,Name)
+        dplyr::select(PMID, Year, Name)
     b <- get_dbconn() %>%
         dplyr::tbl("BrainRegion") %>%
-        dplyr::select(ID,Name) %>%
-        dplyr::rename("BrainRegion"='Name')
+        dplyr::select(ID, Name) %>%
+        dplyr::rename("BrainRegion" = 'Name')
     c <- get_dbconn() %>%
         dplyr::tbl("Localisation") %>%
-        dplyr::select(ID,Name) %>%
-        dplyr::rename("Localisation"='Name')
+        dplyr::select(ID, Name) %>%
+        dplyr::rename("Localisation" = 'Name')
     m <- get_dbconn() %>%
         dplyr::tbl("Method") %>%
-        dplyr::select(ID,Name) %>%
-        dplyr::rename("Method"='Name')
+        dplyr::select(ID, Name) %>%
+        dplyr::rename("Method" = 'Name')
 
     papers <- get_dbconn() %>%
         dplyr::tbl('PaperGene') %>%
@@ -402,15 +404,21 @@ getPapers <- function(){
                         BrainRegionID,
                         LocalisationID,
                         MethodID) %>%
-        dplyr::summarise(Ngenes=n_distinct(GeneID)) %>%
-        dplyr::inner_join(p,by=c('PaperPMID'='PMID')) %>%
-        dplyr::inner_join(b,by=c('BrainRegionID'='ID')) %>%
-        dplyr::inner_join(c,by=c('LocalisationID'='ID')) %>%
-        dplyr::inner_join(m,by=c('MethodID'='ID')) %>%
+        dplyr::summarise(Ngenes = n_distinct(GeneID)) %>%
+        dplyr::inner_join(p, by = c('PaperPMID' = 'PMID')) %>%
+        dplyr::inner_join(b, by = c('BrainRegionID' = 'ID')) %>%
+        dplyr::inner_join(c, by = c('LocalisationID' = 'ID')) %>%
+        dplyr::inner_join(m, by = c('MethodID' = 'ID')) %>%
         dplyr::collect()
-    papers<- papers %>% as.data.frame %>%
-        dplyr::select(PaperPMID,SpeciesTaxID,Year,Name,
-                      Localisation,BrainRegion,Method,Ngenes)
+    papers <- papers %>% as.data.frame %>%
+        dplyr::select(PaperPMID,
+                      SpeciesTaxID,
+                      Year,
+                      Name,
+                      Localisation,
+                      BrainRegion,
+                      Method,
+                      Ngenes)
     return(papers)
 }
 
@@ -486,14 +494,14 @@ findGeneByPaperCnt <- function(cnt=1) {
 #' @examples
 #' cntT <- findGeneByPaperCnt(47)
 #' head(cntT)
-findGeneByCompartmentPaperCnt <- function(cnt=1) {
-    ids<-getGeneIdByCompartmentPaperCnt(cnt) %>%
+findGeneByCompartmentPaperCnt <- function(cnt = 1) {
+    ids <- getGeneIdByCompartmentPaperCnt(cnt) %>%
         dplyr::left_join(getCompartments(),
-                         by=c("LocalisationID"='ID')) %>%
-        rename('Localisation'='Name') %>%
-        select('GeneID','Localisation','Npmid')
-    gnt<-getGenesByID(ids$GeneID) %>%
-        dplyr::left_join(ids,by='GeneID')
+                         by = c("LocalisationID" = 'ID')) %>%
+        rename('Localisation' = 'Name') %>%
+        select('GeneID', 'Localisation', 'Npmid')
+    gnt <- getGenesByID(ids$GeneID) %>%
+        dplyr::left_join(ids, by = 'GeneID')
     return(gnt)
 }
 
