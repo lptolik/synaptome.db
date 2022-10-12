@@ -26,6 +26,7 @@ head(cntT)
 getGenesByID
 
 Other {Gene functions}: 
+\code{\link{findGeneByCompartmentPaperCnt}()},
 \code{\link{findGeneByPapers}()},
 \code{\link{findGenesByEntrez}()},
 \code{\link{findGenesByName}()},

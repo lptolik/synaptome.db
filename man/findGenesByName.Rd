@@ -35,6 +35,7 @@ Other {Lookup functions}:
 \code{\link{findGenesByEntrez}()}
 
 Other {Gene functions}: 
+\code{\link{findGeneByCompartmentPaperCnt}()},
 \code{\link{findGeneByPaperCnt}()},
 \code{\link{findGeneByPapers}()},
 \code{\link{findGenesByEntrez}()},

@@ -303,7 +303,7 @@ getGeneIdByName <- function(name) {
 #' res<- getAllGenes4Compartment(compartmentID = 1)
 #' gnt<-getGeneInfoByIDs(res$GeneID)
 #' pmids<-names(sort(table(gnt$PaperPMID))[1:5])
-#' cntT<-getGeneIdByPapers(pmids,3)
+#' cntT<-synaptome.db:::getGeneIdByPapers(pmids,3)
 getGeneIdByPapers <- function(pmids,cnt=1) {
     if(length(pmids)<1){
         stop('At least one paper should be specified.\n',
@@ -338,7 +338,7 @@ getGeneIdByPapers <- function(pmids,cnt=1) {
 #' @keywords internal
 #'
 #' @examples
-#' cntT<-getGeneIdByPaperCnt(47)
+#' cntT<-synaptome.db:::getGeneIdByPaperCnt(47)
 getGeneIdByPaperCnt <- function(cnt=1) {
     if(!is.numeric(cnt)){
         stop('Count shauld be natural number.\n')
@@ -417,7 +417,7 @@ getPapers <- function(){
 #' @keywords internal
 #'
 #' @examples
-#' cntT<-getGeneIdByCompartmentPaperCnt(4)
+#' cntT<-synaptome.db:::getGeneIdByCompartmentPaperCnt(4)
 getGeneIdByCompartmentPaperCnt <- function(cnt=1) {
     if(!is.numeric(cnt)){
         stop('Count shauld be natural number.\n')
