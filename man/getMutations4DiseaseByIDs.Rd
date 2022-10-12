@@ -48,6 +48,7 @@ following features for all found genes:
 hdoid<-'DOID:0060041'
 ids<-c(6,32,127,181,240,267,558)
 mdf<-getMutations4DiseaseByIDs(ids, hdoid)
+is.null(mdf)
 }
 \seealso{
 Other {Mutation functions}: 

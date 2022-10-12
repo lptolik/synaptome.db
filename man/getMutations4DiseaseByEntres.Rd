@@ -23,6 +23,7 @@ and disease HDOID.
 hdoid<-'DOID:0060041'
 entrez<-c("23859", "17754", "18673", "268566", "12293", "320840", "24012")
 mdf<-getMutations4DiseaseByEntres(entrez, hdoid)
+is.null(mdf)
 }
 \seealso{
 findGenesByEntrez

@@ -25,6 +25,7 @@ data.frame in the format described in
 hdoid<-'DOID:0060041'
 name<-c("Dlg2", "Map1a", "Phb", "Gphn", "Cacna2d1", "Negr1", "Rgs7")
 mdf<-getMutations4DiseaseByName(name, hdoid)
+is.null(mdf)
 }
 \seealso{
 findGenesByName

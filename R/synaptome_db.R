@@ -21,5 +21,7 @@ utils::globalVariables(c(
     "SpeciesTaxID", "Chromosome", "Variant", "cDNAvariant",
     "ProteinVariant", "FunctionClass", "DENOVO", "SFARI",
     "RatEntrez", "RatName", "Localisation", "PaperPMID",
-    "Year", "ClinVar", "dbconn"
+    "Year", "ClinVar", "dbconn", "BrainRegionID",
+    "EpilepsyGene", "Method", "MethodID", "Name",
+    "Ngenes", "Npmid", "n_distinct"
 ))
