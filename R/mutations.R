@@ -5,10 +5,13 @@
 #' @return \code{\link[dbplyr]{tbl_sql}} of table join
 #' @keywords internal
 getMutDiseaseQuery <- function() {
+    mtbl <- get_dbconn() %>%
+        dplyr::tbl('Mutation') %>% try(silent = TRUE)
+    if(inherits(mtbl,'try-error')){
+        stop('This version of DB do not support mutations.')
+    }
     gtbl <- get_dbconn() %>%
         dplyr::tbl('Gene')
-    mtbl <- get_dbconn() %>%
-        dplyr::tbl('Mutation')
     dtbl <- get_dbconn() %>%
         dplyr::tbl('Disease')
     mptbl <- get_dbconn() %>%
