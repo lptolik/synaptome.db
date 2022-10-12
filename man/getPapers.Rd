@@ -7,7 +7,7 @@
 getPapers()
 }
 \value{
-tibble with following columns:
+data.frame with following columns:
 \itemize{
 \item PaperPMID
 \item SpeciesTaxID

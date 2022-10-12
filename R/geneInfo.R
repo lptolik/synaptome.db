@@ -361,7 +361,7 @@ getGeneIdByPaperCnt <- function(cnt=1) {
 
 #' Get synaptome papers overview
 #'
-#' @return tibble with following columns:
+#' @return data.frame with following columns:
 #' \itemize{
 #' \item PaperPMID
 #' \item SpeciesTaxID
@@ -407,9 +407,11 @@ getPapers <- function(){
         dplyr::inner_join(b,by=c('BrainRegionID'='ID')) %>%
         dplyr::inner_join(c,by=c('LocalisationID'='ID')) %>%
         dplyr::inner_join(m,by=c('MethodID'='ID')) %>%
+        dplyr::collect()
+    papers<- papers %>% as.data.frame %>%
         dplyr::select(PaperPMID,SpeciesTaxID,Year,Name,
                       Localisation,BrainRegion,Method,Ngenes)
-        dplyr::collect()
+    return(papers)
 }
 
 #' Get list of frequently found in `Compartment GeneIDs
