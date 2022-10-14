@@ -573,10 +573,32 @@ findGeneByPapers <- function(pmids,cnt=1) {
 #' @examples
 #' gdf <- getGeneInfoByIDs(c(46, 6, 15, 1))
 getGeneInfoByIDs <- function(ids) {
-    gns <- get_dbconn() %>%
-        dplyr::tbl("FullGeneFullPaperFullRegion") %>%
-        dplyr::filter(GeneID %in% ids) %>%
+    if("Dataset" %in% DBI::dbListFields(get_dbconn(),'PaperGene')){
+    gtbl <- get_dbconn() %>%
+        dplyr::tbl('Gene') %>%
+        dplyr::filter(ID %in% ids)
+    ltbl <- get_dbconn() %>%
+        dplyr::tbl('Localisation')
+    pgtbl <- get_dbconn() %>%
+        dplyr::tbl('PaperGene')
+    ptbl <- get_dbconn() %>%
+        dplyr::tbl('Paper')
+    brtbl <- get_dbconn() %>%
+        dplyr::tbl('BrainRegion')
+    gns <- gtbl %>%
+        dplyr::inner_join(pgtbl, by = c('ID' = 'GeneID')) %>%
+        dplyr::rename(GeneID = ID) %>%
+        dplyr::inner_join(ltbl, by = c('LocalisationID' = 'ID')) %>%
+        dplyr::rename(Localisation = Name) %>%
+        dplyr::inner_join(ptbl, by = c('PaperPMID' = 'PMID')) %>%
+        dplyr::rename(Paper = Name) %>%
+        dplyr::inner_join(brtbl, by = c('BrainRegionID' = 'ID')) %>%
+        dplyr::rename(BrainRegion = Name) %>%
         dplyr::select(
+        # gns <- get_dbconn() %>%
+        # dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+        # dplyr::filter(GeneID %in% ids) %>%
+        # dplyr::select(
             "GeneID",
             "Localisation",
             "MGI",
@@ -586,10 +608,31 @@ getGeneInfoByIDs <- function(ids) {
             "MouseName",
             "PaperPMID",
             "Paper",
+            'Dataset',
             "Year",
             "SpeciesTaxID",
             "BrainRegion"
         )
-    df <- gns %>% dplyr::collect()
+    }else{
+        warning('Old DB structure is used')
+        gns <- get_dbconn() %>%
+        dplyr::tbl("FullGeneFullPaperFullRegion") %>%
+        dplyr::filter(GeneID %in% ids) %>%
+        dplyr::select(
+        "GeneID",
+        "Localisation",
+        "MGI",
+        "HumanEntrez",
+        "MouseEntrez",
+        "HumanName",
+        "MouseName",
+        "PaperPMID",
+        "Paper",
+        "Year",
+        "SpeciesTaxID",
+        "BrainRegion"
+        )
+    }
+    df <- gns %>% dplyr::collect() %>% unique
     return(df)
 }
