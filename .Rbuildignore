@@ -6,4 +6,5 @@
 ^Meta$
 ^\.github$
 ^.idea\.*$
-`.*sqlite$
+^identifier\.sqlite$
+^.*RMD.*$
