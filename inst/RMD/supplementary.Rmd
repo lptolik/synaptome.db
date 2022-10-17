@@ -4,10 +4,11 @@ subtitle: "Manual for querying SynaptomeDB"
 author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
 date: '`r format(Sys.time(), "%d.%m.%Y")`'
 output:
+  word_document: default
+  html_document: default
   pdf_document:
     keep_tex: yes
     number_sections: no
-  html_document: default
 header-includes:
 - \usepackage[T2A]{fontenc}
 - \usepackage[utf8]{inputenc}
