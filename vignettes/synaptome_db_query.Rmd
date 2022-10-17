@@ -60,7 +60,11 @@ https://doi.org/10.7488/ds/3771
 
 
 The dataset was described in the paper:
-1. Sorokina, O., Mclean, C., Croning, M.D.R. et al.  *A unified resource and configurable model of the  synapse proteome and its role in disease*.  Sci Rep 11, 9967 (2021).<https://doi.org/10.1038/s41598-021-88945-7>.
+
+1. Sorokina, O., Mclean, C., Croning, M.D.R. et al.  
+*A unified resource and configurable model of the  synapse proteome and 
+its role in disease*.  Sci Rep 11, 9967 (2021).
+<https://doi.org/10.1038/s41598-021-88945-7>.
 
 ## Database content overview
 Following diagrams illustrate content of the database available for analysis
@@ -136,8 +140,8 @@ for(i in 1:dim(mmmpost)[1]) {
         mmmpost$found[i] <- '>10'
     }
 }
-
-mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-9','>10'),ordered=TRUE)
+mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-9','>10'),
+                       ordered=TRUE)
 tp<-unique(mmmpost$Paper)
 mmmpost$Paper<- factor(mmmpost$Paper,
                        levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)',
@@ -149,8 +153,7 @@ ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found))
 
 ### Brain region distribution
 ```{r utot_histogram,fig.width=8,fig.height=8,fig.cap='Number of identified proteins in different Brain Regions(stacked)',eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE,fig.show='hold'}
-
-#region stats
+#brain region statistics
 totg <- getGeneInfoByIDs(gp$GeneID)
 mtot <- merge(gp, totg, by = c("GeneID","Localisation"))
 mmptot <- mtot[, c('GeneID',
@@ -211,7 +214,6 @@ pander(head(t))
 
 t <- findGenesByName(c("SRC", "SRCIN1", "FYN"))
 pander(head(t))
-
 ```
 
 ## 3.Get disease information for the gene set
@@ -220,26 +222,24 @@ Ontology, where available. To get disease information one can submit the
 list of Human Entrez Is or Human genes names, it could be also the list of 
 Internal GeneIDs if using `getGeneDiseaseByIDs` function
 
-
 ```{r disease }
 t <- getGeneDiseaseByName (c("CASK", "DLG2", "DLG1"))
 pander(head(t))
 
 t <- getGeneDiseaseByEntres (c(8573, 1742, 1739))
 pander(head(t))
-
 ```
+
 ## 5.Get information about the studies, combined into dataset
 One can obtain the overview of synaptic proteome papers combined into the database, which includes paper PMID, specie Tax ID, year of publication, subcellular localisation, brain region and number of proteins identified in the paper. This information may help to choose the specific study(ies) for further work.
 ```{r paper}
-
 p <- getPapers()
 pander(head(p))
 ```
+
 ## 6.Get the table of frequently identified proteins
 It is also possible to obtain the list of proteins found in more than one study, for the whole synaptic proteome. For that, the user needs to provide a "count" value as a desired minimal number of identifications (e.g. 2 or more). The command returns the table with gene identifiers and "Npmid" column, which contains the number of studies where this gene was identified.
 ```{r gene_count}
-
 gp <- findGeneByPaperCnt(cnt = 2)#find all proteins in synaptic proteome identified 2 times or more
 pander(head(gp))
 ```
@@ -250,6 +250,7 @@ Following section 5, when the information for all considered proteomic studies w
 spg <- findGeneByPapers(p$PaperPMID[1:5], cnt = 1)
 pander(head(spg))
 ```
+
 ## 8.Get the table of proteins frequently identified in specific compartment
 Most of the times, user is interested in the specific compartment rather then in total synaptic proteome. To help identify the genes most probably residenting in the specific compartment and exclude possible contaminants,  findGeneByCompartmentPaperCnt function provides the table of proteins found "cnt" or more times in different compartment-paper pairs.
 
@@ -301,7 +302,6 @@ only genes associated with specific compartment.
 To obtain the PPI network for compartment one has to submit the lis of 
 Internal GeneIDs obtained with previous commands.
 
-
 ```{r compPPI}
 #getting the list of compartment
 comp <- getCompartments()
@@ -351,6 +351,7 @@ ppi <- getPPIbyIDs4BrainRegion(
     taxID = 10090, type = "limited")
 pander(head(ppi))
 ```
+
 ## 12.Visualisatiion of PPI network with Igraph.
 Combine information from PPI data.frame obtained with functions like 
 `getPPIbyName`, `getPPIbyEntrez`, `getPPIbyIDs4Compartment` or 
@@ -377,7 +378,10 @@ tbl
 
 # References
 
-<div id="refs"></div>
+1. Sorokina, O., Mclean, C., Croning, M.D.R. et al.  
+*A unified resource and configurable model of the  synapse proteome and 
+its role in disease*.  Sci Rep 11, 9967 (2021).
+<https://doi.org/10.1038/s41598-021-88945-7>.
 
 # Appendix {.tabset}
 ## Statistics graph code {#statistics .unnumbered}
