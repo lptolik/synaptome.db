@@ -1,5 +1,6 @@
 ---
-title: "synaptome.db vignette"
+title: "SynaptomeDB: database for Synaptic proteome"
+subtitle: "Manual for querying SynaptomeDB"
 author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
 date: '`r format(Sys.time(), "%d.%m.%Y")`'
 output: rmarkdown::html_vignette
@@ -19,14 +20,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-suppressMessages(library(synaptome.db))
+suppressMessages(library(synaptome.ldb))
 suppressMessages(library(dplyr))
 library(pander)
+library(ggplot2)
 ```
-
-# Title   SynaptomeDB: database for Synaptic proteome
-##  Manual for querying SynaptomeDB
-##  Authors: Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong 
 
 # Introduction
 
@@ -56,9 +54,131 @@ which links certain synaptic proteins to existing computational models of
 synaptic plasticity and synaptic signal transduction
 
 The original files are maintained at 
-Eidnburgh Datashare https://doi.org/10.7488/ds/3017
+Eidnburgh Datashare https://doi.org/10.7488/ds/3017. 
+Updated database file could be found here:
+https://doi.org/10.7488/ds/3771
 
-The dataset was described in the @Sorokina:2021hl.
+
+The dataset was described in the paper:
+1. Sorokina, O., Mclean, C., Croning, M.D.R. et al.  *A unified resource and configurable model of the  synapse proteome and its role in disease*.  Sci Rep 11, 9967 (2021).<https://doi.org/10.1038/s41598-021-88945-7>.
+
+## Database content overview
+Following diagrams illustrate content of the database available for analysis
+by the package functions. Source code for construction of figures ar available
+in the Appendix [statistics code](#statistics) section.
+
+### Presynaptic datasets
+```{r pre_histogram,fig.width=8,fig.height=8,fig.cap='Number of identified proteins in Presynaptic datasets',eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE,fig.show='hold'}
+gp<-findGeneByCompartmentPaperCnt(1)
+
+# presynaptic stats
+presgp <- gp[gp$Localisation == "Presynaptic",]
+syngp <- gp[gp$Localisation == "Synaptosome",]
+presg <- getGeneInfoByIDs(presgp$GeneID)
+mpres <- merge(presgp, presg, by = c("GeneID","Localisation"))
+mmpres <- mpres[, c('GeneID',
+                    'HumanEntrez.x',
+                    'HumanName.x',
+                    'Npmid',
+                    'PaperPMID',
+                    'Paper',
+                    'Year')]
+papers <- getPapers()
+prespap <- papers[papers$Localisation == "Presynaptic",]
+mmmpres <- mmpres[mmpres$PaperPMID %in% prespap$PaperPMID,]
+mmmpres$found <- 0
+for(i in 1:dim(mmmpres)[1]) {
+    if (mmmpres$Npmid[i] == 1) {
+        mmmpres$found[i] <- '1'
+    } else if (mmmpres$Npmid[i] > 1 & mmmpres$Npmid[i] < 4) {
+        mmmpres$found[i] <- '2-3'
+    } else if (mmmpres$Npmid[i] >= 4 & mmmpres$Npmid[i] < 10) {
+        mmmpres$found[i] <- '4-9'
+    } else if (mmmpres$Npmid[i] >= 10) {
+        mmmpres$found[i] <- '>10'
+    }
+}
+
+mmmpres$found<- factor(mmmpres$found,
+                       levels = c('1','2-3','4-9','>10'),
+                       ordered=TRUE)
+tp<-unique(mmmpres$Paper)
+mmmpres$Paper<- factor(mmmpres$Paper,
+                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)',
+                                                      '\\1',tp)))],
+                       ordered=TRUE)
+
+ummpres<-unique(mmmpres[,c('GeneID','Paper','found')])
+ggplot(ummpres) + geom_bar(aes(y = Paper, fill = found)) 
+```
+
+### Postsynaptic datasets
+```{r post_histogram,fig.width=8,fig.height=8,fig.cap='Number of identified proteins in Postsynaptic datasets',eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE,fig.show='hold'}
+#postsynaptic stats
+pstgp <- gp[gp$Localisation == "Postsynaptic",]
+postg <- getGeneInfoByIDs(pstgp$GeneID)
+mpost <- merge(pstgp, postg, by = c("GeneID","Localisation"))
+mmpost <- mpost[, c('GeneID',
+                    'HumanEntrez.x',
+                    'HumanName.x','Npmid',
+                    'PaperPMID','Paper','Year')]
+postspap <- papers[papers$Localisation == "Postsynaptic",]
+mmmpost <- mmpost[mmpost$PaperPMID %in% postspap$PaperPMID,]
+mmmpost$found <- 0
+for(i in 1:dim(mmmpost)[1]) {
+    if (mmmpost$Npmid[i] == 1) {
+        mmmpost$found[i] <- '1'
+    } else if (mmmpost$Npmid[i] > 1 & mmmpost$Npmid[i] < 4) {
+        mmmpost$found[i] <- '2-3'
+    } else if (mmmpost$Npmid[i] >= 4 & mmmpost$Npmid[i] < 10) {
+        mmmpost$found[i] <- '4-9'
+    } else if (mmmpost$Npmid[i] >= 10) {
+        mmmpost$found[i] <- '>10'
+    }
+}
+
+mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-9','>10'),ordered=TRUE)
+tp<-unique(mmmpost$Paper)
+mmmpost$Paper<- factor(mmmpost$Paper,
+                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)',
+                                                      '\\1',tp)))],
+                       ordered=TRUE)
+ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
+ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
+```
+
+### Brain region distribution
+```{r utot_histogram,fig.width=8,fig.height=8,fig.cap='Number of identified proteins in different Brain Regions(stacked)',eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE,fig.show='hold'}
+
+#region stats
+totg <- getGeneInfoByIDs(gp$GeneID)
+mtot <- merge(gp, totg, by = c("GeneID","Localisation"))
+mmptot <- mtot[, c('GeneID',
+                   'HumanEntrez.x',
+                   'HumanName.x',
+                   'Localisation',
+                   'Npmid',
+                   'Paper',
+                   'BrainRegion')]
+untot<-unique(mmptot[,c('GeneID','BrainRegion','Localisation')])
+loccolors<-c("#3D5B59","#B5E5CF","#FCB5AC", "#B99095")
+loccolors<-loccolors[1:length(unique(untot$Localisation))]
+ggplot(untot) + geom_bar(aes(y = BrainRegion, fill = Localisation)) + 
+    scale_fill_manual(values = loccolors)
+```
+
+```{r grouped_histogram,fig.width=8,fig.height=4,fig.cap='Number of identified proteins in different Brain Regions(grouped)',eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE,fig.show='hold'}
+table(untot$Localisation,untot$BrainRegion)-> m
+as.data.frame(m)->udf
+names(udf)<-c('Localisation','BrainRegion','value')
+ggplot(udf, aes(fill=Localisation, y=value, x=BrainRegion)) + 
+    geom_bar(position="dodge", stat="identity")+ 
+    scale_fill_manual(values = loccolors) + 
+    theme(axis.text.x = element_text(face="plain", 
+                                     color="#993333", 
+                                     angle=45,vjust = 1,
+                                     hjust=1,size = rel(1.5)))
+```
 
 # Overview of capabilities
 ## 1.Get information for a specific gene or gene set.
@@ -260,7 +380,15 @@ tbl
 <div id="refs"></div>
 
 # Appendix {.tabset}
-## Versions
+## Statistics graph code {#statistics .unnumbered}
+```{r pre_histogram, eval=FALSE, include=TRUE}
+```
+```{r post_histogram, eval=FALSE, include=TRUE}
+```
+```{r utot_histogram, eval=FALSE, include=TRUE}
+```
+```{r grouped_histogram, eval=FALSE, include=TRUE}
+```
 
 ### Session Info
 ```{r sessionInfo, echo=FALSE, results='asis', class='text', warning=FALSE}

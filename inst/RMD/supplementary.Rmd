@@ -65,7 +65,7 @@ which links certain synaptic proteins to existing computational models of
 synaptic plasticity and synaptic signal transduction
 
 The original files are maintained at 
-Ednburgh Datashare https://doi.org/10.7488/ds/3017
+Ednburgh Datashare https://doi.org/10.7488/ds/3017. 
 Updated database file could be found here:
 https://doi.org/10.7488/ds/3771
 
