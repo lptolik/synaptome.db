@@ -103,13 +103,13 @@ for(i in 1:dim(mmmpres)[1]) {
 }
 
 mmmpres$found<- factor(mmmpres$found,
-                       levels = c('1','2-3','4-9','>10'),
-                       ordered=TRUE)
+                        levels = c('1','2-3','4-9','>10'),
+                        ordered=TRUE)
 tp<-unique(mmmpres$Paper)
 mmmpres$Paper<- factor(mmmpres$Paper,
-                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)',
-                                                      '\\1',tp)))],
-                       ordered=TRUE)
+                        levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)',
+                                                        '\\1',tp)))],
+                        ordered=TRUE)
 
 ummpres<-unique(mmmpres[,c('GeneID','Paper','found')])
 ggplot(ummpres) + geom_bar(aes(y = Paper, fill = found)) 
@@ -140,12 +140,12 @@ for(i in 1:dim(mmmpost)[1]) {
     }
 }
 mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-9','>10'),
-                       ordered=TRUE)
+                        ordered=TRUE)
 tp<-unique(mmmpost$Paper)
 mmmpost$Paper<- factor(mmmpost$Paper,
-                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)',
-                                                      '\\1',tp)))],
-                       ordered=TRUE)
+                        levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)',
+                                                        '\\1',tp)))],
+                        ordered=TRUE)
 ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
 ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
 ```
@@ -157,7 +157,8 @@ svgp <- gp[gp$Localisation == "Synaptic_Vesicle",]
 svg <- getGeneInfoByIDs(svgp$GeneID)
 mpost <- merge(svgp, svg, by = c("GeneID","Localisation"))
 mpost$Paper<-paste0(mpost$Paper,ifelse('FULL'==mpost$Dataset,'','_SVR'))
-mmpost <- mpost[, c('GeneID','HumanEntrez.x','HumanName.x','Npmid','PaperPMID','Paper','Year')]
+mmpost <- mpost[, c('GeneID','HumanEntrez.x','HumanName.x','
+                    Npmid','PaperPMID','Paper','Year')]
 postspap <- papers[papers$Localisation == "Synaptic_Vesicle",]
 mmmpost <- mmpost[mmpost$PaperPMID %in% postspap$PaperPMID,]
 mmmpost$found <- 0
@@ -174,12 +175,12 @@ for(i in 1:dim(mmmpost)[1]) {
 }
 
 mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-5','>6'),
-                       ordered=TRUE)
+                        ordered=TRUE)
 tp<-unique(mmmpost$Paper)
 mmmpost$Paper<- factor(mmmpost$Paper,
-                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)_?.*',
-                                                       '\\1',tp)))],
-                       ordered=TRUE)
+                        levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)_?.*',
+                                                        '\\1',tp)))],
+                        ordered=TRUE)
 
 ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
 g<-ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
@@ -192,12 +193,12 @@ g
 totg <- getGeneInfoByIDs(gp$GeneID)
 mtot <- merge(gp, totg, by = c("GeneID","Localisation"))
 mmptot <- mtot[, c('GeneID',
-                   'HumanEntrez.x',
-                   'HumanName.x',
-                   'Localisation',
-                   'Npmid',
-                   'Paper',
-                   'BrainRegion')]
+                    'HumanEntrez.x',
+                    'HumanName.x',
+                    'Localisation',
+                    'Npmid',
+                    'Paper',
+                    'BrainRegion')]
 untot<-unique(mmptot[,c('GeneID','BrainRegion','Localisation')])
 loccolors<-c("#3D5B59","#B5E5CF","#FCB5AC", "#B99095")
 loccolors<-loccolors[1:length(unique(untot$Localisation))]
@@ -213,9 +214,9 @@ ggplot(udf, aes(fill=Localisation, y=value, x=BrainRegion)) +
     geom_bar(position="dodge", stat="identity")+ 
     scale_fill_manual(values = loccolors) + 
     theme(axis.text.x = element_text(face="plain", 
-                                     color="#993333", 
-                                     angle=45,vjust = 1,
-                                     hjust=1,size = rel(1.5)))
+                                        color="#993333", 
+                                        angle=45,vjust = 1,
+                                        hjust=1,size = rel(1.5)))
 ```
 
 # Overview of capabilities
@@ -266,20 +267,35 @@ pander(head(t))
 ```
 
 ## 5.Get information about the studies, combined into dataset
-One can obtain the overview of synaptic proteome papers combined into the database, which includes paper PMID, specie Tax ID, year of publication, subcellular localisation, brain region and number of proteins identified in the paper. This information may help to choose the specific study(ies) for further work.
+One can obtain the overview of synaptic proteome papers combined into the 
+database, which includes paper PMID, specie Tax ID, year of publication, 
+subcellular localisation, brain region and number of proteins identified in 
+the paper. This information may help to choose the specific study(ies) for 
+further work.
 ```{r paper}
 p <- getPapers()
 pander(head(p))
 ```
 
 ## 6.Get the table of frequently identified proteins
-It is also possible to obtain the list of proteins found in more than one study, for the whole synaptic proteome. For that, the user needs to provide a "count" value as a desired minimal number of identifications (e.g. 2 or more). The command returns the table with gene identifiers and "Npmid" column, which contains the number of studies where this gene was identified.
+It is also possible to obtain the list of proteins found in more than one 
+study, for the whole synaptic proteome. For that, the user needs to provide 
+a "count" value as a desired minimal number of identifications (e.g. 2 or 
+more). The command returns the table with gene identifiers and "Npmid" column, 
+which contains the number of studies where this gene was identified.
 ```{r gene_count}
-gp <- findGeneByPaperCnt(cnt = 2)#find all proteins in synaptic proteome identified 2 times or more
+#find all proteins in synaptic proteome identified 2 times or more
+gp <- findGeneByPaperCnt(cnt = 2)
 pander(head(gp))
 ```
 ## 7.Get the table of proteins dentified in specific studies
-Following section 5, when the information for all considered proteomic studies was obtained, user can select specific study(ies) by PMID and get the proteins identified in those studies. By providing "count" value user can extract either all proteins from specified studies (count = 1), or just frequently found ones (count >=2). As above, the command returns the table with gene identifiers with "Npmid" column, which contains the number of studies where this protein was identified
+Following section 5, when the information for all considered proteomic studies 
+was obtained, user can select specific study(ies) by PMID and get the proteins 
+identified in those studies. By providing `count` value user can extract either 
+all proteins from specified studies (count = 1), or just frequently found ones 
+(count >=2). As above, the command returns the table with gene identifiers with 
+`Npmid` column, which contains the number of studies where this protein was 
+identified
 
 ```{r gene_papCount}
 spg <- findGeneByPapers(p$PaperPMID[1:5], cnt = 1)
@@ -287,12 +303,17 @@ pander(head(spg))
 ```
 
 ## 8.Get the table of proteins frequently identified in specific compartment
-Most of the times, user is interested in the specific compartment rather then in total synaptic proteome. To help identify the genes most probably residenting in the specific compartment and exclude possible contaminants,  findGeneByCompartmentPaperCnt function provides the table of proteins found "cnt" or more times in different compartment-paper pairs.
+Most of the times, user is interested in the specific compartment rather then 
+in total synaptic proteome. To help identify the genes most probably 
+residenting in the specific compartment and exclude possible contaminants,  
+findGeneByCompartmentPaperCnt function provides the table of proteins found 
+`cnt` or more times in different compartment-paper pairs.
 
 ```{r gene_comp}
 gcp <- findGeneByCompartmentPaperCnt(cnt = 2)
 pander(head(gcp))
-# Now user can select the specific compartment and proceed working with obtained list of frequently found proteins
+# Now user can select the specific compartment and proceed working with 
+# obtained list of frequently found proteins
 presgp <- gcp[gcp$Localisation == "Presynaptic",]
 dim(presgp)
 pander(head(presgp))
@@ -316,8 +337,8 @@ pander(head(t))
 
 t <- getPPIbyEntrez(c(1739, 1740, 1742, 1741), type='induced')
 pander(head(t))
-
-t <- getPPIbyEntrez(presgp$HumanEntrez, type='induced') #obtain PPIs for the list of frequently found genes in presynaptc compartment
+ #obtain PPIs for the list of frequently found genes in presynaptc compartment
+t <- getPPIbyEntrez(presgp$HumanEntrez, type='induced')
 pander(head(t))
 ```
 

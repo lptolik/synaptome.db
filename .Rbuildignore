@@ -8,3 +8,4 @@
 ^.idea\.*$
 ^identifier\.sqlite$
 ^.*RMD.*$
+^.*BiocCheck.*$
