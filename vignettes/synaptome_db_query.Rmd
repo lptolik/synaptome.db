@@ -4,9 +4,8 @@ subtitle: "Manual for querying SynaptomeDB"
 author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
 date: '`r format(Sys.time(), "%d.%m.%Y")`'
 output: rmarkdown::html_vignette
-bibliography: references.bib  
 vignette: >
-    %\VignetteIndexEntry{synaptome.db}
+    %\VignetteIndexEntry{SynaptomeDB: database for Synaptic proteome}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
@@ -149,6 +148,42 @@ mmmpost$Paper<- factor(mmmpost$Paper,
                        ordered=TRUE)
 ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
 ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
+```
+
+### Synaptic Vesicle
+
+```{r sv_histogram,fig.width=8,fig.height=8,fig.cap='Number of identified proteins in Synaptic Vesicle datasets (note the difference in the color scale)',eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE,fig.show='hold'}
+svgp <- gp[gp$Localisation == "Synaptic_Vesicle",]
+svg <- getGeneInfoByIDs(svgp$GeneID)
+mpost <- merge(svgp, svg, by = c("GeneID","Localisation"))
+mpost$Paper<-paste0(mpost$Paper,ifelse('FULL'==mpost$Dataset,'','_SVR'))
+mmpost <- mpost[, c('GeneID','HumanEntrez.x','HumanName.x','Npmid','PaperPMID','Paper','Year')]
+postspap <- papers[papers$Localisation == "Synaptic_Vesicle",]
+mmmpost <- mmpost[mmpost$PaperPMID %in% postspap$PaperPMID,]
+mmmpost$found <- 0
+for(i in 1:dim(mmmpost)[1]) {
+    if (mmmpost$Npmid[i] == 1) {
+        mmmpost$found[i] <- '1'
+    } else if (mmmpost$Npmid[i] > 1 & mmmpost$Npmid[i] < 4) {
+        mmmpost$found[i] <- '2-3'
+    } else if (mmmpost$Npmid[i] >= 4 & mmmpost$Npmid[i] < 6) {
+        mmmpost$found[i] <- '4-5'
+    } else if (mmmpost$Npmid[i] >= 6) {
+        mmmpost$found[i] <- '>6'
+    }
+}
+
+mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-5','>6'),
+                       ordered=TRUE)
+tp<-unique(mmmpost$Paper)
+mmmpost$Paper<- factor(mmmpost$Paper,
+                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)_?.*',
+                                                       '\\1',tp)))],
+                       ordered=TRUE)
+
+ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
+g<-ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
+g
 ```
 
 ### Brain region distribution
@@ -388,6 +423,8 @@ its role in disease*.  Sci Rep 11, 9967 (2021).
 ```{r pre_histogram, eval=FALSE, include=TRUE}
 ```
 ```{r post_histogram, eval=FALSE, include=TRUE}
+```
+```{r sv_histogram, eval=FALSE, include=TRUE}
 ```
 ```{r utot_histogram, eval=FALSE, include=TRUE}
 ```

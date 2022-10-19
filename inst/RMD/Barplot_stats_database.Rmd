@@ -19,7 +19,7 @@ header-includes:
 ---
 ```{r loadPackages, include=FALSE, cache=FALSE}
 ## load additional packages in this chunk
-library(synaptome.ldb)
+library(synaptome.db)
 library(ggplot2)
 ```
 
@@ -35,13 +35,14 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r comp_table}
 gp<-findGeneByCompartmentPaperCnt(1)
-
+papers <- getPapers()
 ```
 
+# Presynaptic
 ```{r pre_histogram,fig.width=8,fig.height=8}
 # presynaptic stats
 presgp <- gp[gp$Localisation == "Presynaptic",]
-
+svgp <- gp[gp$Localisation == "Synaptic_Vesicle",]
 syngp <- gp[gp$Localisation == "Synaptosome",]
 presg <- getGeneInfoByIDs(presgp$GeneID)
 #mpres <- merge(presgp, presg, by = "GeneID")
@@ -49,7 +50,6 @@ mpres <- merge(presgp, presg, by = c("GeneID","Localisation"))
 #mmpres <- mpres[, c(1,3,6, 10, 17, 18, 19)]
 mmpres <- mpres[, c('GeneID','HumanEntrez.x','HumanName.x','Npmid','PaperPMID','Paper','Year')]
 head(mmpres)
-papers <- getPapers()
 
 prespap <- papers[papers$Localisation == "Presynaptic",]
 mmmpres <- mmpres[mmpres$PaperPMID %in% prespap$PaperPMID,]
@@ -74,12 +74,12 @@ mmmpres$Paper<- factor(mmmpres$Paper,
                                                       '\\1',tp)))],
                        ordered=TRUE)
 
-#mmmpres$Paper<- factor(mmmpres$Paper,levels = c('BLONDEAU_2004','COUGHENOUR_2004','MORCIANO_2005','PHILLIPS_2005','BURRE_2006','TAKAMORI_2006','ABUL_HUSN_2009','MORCIANO_2009','GORINI_2010','GRONBORG_2010','ABUL_HUSN_2011','BOYKEN_2013','BRINKMALM_2014','WEINGARTEN_2014','WILHELM_2014','KOKOTOS_2018','TAOUFIQ_2020','WITTIG_2021'),ordered=TRUE)
 ummpres<-unique(mmmpres[,c('GeneID','Paper','found')])
 ggplot(ummpres) + geom_bar(aes(y = Paper, fill = found)) 
 
 ```
 
+# Postsynaptic
 ```{r post_histogram,fig.width=8,fig.height=8}
 #postsynaptic stats
 
@@ -113,12 +113,80 @@ mmmpost$Paper<- factor(mmmpost$Paper,
                                                       '\\1',tp)))],
                        ordered=TRUE)
 
-#mmmpost$Paper<- factor(mmmpost$Paper,levels = c('HUSI_2000','WALIKONIS_2000','SATON_2002','PENG_2002', 'LI_2004','YOSHIMURA_2004','JORDAN_2004', 'FARR_2004','TRINIDAD_2005','DOSEMESI_2006','CHENG_2006','COLLINS_2006','DOSEMESI_2007','TRINIDAD_2008','SELIMI_2009','FERNANDEZ_2009','BAYES_2011','BAYES_2012', 'SCHWENK_2013','DISTLER_2014','BAYES_2014','LI_2016','UEZU_2016','FOCKING_2016','LI_2017','FERNANDEZ_2017','ROY_2017','ROY_2018','WILSON_2019'),ordered=TRUE)
 ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
 ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
 
 ```
 
+# Synaptic Vesicle
+```{r sv_histogram,fig.width=8,fig.height=8}
+#postsynaptic stats
+
+svgp <- gp[gp$Localisation == "Synaptic_Vesicle",]
+svg <- getGeneInfoByIDs(svgp$GeneID)
+#mpost <- merge(pstgp, postg, by = "GeneID")
+mpost <- merge(svgp, svg, by = c("GeneID","Localisation"))
+mpost$Paper<-paste0(mpost$Paper,ifelse('FULL'==mpost$Dataset,'','_SVR'))
+#mmpost <- mpost[, c(1,3,6, 10, 17, 18, 19)]
+mmpost <- mpost[, c('GeneID','HumanEntrez.x','HumanName.x','Npmid','PaperPMID','Paper','Year')]
+postspap <- papers[papers$Localisation == "Synaptic_Vesicle",]
+mmmpost <- mmpost[mmpost$PaperPMID %in% postspap$PaperPMID,]
+
+table(mmmpost$Npmid)
+mmmpost$found <- 0
+for(i in 1:dim(mmmpost)[1]) {
+    if (mmmpost$Npmid[i] == 1) {
+        mmmpost$found[i] <- '1'
+    } else if (mmmpost$Npmid[i] > 1 & mmmpost$Npmid[i] < 4) {
+        mmmpost$found[i] <- '2-3'
+    } else if (mmmpost$Npmid[i] >= 4 & mmmpost$Npmid[i] < 10) {
+        mmmpost$found[i] <- '4-9'
+    } else if (mmmpost$Npmid[i] >= 10) {
+        mmmpost$found[i] <- '>10'
+    }
+}
+
+mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-9','>10'),
+                       ordered=TRUE)
+tp<-unique(mmmpost$Paper)
+mmmpost$Paper<- factor(mmmpost$Paper,
+                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)_?.*',
+                                                       '\\1',tp)))],
+                       ordered=TRUE)
+
+ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
+g<-ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
+g
+```
+```{r sv_hist1}
+mmmpost$found <- 0
+for(i in 1:dim(mmmpost)[1]) {
+    if (mmmpost$Npmid[i] == 1) {
+        mmmpost$found[i] <- '1'
+    } else if (mmmpost$Npmid[i] > 1 & mmmpost$Npmid[i] < 4) {
+        mmmpost$found[i] <- '2-3'
+    } else if (mmmpost$Npmid[i] >= 4 & mmmpost$Npmid[i] < 6) {
+        mmmpost$found[i] <- '4-5'
+    } else if (mmmpost$Npmid[i] >= 6) {
+        mmmpost$found[i] <- '>6'
+    }
+}
+
+mmmpost$found<- factor(mmmpost$found,levels = c('1','2-3','4-5','>6'),
+                       ordered=TRUE)
+tp<-unique(mmmpost$Paper)
+mmmpost$Paper<- factor(mmmpost$Paper,
+                       levels =tp[order(as.numeric(sub('^[^0-9]+_([0-9]+)_?.*',
+                                                       '\\1',tp)))],
+                       ordered=TRUE)
+
+ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
+g<-ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
+g
+
+```
+
+# Brain region
 ```{r utot_histogram,fig.width=8,fig.height=4}
 
 #region stats
