@@ -253,7 +253,9 @@ findGenesByName <- function(name) {
 #' @examples
 #' gdf <- getGenesByID(c(46, 6, 15, 1))
 getGenesByID <- function(ids) {
-    genes <- get_dbconn() %>%
+    #TODO: fix the DB and remove suppressWarnings
+    genes <- suppressWarnings(
+        get_dbconn() %>%
         dplyr::tbl("Gene") %>%
         dplyr::select(
             ID, MGI,
@@ -263,6 +265,7 @@ getGenesByID <- function(ids) {
         dplyr::filter(ID %in% ids) %>%
         dplyr::rename(GeneID = ID) %>%
         dplyr::collect()
+    )
     return(genes)
 }
 
@@ -498,8 +501,8 @@ findGeneByCompartmentPaperCnt <- function(cnt = 1) {
     ids <- getGeneIdByCompartmentPaperCnt(cnt) %>%
         dplyr::left_join(getCompartments(),
                          by = c("LocalisationID" = 'ID')) %>%
-        rename('Localisation' = 'Name') %>%
-        select('GeneID', 'Localisation', 'Npmid')
+        dplyr::rename('Localisation' = 'Name') %>%
+        dplyr::select('GeneID', 'Localisation', 'Npmid')
     gnt <- getGenesByID(ids$GeneID) %>%
         dplyr::left_join(ids, by = 'GeneID')
     return(gnt)
