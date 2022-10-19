@@ -11,7 +11,8 @@ getMutDiseaseQuery <- function() {
     mtbl <- get_dbconn() %>%
         dplyr::tbl('Mutation') %>% try(silent = TRUE)
     if(inherits(mtbl,'try-error')){
-        warning('This version of DB do not support mutations.')
+        warning('This version of DB do not support mutations.\n',
+                'Call: AnnotationHub::AnnotationHub() to update the cache.\n')
         return(NULL)
     }
     gtbl <- get_dbconn() %>%

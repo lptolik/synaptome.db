@@ -614,7 +614,8 @@ getGeneInfoByIDs <- function(ids) {
             "BrainRegion"
         )
     }else{
-        warning('Old DB structure is used')
+        warning('Old DB structure is used.\n',
+                'Call: AnnotationHub::AnnotationHub() to update the cache.\n')
         gns <- get_dbconn() %>%
         dplyr::tbl("FullGeneFullPaperFullRegion") %>%
         dplyr::filter(GeneID %in% ids) %>%
