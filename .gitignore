@@ -25,6 +25,15 @@ synaptome.db.Rproj
 vignettes/*.html
 vignettes/*.pdf
 
+# produced reports
+inst/RMD/*.html
+inst/RMD/*.pdf
+inst/RMD/*.tex
+inst/RMD/*_files
+inst/RMD/*.png
+inst/RMD/*.docx
+
+
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
 
