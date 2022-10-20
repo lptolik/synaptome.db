@@ -1,5 +1,4 @@
 ---
-<<<<<<< Updated upstream
 title: "SynaptomeDB: database for Synaptic proteome"
 subtitle: "Manual for querying SynaptomeDB"
 author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
@@ -9,39 +8,17 @@ vignette: >
     %\VignetteIndexEntry{SynaptomeDB: database for Synaptic proteome}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
-=======
-title: "Untitled"
-author: "Oksana Sorokina"
-date: "2022-10-13"
-output: html_document
->>>>>>> Stashed changes
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r comp_table}
-library(synaptome.ldb)
-library(ggplot2)
-library(pander)
-```
-
-```{r, include = FALSE}
-library(knitr)
-knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>"
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = "#>"
 )
 ```
 
-```{r setup.show, include=TRUE, eval=FALSE}
+
+```{r setup.show, include=FALSE}
 suppressMessages(library(synaptome.db))
 suppressMessages(library(dplyr))
 library(pander)
@@ -60,7 +37,9 @@ contributing a total of 5,560 mouse and human unique gene identifiers;
 mouse gene IDs, and 11 studies that span the whole synaptosome and 
 report 7,198 unique genes. 
 
-NB: With the latest update of the database we have added 6 new studies: 1 presynaptic and 5 postsynaptic, new compsrtment (Synaptic Vesicle), and coding mutations for Autistic Spectral Disorder (ASD) and epilepsy (Epi).
+NB: With the latest update of the database we have added 6 new studies: 1 
+presynaptic and 5 postsynaptic, new compsrtment (Synaptic Vesicle), and 
+coding mutations for Autistic Spectral Disorder (ASD) and epilepsy (Epi).
 
 To reconstruct protein-protein interaction (PPI) networks for the pre- and 
 post-synaptic proteomes we used human PPI data filtered for the highest 
@@ -78,11 +57,9 @@ which links certain synaptic proteins to existing computational models of
 synaptic plasticity and synaptic signal transduction
 
 The original files are maintained at 
-<<<<<<< Updated upstream
 Eidnburgh Datashare https://doi.org/10.7488/ds/3017. 
 Updated database file could be found here:
 https://doi.org/10.7488/ds/3771
-
 
 The dataset was described in the paper:
 
@@ -175,11 +152,6 @@ mmmpost$Paper<- factor(mmmpost$Paper,
 ummpos<-unique(mmmpost[,c('GeneID','Paper','found')])
 ggplot(ummpos) + geom_bar(aes(y = Paper, fill = found)) 
 ```
-=======
-Ednburgh Datashare https://doi.org/10.7488/ds/3017
-Updated database file could be found here:
-https://doi.org/10.7488/ds/3771
->>>>>>> Stashed changes
 
 ### Synaptic Vesicle
 
@@ -188,8 +160,8 @@ svgp <- gp[gp$Localisation == "Synaptic_Vesicle",]
 svg <- getGeneInfoByIDs(svgp$GeneID)
 mpost <- merge(svgp, svg, by = c("GeneID","Localisation"))
 mpost$Paper<-paste0(mpost$Paper,ifelse('FULL'==mpost$Dataset,'','_SVR'))
-mmpost <- mpost[, c('GeneID','HumanEntrez.x','HumanName.x','
-                    Npmid','PaperPMID','Paper','Year')]
+mmpost <- mpost[, c('GeneID','HumanEntrez.x','HumanName.x','Npmid',
+                    'PaperPMID','Paper','Year')]
 postspap <- papers[papers$Localisation == "Synaptic_Vesicle",]
 mmmpost <- mmpost[mmpost$PaperPMID %in% postspap$PaperPMID,]
 mmmpost$found <- 0
@@ -319,8 +291,8 @@ which contains the number of studies where this gene was identified.
 gp <- findGeneByPaperCnt(cnt = 2)
 pander(head(gp))
 ```
-<<<<<<< Updated upstream
-## 7.Get the table of proteins dentified in specific studies
+
+## 7.Get the table of proteins identified in specific studies
 Following section 5, when the information for all considered proteomic studies 
 was obtained, user can select specific study(ies) by PMID and get the proteins 
 identified in those studies. By providing `count` value user can extract either 
@@ -328,10 +300,6 @@ all proteins from specified studies (count = 1), or just frequently found ones
 (count >=2). As above, the command returns the table with gene identifiers with 
 `Npmid` column, which contains the number of studies where this protein was 
 identified
-=======
-## 7.Get the table of proteins identified in specific studies
-Following section 5, when the information for all considered proteomic studies was obtained, user can select specific study(ies) by PMID and get the proteins identified in those studies. By providing "count" value user can extract either all proteins from specified studies (count = 1), or just frequently found ones (count >=2). As above, the command returns the table with gene identifiers with "Npmid" column, which contains the number of studies where this protein was identified
->>>>>>> Stashed changes
 
 ```{r gene_papCount}
 spg <- findGeneByPapers(p$PaperPMID[1:5], cnt = 1)
@@ -443,31 +411,32 @@ ppi <- getPPIbyIDs4BrainRegion(
     taxID = 10090, type = "limited")
 pander(head(ppi))
 ```
-<<<<<<< Updated upstream
 
-## 12.Visualisatiion of PPI network with Igraph.
-=======
 ## 12.Checking third-party list against Synaptic Proteome db
 ```{r check_list}
-
-listG<-findGenesByEntrez(1:250) #check whic genes from 250 random EntrezIds are in the database
+#check which genes from 250 random EntrezIds are in the database
+listG<-findGenesByEntrez(1:250) 
 dim(listG)
 head(listG)
 
+#check which genes from subset identified as synaptic are presynaptic
 getCompartments()
-presG <- getGenes4Compartment(listG$GeneID, 2) #check which genes from subset identified as synaptic are presynaptic
+presG <- getGenes4Compartment(listG$GeneID, 2) 
 dim(presG)
 head(presG)
 
+#check which genes from subset identified as synaptic are found in 
+#human cerebellum
 getBrainRegions()
-listR <- getGenes4BrainRegion(listG$GeneID, brainRegion = "Cerebellum", taxID = 10090) #check which genes from subset identified as synaptic are found in human cerebellum
+listR <- getGenes4BrainRegion(listG$GeneID, 
+                              brainRegion = "Cerebellum", taxID = 10090) 
 dim(listR)
 head(listR)
 
 ```
 
 ## 13.Visualisatiion of PPI network with Igraph.
->>>>>>> Stashed changes
+
 Combine information from PPI data.frame obtained with functions like 
 `getPPIbyName`, `getPPIbyEntrez`, `getPPIbyIDs4Compartment` or 
 `getPPIbyIDs4BrainRegion` with information about genes obtained 
