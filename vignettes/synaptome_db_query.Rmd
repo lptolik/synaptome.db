@@ -5,7 +5,7 @@ author: "Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong"
 date: '`r format(Sys.time(), "%d.%m.%Y")`'
 output: rmarkdown::html_vignette
 vignette: >
-    %\VignetteIndexEntry{SynaptomeDB: database for Synaptic proteome}
+    %\VignetteIndexEntry{synaptome_db_query}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
