@@ -3,28 +3,29 @@ library(testthat)
 context("Testing number of returned rows")
 
 test_that("Proper row number in geneInfo", {
+    #' Find information for gene IDs
+    t <- getGeneInfoByIDs(c(48, 585, 710))
+    expect_equal(dim(t), c(161, 13))
     # get information for specific gene
     t <- getGeneInfoByName("CASK")
-    expect_equal(dim(t), c(37, 12))
+    expect_equal(dim(t), c(54, 13))
     # get information for the list of genes
     t <- getGeneInfoByName(c("CASK", "DLG2"))
-    expect_equal(dim(t), c(87, 12))
+    expect_equal(dim(t), c(121, 13))
     # get information for specific gene
     t <- getGeneInfoByEntrez(1742)
-    expect_equal(dim(t), c(55, 12))
-    t <- getGeneInfoByEntrez("1742")
+    expect_equal(dim(t), c(72, 13))
+    ts <- getGeneInfoByEntrez("1742")
+    expect_equal(t,ts)
     # get information for the list of genes
     t <-
         getGeneInfoByName(c("DLG4", "Dlg2", "Dlg3", "Dlg1"))
-    expect_equal(dim(t), c(195, 12))
+    expect_equal(dim(t), c(263, 13))
     # get information for specific gene
     t <- findGenesByEntrez(c(1742, 1741, 1739, 1740))
     expect_equal(dim(t), c(4, 8))
     t <- findGenesByName(c("DLG4", "Dlg2", "Dlg3", "Dlg1"))
     expect_equal(dim(t), c(4, 8))
-    #' Find information for gene IDs
-    t <- getGeneInfoByIDs(c(48, 585, 710))
-    expect_equal(dim(t), c(110, 12))
 })
 
 test_that("Proper row number in brain regions", {
@@ -33,7 +34,7 @@ test_that("Proper row number in brain regions", {
         dim(
             getAllGenes4BrainRegion(brainRegion = "Striatum", taxID = 10090)
         ),
-        c(1371, 12)
+        c(4386, 12)
     )
     expect_equal(
         dim(
@@ -43,7 +44,7 @@ test_that("Proper row number in brain regions", {
                 taxID = 10090
             )
         ),
-        c(5, 12)
+        c(10, 12)
     )
     expect_equal(
         dim(
@@ -63,13 +64,13 @@ test_that("Proper row number in brain regions", {
                 taxID = 10090,
                 type = "ind"
             )
-        ), c(103, 2)
+        ), c(236, 2)
     )
 })
 test_that("Proper row number in compartments", {
     c <- getCompartments()
-    expect_equal(dim(c), c(3, 3))
-    expect_equal(dim(getAllGenes4Compartment(compartmentID = 1)), c(5560, 8))
+    expect_equal(dim(c), c(4, 3))
+    expect_equal(dim(getAllGenes4Compartment(compartmentID = 1)), c(5568, 8))
     expect_equal(
         dim(
             getGenes4Compartment(
@@ -84,7 +85,7 @@ test_that("Proper row number in compartments", {
                 c(1, 15, 156, 1500, 3000, 7000),
                 compartmentID = 1, type = "induced"
             )
-        ), c(248, 2)
+        ), c(249, 2)
     )
     expect_equal(
         dim(
@@ -117,7 +118,7 @@ test_that("Proper row numbers in PPIs", {
     )
     expect_equal(
         dim(getPPIbyIDs(c(48, 129, 975, 4422, 5715, 5835), type = "lim")),
-        c(12, 2)
+        c(6, 2)
     )
     expect_equal(
         dim(
@@ -138,8 +139,8 @@ test_that("Proper graph created from PPI", {
         getPPIbyIDs(c(48, 129, 975, 4422, 5715, 5835), type = "lim")
     )
     expect_s3_class(g, "igraph")
-    expect_equal(igraph::vcount(g), 6)
-    expect_equal(igraph::ecount(g), 12)
+    expect_equal(igraph::vcount(g), 4)
+    expect_equal(igraph::ecount(g), 6)
     expect_equal(
         igraph::vertex_attr_names(g),
         c(

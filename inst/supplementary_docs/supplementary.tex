@@ -1,0 +1,2269 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{grffile}
+\usepackage{rotating}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{lscape}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={SynaptomeDB: database for Synaptic proteome},
+  pdfauthor={Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{SynaptomeDB: database for Synaptic proteome}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Manual for querying SynaptomeDB}
+\author{Oksana Sorokina, Anatoly Sorokin, J. Douglas Armstrong}
+\date{17.10.2022}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+58 published synaptic proteomic datasets (2000-2022 years) that describe
+over 8,000 proteins were integrated and combined with direct
+protein-protein interactions and functional metadata to build a network
+resource.
+
+The set includes 29 post synaptic proteome (PSP) studies (2000 to 2019)
+contributing a total of 5,560 mouse and human unique gene identifiers;
+19 presynaptic studies (2004 to 2022) describe 2,772 unique human and
+mouse gene IDs, and 11 studies that span the whole synaptosome and
+report 7,198 unique genes.
+
+\emph{NB}: With the latest update of the database we have added 6 new
+studies: 1 presynaptic and 5 postsynaptic, new compsrtment (Synaptic
+Vesicle), and coding mutations for Autistic Spectral Disorder (ASD) and
+epilepsy (Epi).
+
+To reconstruct protein-protein interaction (PPI) networks for the pre-
+and post-synaptic proteomes we used human PPI data filtered for the
+highest confidence direct and physical interactions from BioGRID, Intact
+and DIP. The resulting postsynaptic proteome (PSP) network contains
+4,817 nodes and 27,788 edges in the Largest Connected Component (LCC).
+The presynaptic network is significantly smaller and comprises 2,221
+nodes and 8,678 edges in the LCC.
+
+The database includes: proteomic and interactomic data with supporting
+information on compartment, specie and brain region, GO function
+information for three species: mouse, rat and human, disease annotation
+for human (based on Human Disease Ontology (HDO) and GeneToModel table,
+which links certain synaptic proteins to existing computational models
+of synaptic plasticity and synaptic signal transduction
+
+The original files are maintained at Ednburgh Datashare
+\url{https://doi.org/10.7488/ds/3017} Updated database file could be
+found here: \url{https://doi.org/10.7488/ds/3771}
+
+The dataset was described in the @Sorokina:2021hl.
+
+\hypertarget{overview-of-capabilities}{%
+\section{Overview of capabilities}\label{overview-of-capabilities}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{suppressMessages}\NormalTok{(}\FunctionTok{library}\NormalTok{(synaptome.db))}
+\FunctionTok{suppressMessages}\NormalTok{(}\FunctionTok{library}\NormalTok{(dplyr))}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(pander)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{get-information-for-a-specific-gene-or-gene-set.}{%
+\subsection{1.Get information for a specific gene or gene
+set.}\label{get-information-for-a-specific-gene-or-gene-set.}}
+
+The dataset can be used to answer frequent questions such as ``What is
+known about my favourite gene? Is it pre- or postsynaptic? Which brain
+region was it identified in?'', ``Which publication it was reported
+in?'' Information could be obtained by submitting gene EntrezID or Gene
+name
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getGeneInfoByEntrez}\NormalTok{(}\DecValTok{1742}\NormalTok{) }
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1125}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1875}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & Postsynaptic & MGI:1277959 & 1742 & 13385 & DLG4 \\
+1 & Postsynaptic & MGI:1277959 & 1742 & 13385 & DLG4 \\
+1 & Postsynaptic & MGI:1277959 & 1742 & 13385 & DLG4 \\
+1 & Postsynaptic & MGI:1277959 & 1742 & 13385 & DLG4 \\
+1 & Postsynaptic & MGI:1277959 & 1742 & 13385 & DLG4 \\
+1 & Postsynaptic & MGI:1277959 & 1742 & 13385 & DLG4 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1644}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1644}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2329}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1370}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0959}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2055}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & 10818142 & WALIKONIS\_2000 & FULL & 2000 & 10116 \\
+Dlg4 & 10862698 & HUSI\_2000 & FULL & 2000 & 10090 \\
+Dlg4 & 11895482 & SATON\_2002 & FULL & 2002 & 10090 \\
+Dlg4 & 14532281 & LI\_2004 & FULL & 2004 & 10116 \\
+Dlg4 & 14720225 & YOSHIMURA\_2004 & FULL & 2004 & 10116 \\
+Dlg4 & 15020595 & PENG\_2002 & FULL & 2004 & 10116 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.1944}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+BrainRegion
+\end{minipage} \\
+\midrule()
+\endhead
+Forebrain \\
+Forebrain \\
+Forebrain \\
+Forebrain \\
+Forebrain \\
+Forebrain \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getGeneInfoByName}\NormalTok{(}\StringTok{"CASK"}\NormalTok{)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1125}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1875}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+409 & Postsynaptic & MGI:1309489 & 8573 & 12361 & CASK \\
+409 & Postsynaptic & MGI:1309489 & 8573 & 12361 & CASK \\
+409 & Postsynaptic & MGI:1309489 & 8573 & 12361 & CASK \\
+409 & Postsynaptic & MGI:1309489 & 8573 & 12361 & CASK \\
+409 & Postsynaptic & MGI:1309489 & 8573 & 12361 & CASK \\
+409 & Postsynaptic & MGI:1309489 & 8573 & 12361 & CASK \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2222}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0972}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2083}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} \\
+\midrule()
+\endhead
+Cask & 15169875 & JORDAN\_2004 & FULL & 2004 & 10090 \\
+Cask & 16635246 & COLLINS\_2006 & FULL & 2006 & 10090 \\
+Cask & 17623647 & DOSEMESI\_2007 & FULL & 2007 & 10116 \\
+Cask & 18056256 & TRINIDAD\_2008 & FULL & 2008 & 10090 \\
+Cask & 18056256 & TRINIDAD\_2008 & FULL & 2008 & 10090 \\
+Cask & 18056256 & TRINIDAD\_2008 & FULL & 2008 & 10090 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.2500}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+BrainRegion
+\end{minipage} \\
+\midrule()
+\endhead
+Brain \\
+Forebrain \\
+Cerebral cortex \\
+Midbrain \\
+Cerebellum \\
+Hippocampus \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getGeneInfoByName}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"CASK"}\NormalTok{, }\StringTok{"DLG2"}\NormalTok{))}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))                      }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1125}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1875}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+6 & Postsynaptic & MGI:1344351 & 1740 & 23859 & DLG2 \\
+6 & Postsynaptic & MGI:1344351 & 1740 & 23859 & DLG2 \\
+6 & Postsynaptic & MGI:1344351 & 1740 & 23859 & DLG2 \\
+6 & Postsynaptic & MGI:1344351 & 1740 & 23859 & DLG2 \\
+6 & Postsynaptic & MGI:1344351 & 1740 & 23859 & DLG2 \\
+6 & Postsynaptic & MGI:1344351 & 1740 & 23859 & DLG2 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1644}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1644}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2329}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1370}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0959}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2055}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg2 & 10862698 & HUSI\_2000 & FULL & 2000 & 10090 \\
+Dlg2 & 11895482 & SATON\_2002 & FULL & 2002 & 10090 \\
+Dlg2 & 14532281 & LI\_2004 & FULL & 2004 & 10116 \\
+Dlg2 & 14720225 & YOSHIMURA\_2004 & FULL & 2004 & 10116 \\
+Dlg2 & 15169875 & JORDAN\_2004 & FULL & 2004 & 10090 \\
+Dlg2 & 15748150 & TRINIDAD\_2005 & FULL & 2005 & 10090 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.1944}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+BrainRegion
+\end{minipage} \\
+\midrule()
+\endhead
+Forebrain \\
+Forebrain \\
+Forebrain \\
+Forebrain \\
+Brain \\
+Brain \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-internal-geneids-for-the-list-of-genes.}{%
+\subsection{2.Get internal GeneIDs for the list of
+genes.}\label{get-internal-geneids-for-the-list-of-genes.}}
+
+Obtaining Internal database GeneIDs is a useful intermediate step for
+more complex queries including those for building protein-protein
+interaction (PPI) networks for compartments and brain regions. Internal
+GeneID is specie-neutral and unique, which allows exact identification
+of the object of interest in case of redundancy (e.g.~one Human genes
+matches on a few mouse ones, etc.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{findGenesByEntrez}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1742}\NormalTok{, }\DecValTok{1741}\NormalTok{, }\DecValTok{1739}\NormalTok{, }\DecValTok{1740}\NormalTok{))}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+6 & MGI:1344351 & 1740 & 23859 & 64053 & DLG2 \\
+15 & MGI:1888986 & 1741 & 53310 & 58948 & DLG3 \\
+46 & MGI:107231 & 1739 & 13383 & 25252 & DLG1 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1667}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatName
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & Dlg4 \\
+Dlg2 & Dlg2 \\
+Dlg3 & Dlg3 \\
+Dlg1 & Dlg1 \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{findGenesByName}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"SRC"}\NormalTok{, }\StringTok{"SRCIN1"}\NormalTok{, }\StringTok{"FYN"}\NormalTok{))}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+48 & MGI:1933179 & 80725 & 56013 & 56029 & SRCIN1 \\
+585 & MGI:98397 & 6714 & 20779 & 83805 & SRC \\
+710 & MGI:95602 & 2534 & 14360 & 25150 & FYN \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1667}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatName
+\end{minipage} \\
+\midrule()
+\endhead
+Srcin1 & Srcin1 \\
+Src & Src \\
+Fyn & Fyn \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-disease-information-for-the-gene-set}{%
+\subsection{3.Get disease information for the gene
+set}\label{get-disease-information-for-the-gene-set}}
+
+Synaptic genes are annotated with disease information from Human Disease
+Ontology, where available. To get disease information one can submit the
+list of Human Entrez Is or Human genes names, it could be also the list
+of Internal GeneIDs if using \texttt{getGeneDiseaseByIDs} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getGeneDiseaseByName}\NormalTok{ (}\FunctionTok{c}\NormalTok{(}\StringTok{"CASK"}\NormalTok{, }\StringTok{"DLG2"}\NormalTok{, }\StringTok{"DLG1"}\NormalTok{))}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1944}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1528}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4583}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HDOID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Description
+\end{minipage} \\
+\midrule()
+\endhead
+1740 & DLG2 & DOID:936 & brain\_disease \\
+8573 & CASK & DOID:936 & brain\_disease \\
+1739 & DLG1 & DOID:331 & central\_nervous\_system\_disease \\
+1740 & DLG2 & DOID:331 & central\_nervous\_system\_disease \\
+8573 & CASK & DOID:331 & central\_nervous\_system\_disease \\
+1739 & DLG1 & DOID:863 & nervous\_system\_disease \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getGeneDiseaseByEntres}\NormalTok{ (}\FunctionTok{c}\NormalTok{(}\DecValTok{8573}\NormalTok{, }\DecValTok{1742}\NormalTok{, }\DecValTok{1739}\NormalTok{))}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1944}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1528}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4583}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HDOID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Description
+\end{minipage} \\
+\midrule()
+\endhead
+8573 & CASK & DOID:936 & brain\_disease \\
+1739 & DLG1 & DOID:331 & central\_nervous\_system\_disease \\
+1742 & DLG4 & DOID:331 & central\_nervous\_system\_disease \\
+8573 & CASK & DOID:331 & central\_nervous\_system\_disease \\
+1739 & DLG1 & DOID:863 & nervous\_system\_disease \\
+1742 & DLG4 & DOID:863 & nervous\_system\_disease \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-information-about-the-studies-combined-into-dataset}{%
+\subsection{5.Get information about the studies, combined into
+dataset}\label{get-information-about-the-studies-combined-into-dataset}}
+
+One can obtain the overview of synaptic proteome papers combined into
+the database, which includes paper PMID, specie Tax ID, year of
+publication, subcellular localisation, brain region and number of
+proteins identified in the paper. This information may help to choose
+the specific study(ies) for further work.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{getPapers}\NormalTok{()}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(p))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1481}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1852}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0864}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2099}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1852}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1852}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+BrainRegion
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+PaperPMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+BrainRegion
+\end{minipage} \\
+\midrule()
+\endhead
+10818142 & 10116 & 2000 & WALIKONIS\_2000 & Postsynaptic & Forebrain \\
+10862698 & 10090 & 2000 & HUSI\_2000 & Postsynaptic & Forebrain \\
+11895482 & 10090 & 2002 & SATON\_2002 & Postsynaptic & Forebrain \\
+14532281 & 10116 & 2004 & LI\_2004 & Postsynaptic & Forebrain \\
+14720225 & 10116 & 2004 & YOSHIMURA\_2004 & Postsynaptic & Forebrain \\
+15007177 & 10116 & 2004 & BLONDEAU\_2004 & Presynaptic & Brain \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1389}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+Method
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Ngenes
+\end{minipage} \\
+\midrule()
+\endhead
+Shotgun & 29 \\
+Shotgun & 77 \\
+Shotgun & 45 \\
+Shotgun & 138 \\
+Shotgun & 436 \\
+Shotgun & 209 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-the-table-of-frequently-identified-proteins}{%
+\subsection{6.Get the table of frequently identified
+proteins}\label{get-the-table-of-frequently-identified-proteins}}
+
+It is also possible to obtain the list of proteins found in more than
+one study, for the whole synaptic proteome. For that, the user needs to
+provide a ``count'' value as a desired minimal number of identifications
+(e.g.~2 or more). The command returns the table with gene identifiers
+and ``Npmid'' column, which contains the number of studies where this
+gene was identified.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{gp }\OtherTok{\textless{}{-}} \FunctionTok{findGeneByPaperCnt}\NormalTok{(}\AttributeTok{cnt =} \DecValTok{2}\NormalTok{)}\CommentTok{\#find all proteins in synaptic proteome identified 2 times or more}
+\CommentTok{\#\textgreater{} Warning in result\_fetch(res@ptr, n = n): Column \textasciigrave{}RatEntrez\textasciigrave{}: mixed type, first}
+\CommentTok{\#\textgreater{} seen values of type integer, coercing other values of type string}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(gp))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+2 & MGI:88256 & 815 & 12322 & 25400 & CAMK2A \\
+3 & MGI:96568 & 9118 & 226180 & 24503 & INA \\
+4 & MGI:98388 & 6711 & 20742 & 305614 & SPTBN1 \\
+5 & MGI:88257 & 816 & 12323 & 24245 & CAMK2B \\
+6 & MGI:1344351 & 1740 & 23859 & 64053 & DLG2 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1389}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Npmid
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & Dlg4 & 48 \\
+Camk2a & Camk2a & 54 \\
+Ina & Ina & 50 \\
+Sptbn1 & Sptbn1 & 45 \\
+Camk2b & Camk2b & 46 \\
+Dlg2 & Dlg2 & 43 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-the-table-of-proteins-identified-in-specific-studies}{%
+\subsection{7.Get the table of proteins identified in specific
+studies}\label{get-the-table-of-proteins-identified-in-specific-studies}}
+
+Following section 5, when the information for all considered proteomic
+studies was obtained, user can select specific study(ies) by PMID and
+get the proteins identified in those studies. By providing ``count''
+value user can extract either all proteins from specified studies (count
+= 1), or just frequently found ones (count \textgreater=2). As above,
+the command returns the table with gene identifiers with ``Npmid''
+column, which contains the number of studies where this protein was
+identified
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spg }\OtherTok{\textless{}{-}} \FunctionTok{findGeneByPapers}\NormalTok{(p}\SpecialCharTok{$}\NormalTok{PaperPMID[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{], }\AttributeTok{cnt =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(spg))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+2 & MGI:88256 & 815 & 12322 & 25400 & CAMK2A \\
+3 & MGI:96568 & 9118 & 226180 & 24503 & INA \\
+4 & MGI:98388 & 6711 & 20742 & 305614 & SPTBN1 \\
+5 & MGI:88257 & 816 & 12323 & 24245 & CAMK2B \\
+6 & MGI:1344351 & 1740 & 23859 & 64053 & DLG2 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1389}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Npmid
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & Dlg4 & 5 \\
+Camk2a & Camk2a & 5 \\
+Ina & Ina & 5 \\
+Sptbn1 & Sptbn1 & 4 \\
+Camk2b & Camk2b & 4 \\
+Dlg2 & Dlg2 & 4 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-the-table-of-proteins-frequently-identified-in-specific-compartment}{%
+\subsection{8.Get the table of proteins frequently identified in
+specific
+compartment}\label{get-the-table-of-proteins-frequently-identified-in-specific-compartment}}
+
+Most of the times, user is interested in the specific compartment rather
+then in total synaptic proteome. To help identify the genes most
+probably residenting in the specific compartment and exclude possible
+contaminants, findGeneByCompartmentPaperCnt function provides the table
+of proteins found ``cnt'' or more times in different compartment-paper
+pairs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gcp }\OtherTok{\textless{}{-}} \FunctionTok{findGeneByCompartmentPaperCnt}\NormalTok{(}\AttributeTok{cnt =} \DecValTok{2}\NormalTok{)}
+\CommentTok{\#\textgreater{} Warning in result\_fetch(res@ptr, n = n): Column \textasciigrave{}RatEntrez\textasciigrave{}: mixed type, first}
+\CommentTok{\#\textgreater{} seen values of type integer, coercing other values of type string}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(gcp))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+2 & MGI:88256 & 815 & 12322 & 25400 & CAMK2A \\
+2 & MGI:88256 & 815 & 12322 & 25400 & CAMK2A \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2639}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1111}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Npmid
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & Dlg4 & Postsynaptic & 29 \\
+Dlg4 & Dlg4 & Presynaptic & 4 \\
+Dlg4 & Dlg4 & Synaptosome & 16 \\
+Dlg4 & Dlg4 & Synaptic\_Vesicle & 3 \\
+Camk2a & Camk2a & Postsynaptic & 28 \\
+Camk2a & Camk2a & Presynaptic & 13 \\
+\bottomrule()
+\end{longtable}
+
+Now user can select the specific compartment and proceed working with
+obtained list of frequently found proteins
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{presgp }\OtherTok{\textless{}{-}}\NormalTok{ gcp[gcp}\SpecialCharTok{$}\NormalTok{Localisation }\SpecialCharTok{==} \StringTok{"Presynaptic"}\NormalTok{,]}
+\FunctionTok{dim}\NormalTok{(presgp)}
+\CommentTok{\#\textgreater{} [1] 1542   10}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(presgp))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+2 & MGI:88256 & 815 & 12322 & 25400 & CAMK2A \\
+3 & MGI:96568 & 9118 & 226180 & 24503 & INA \\
+4 & MGI:98388 & 6711 & 20742 & 305614 & SPTBN1 \\
+5 & MGI:88257 & 816 & 12323 & 24245 & CAMK2B \\
+6 & MGI:1344351 & 1740 & 23859 & 64053 & DLG2 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2083}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1111}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Npmid
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & Dlg4 & Presynaptic & 4 \\
+Camk2a & Camk2a & Presynaptic & 13 \\
+Ina & Ina & Presynaptic & 12 \\
+Sptbn1 & Sptbn1 & Presynaptic & 8 \\
+Camk2b & Camk2b & Presynaptic & 8 \\
+Dlg2 & Dlg2 & Presynaptic & 3 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-ppi-interactions-for-my-list-of-genes}{%
+\subsection{9.Get PPI interactions for my list of
+genes}\label{get-ppi-interactions-for-my-list-of-genes}}
+
+Custom Protein-protein interactions based on bespoke subsets of
+molecules could be extracted in two general ways: ``induced'' and
+``limited''. In the first case, the command will return all possible
+interactors for the genes within the whole interactome. In the second
+case it will return only interactions between the genes of interest.
+PPIs could be obtained by submitting list of EntrezIDs or gene names, or
+Internal IDs - in all cases the interactions will be returned as a list
+of interacting pairs of Intenal GeneIDs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getPPIbyName}\NormalTok{(}
+    \FunctionTok{c}\NormalTok{(}\StringTok{"CASK"}\NormalTok{, }\StringTok{"DLG4"}\NormalTok{, }\StringTok{"GRIN2A"}\NormalTok{, }\StringTok{"GRIN2B"}\NormalTok{,}\StringTok{"GRIN1"}\NormalTok{), }
+    \AttributeTok{type =} \StringTok{"limited"}\NormalTok{)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0694}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0694}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+B
+\end{minipage} \\
+\midrule()
+\endhead
+38 & 1 \\
+7 & 1 \\
+1 & 7 \\
+1 & 38 \\
+1 & 9 \\
+9 & 1 \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getPPIbyEntrez}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1739}\NormalTok{, }\DecValTok{1740}\NormalTok{, }\DecValTok{1742}\NormalTok{, }\DecValTok{1741}\NormalTok{), }\AttributeTok{type=}\StringTok{\textquotesingle{}induced\textquotesingle{}}\NormalTok{)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0833}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0972}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+B
+\end{minipage} \\
+\midrule()
+\endhead
+1 & 2871 \\
+6 & 2871 \\
+15 & 2871 \\
+1 & 617 \\
+1 & 30 \\
+156 & 1 \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#obtain PPIs for the list of frequently found genes in presynaptc compartment}
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{getPPIbyEntrez}\NormalTok{(presgp}\SpecialCharTok{$}\NormalTok{HumanEntrez, }\AttributeTok{type=}\StringTok{\textquotesingle{}induced\textquotesingle{}}\NormalTok{) }
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(t))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0972}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0972}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+B
+\end{minipage} \\
+\midrule()
+\endhead
+365 & 148 \\
+1048 & 148 \\
+52 & 365 \\
+52 & 1048 \\
+321 & 1048 \\
+321 & 365 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-the-molecular-structure-of-synaptic-compartment}{%
+\subsection{10.Get the molecular structure of synaptic
+compartment}\label{get-the-molecular-structure-of-synaptic-compartment}}
+
+Three main synaptic compartments considered in the database are
+``presynaptic'', ``postsynaptic'' and ``synaptosome''. Genes are
+classified to compartments based on respective publications, so that
+each gene can belong to one or two, or even three compartments. The full
+list of genes for specific compartment could be obtained with command
+\texttt{getAllGenes4Compartment}, which returns the table with main gene
+identifiers, like internal GeneIDs, MGI ID, Human Entrez ID, Human Gene
+Name, Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
+
+If you need to check which genes of your list belong to specific
+compartment, you can use \texttt{getGenes4Compartment} command, which
+will select from your list only genes associated with specific
+compartment. To obtain the PPI network for compartment one has to submit
+the list of Internal GeneIDs obtained with previous commands.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#getting the list of compartment}
+\NormalTok{comp }\OtherTok{\textless{}{-}} \FunctionTok{getCompartments}\NormalTok{()}
+\FunctionTok{pander}\NormalTok{(comp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0694}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2639}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2639}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Description
+\end{minipage} \\
+\midrule()
+\endhead
+1 & Postsynaptic & Postsynaptic \\
+2 & Presynaptic & Presynaptic \\
+3 & Synaptosome & Synaptosome \\
+4 & Synaptic\_Vesicle & Synaptic\_Vesicle \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\#getting all genes for postsynaptic compartment}
+\NormalTok{gns }\OtherTok{\textless{}{-}} \FunctionTok{getAllGenes4Compartment}\NormalTok{(}\AttributeTok{compartmentID =} \DecValTok{1}\NormalTok{) }
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(gns))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1867}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & MGI:1277959 & 1742 & 13385 & 29495 & DLG4 \\
+2 & MGI:88256 & 815 & 12322 & 25400 & CAMK2A \\
+3 & MGI:96568 & 9118 & 226180 & 24503 & INA \\
+4 & MGI:98388 & 6711 & 20742 & 305614 & SPTBN1 \\
+5 & MGI:88257 & 816 & 12323 & 24245 & CAMK2B \\
+6 & MGI:1344351 & 1740 & 23859 & 64053 & DLG2 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1667}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+RatName
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & Dlg4 \\
+Camk2a & Camk2a \\
+Ina & Ina \\
+Sptbn1 & Sptbn1 \\
+Camk2b & Camk2b \\
+Dlg2 & Dlg2 \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\#getting full PPI network for postsynaptic compartment}
+\NormalTok{ppi }\OtherTok{\textless{}{-}} \FunctionTok{getPPIbyIDs4Compartment}\NormalTok{(gns}\SpecialCharTok{$}\NormalTok{GeneID,}\AttributeTok{compartmentID =}\DecValTok{1}\NormalTok{, }\AttributeTok{type =} \StringTok{"induced"}\NormalTok{)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(ppi))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0972}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0972}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+B
+\end{minipage} \\
+\midrule()
+\endhead
+365 & 148 \\
+1048 & 148 \\
+52 & 365 \\
+52 & 1048 \\
+321 & 1048 \\
+321 & 365 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{get-the-molecular-structure-of-the-brain-region.}{%
+\subsection{11.Get the molecular structure of the brain
+region.}\label{get-the-molecular-structure-of-the-brain-region.}}
+
+Three are 12 brain regions considered in the database based on
+respective publications, so that each gene can belong to the single or
+to the several brain regions. Brain regions differ between species, and
+specie brain region information is not 100\% covered in the
+database(e.g.~we don't have yet studies for Human Striatum, but do have
+for Mouse and Rat), that's why when querying the database for brain
+region information you will need to specify the specie. The full list of
+genes for specific region could be obtained wuth command
+\texttt{getAllGenes4BrainRegion}, which returns the table with main gene
+identifiers, like internal Gene IDs, MGI ID, Human Entrez ID, Human Gene
+Name, Mouse Entrez ID, Mouse Gene Name, Rat Entrez ID, Rat Gene Name.
+
+If you need to check which genes of your list were identified in
+specific region, you can use \texttt{getGenes4BrainRegion} command,
+which will select only genes associated with specific region from your
+list.
+
+To obtain the PPI network for brain region you need to submit the list
+of Internal GeneIDs obtained with previous commands.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#getting the full list of brain regions}
+\NormalTok{reg }\OtherTok{\textless{}{-}} \FunctionTok{getBrainRegions}\NormalTok{()}
+\FunctionTok{pander}\NormalTok{(reg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0625}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2500}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1375}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Description
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+InterlexID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+ParentID
+\end{minipage} \\
+\midrule()
+\endhead
+1 & Brain & Whole brain & ILX:0101431 & 1 \\
+2 & Forebrain & Whole forebrain & ILX:0104355 & 1 \\
+3 & Midbrain & Midbrain & ILX:0106935 & 1 \\
+4 & Cerebellum & Cerebellum & ILX:0101963 & 1 \\
+5 & Telencephalon & Telencephalon & ILX:0111558 & 2 \\
+6 & Hypothalamus & Hypothalamus & ILX:0105177 & 2 \\
+7 & Hippocampus & Hippocampus & ILX:0105021 & 5 \\
+8 & Striatum & Striatum & ILX:0111098 & 5 \\
+9 & Cerebral cortex & Neocortex & ILX:0101978 & 5 \\
+10 & Frontal lobe & Frontal lobe/frontal cortex & ILX:0104451 & 9 \\
+11 & Occipital lobe & Occipital lobe & ILX:0107883 & 9 \\
+12 & Temporal lobe & Temporal lobe & ILX:0111590 & 9 \\
+13 & Parietal lobe & Parietal lobe & ILX:0108534 & 9 \\
+14 & Prefrontal cortex & Prefrontal cortex & ILX:0109209 & 10 \\
+15 & Motor cortex & Motor cortex & ILX:0107119 & 10 \\
+16 & Visual cortex & Visual cortex & ILX:0112513 & 11 \\
+17 & Medial cortex & Medial cortex & ILX:0106634 & 9 \\
+18 & Caudal cortex & Caudal cortex & NA & 9 \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\#getting all genes for mouse Striatum}
+\NormalTok{gns }\OtherTok{\textless{}{-}} \FunctionTok{getAllGenes4BrainRegion}\NormalTok{(}\AttributeTok{brainRegion =} \StringTok{"Striatum"}\NormalTok{,}\AttributeTok{taxID =} \DecValTok{10090}\NormalTok{)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(gns))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1125}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1875}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1750}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+GeneID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Localisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MGI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+MouseEntrez
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+HumanName
+\end{minipage} \\
+\midrule()
+\endhead
+1 & Postsynaptic & MGI:1277959 & 1742 & 13385 & DLG4 \\
+2 & Postsynaptic & MGI:88256 & 815 & 12322 & CAMK2A \\
+3 & Postsynaptic & MGI:96568 & 9118 & 226180 & INA \\
+4 & Postsynaptic & MGI:98388 & 6711 & 20742 & SPTBN1 \\
+6 & Postsynaptic & MGI:1344351 & 1740 & 23859 & DLG2 \\
+7 & Postsynaptic & MGI:95821 & 2904 & 14812 & GRIN2B \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1528}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1528}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0972}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2083}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2083}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+MouseName
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+PMID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Paper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Year
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+SpeciesTaxID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+BrainRegion
+\end{minipage} \\
+\midrule()
+\endhead
+Dlg4 & 30071621 & ROY\_2018 & 2018 & 10090 & Striatum \\
+Camk2a & 30071621 & ROY\_2018 & 2018 & 10090 & Striatum \\
+Ina & 30071621 & ROY\_2018 & 2018 & 10090 & Striatum \\
+Sptbn1 & 30071621 & ROY\_2018 & 2018 & 10090 & Striatum \\
+Dlg2 & 30071621 & ROY\_2018 & 2018 & 10090 & Striatum \\
+Grin2b & 30071621 & ROY\_2018 & 2018 & 10090 & Striatum \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\#getting full PPI network for postsynaptic compartment}
+\NormalTok{ppi }\OtherTok{\textless{}{-}} \FunctionTok{getPPIbyIDs4BrainRegion}\NormalTok{(}
+\NormalTok{    gns}\SpecialCharTok{$}\NormalTok{GeneID, }\AttributeTok{brainRegion =} \StringTok{"Striatum"}\NormalTok{, }
+    \AttributeTok{taxID =} \DecValTok{10090}\NormalTok{, }\AttributeTok{type =} \StringTok{"limited"}\NormalTok{)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{head}\NormalTok{(ppi))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0972}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.0972}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+B
+\end{minipage} \\
+\midrule()
+\endhead
+365 & 148 \\
+1048 & 148 \\
+52 & 365 \\
+52 & 1048 \\
+321 & 1048 \\
+321 & 365 \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{checking-third-party-list-against-synaptic-proteome-db}{%
+\subsection{12.Checking third-party list against Synaptic Proteome
+db}\label{checking-third-party-list-against-synaptic-proteome-db}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{listG}\OtherTok{\textless{}{-}}\FunctionTok{findGenesByEntrez}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{250}\NormalTok{) }\CommentTok{\#check whic genes from 250 random EntrezIds are in the database}
+\FunctionTok{dim}\NormalTok{(listG)}
+\CommentTok{\#\textgreater{} [1] 124   8}
+\FunctionTok{head}\NormalTok{(listG)}
+\CommentTok{\#\textgreater{} \# A tibble: 6 x 8}
+\CommentTok{\#\textgreater{}   GeneID MGI         HumanEntrez MouseEntrez RatEntrez HumanName Mouse\textasciitilde{}1 RatName}
+\CommentTok{\#\textgreater{}    \textless{}int\textgreater{} \textless{}chr\textgreater{}             \textless{}int\textgreater{}       \textless{}int\textgreater{}     \textless{}int\textgreater{} \textless{}chr\textgreater{}     \textless{}chr\textgreater{}   \textless{}chr\textgreater{}  }
+\CommentTok{\#\textgreater{} 1     34 MGI:87994           226       11674     24189 ALDOA     Aldoa   Aldoa  }
+\CommentTok{\#\textgreater{} 2     35 MGI:2137706          87      109711     81634 ACTN1     Actn1   Actn1  }
+\CommentTok{\#\textgreater{} 3     39 MGI:101921          160       11771    308578 AP2A1     Ap2a1   Ap2a1  }
+\CommentTok{\#\textgreater{} 4     54 MGI:87918           118       11518     24170 ADD1      Add1    Add1   }
+\CommentTok{\#\textgreater{} 5     85 MGI:87919           119       11519     24171 ADD2      Add2    Add2   }
+\CommentTok{\#\textgreater{} 6     97 MGI:1890773          81       60595     63836 ACTN4     Actn4   Actn4  }
+\CommentTok{\#\textgreater{} \# ... with abbreviated variable name 1: MouseName}
+
+\FunctionTok{getCompartments}\NormalTok{()}
+\CommentTok{\#\textgreater{} \# A tibble: 4 x 3}
+\CommentTok{\#\textgreater{}      ID Name             Description     }
+\CommentTok{\#\textgreater{}   \textless{}int\textgreater{} \textless{}chr\textgreater{}            \textless{}chr\textgreater{}           }
+\CommentTok{\#\textgreater{} 1     1 Postsynaptic     Postsynaptic    }
+\CommentTok{\#\textgreater{} 2     2 Presynaptic      Presynaptic     }
+\CommentTok{\#\textgreater{} 3     3 Synaptosome      Synaptosome     }
+\CommentTok{\#\textgreater{} 4     4 Synaptic\_Vesicle Synaptic\_Vesicle}
+\NormalTok{presG }\OtherTok{\textless{}{-}} \FunctionTok{getGenes4Compartment}\NormalTok{(listG}\SpecialCharTok{$}\NormalTok{GeneID, }\DecValTok{2}\NormalTok{) }\CommentTok{\#check which genes from subset identified as synaptic are presynaptic}
+\FunctionTok{dim}\NormalTok{(presG)}
+\CommentTok{\#\textgreater{} [1] 67  8}
+\FunctionTok{head}\NormalTok{(presG)}
+\CommentTok{\#\textgreater{} \# A tibble: 6 x 8}
+\CommentTok{\#\textgreater{}   GeneID MGI         HumanEntrez MouseEntrez RatEntrez HumanName Mouse\textasciitilde{}1 RatName}
+\CommentTok{\#\textgreater{}    \textless{}int\textgreater{} \textless{}chr\textgreater{}             \textless{}int\textgreater{}       \textless{}int\textgreater{}     \textless{}int\textgreater{} \textless{}chr\textgreater{}     \textless{}chr\textgreater{}   \textless{}chr\textgreater{}  }
+\CommentTok{\#\textgreater{} 1     34 MGI:87994           226       11674     24189 ALDOA     Aldoa   Aldoa  }
+\CommentTok{\#\textgreater{} 2     35 MGI:2137706          87      109711     81634 ACTN1     Actn1   Actn1  }
+\CommentTok{\#\textgreater{} 3     39 MGI:101921          160       11771    308578 AP2A1     Ap2a1   Ap2a1  }
+\CommentTok{\#\textgreater{} 4     54 MGI:87918           118       11518     24170 ADD1      Add1    Add1   }
+\CommentTok{\#\textgreater{} 5     85 MGI:87919           119       11519     24171 ADD2      Add2    Add2   }
+\CommentTok{\#\textgreater{} 6     97 MGI:1890773          81       60595     63836 ACTN4     Actn4   Actn4  }
+\CommentTok{\#\textgreater{} \# ... with abbreviated variable name 1: MouseName}
+
+\FunctionTok{getBrainRegions}\NormalTok{()}
+\CommentTok{\#\textgreater{} \# A tibble: 18 x 5}
+\CommentTok{\#\textgreater{}       ID Name              Description                 InterlexID  ParentID}
+\CommentTok{\#\textgreater{}    \textless{}int\textgreater{} \textless{}chr\textgreater{}             \textless{}chr\textgreater{}                       \textless{}chr\textgreater{}          \textless{}int\textgreater{}}
+\CommentTok{\#\textgreater{}  1     1 Brain             Whole brain                 ILX:0101431        1}
+\CommentTok{\#\textgreater{}  2     2 Forebrain         Whole forebrain             ILX:0104355        1}
+\CommentTok{\#\textgreater{}  3     3 Midbrain          Midbrain                    ILX:0106935        1}
+\CommentTok{\#\textgreater{}  4     4 Cerebellum        Cerebellum                  ILX:0101963        1}
+\CommentTok{\#\textgreater{}  5     5 Telencephalon     Telencephalon               ILX:0111558        2}
+\CommentTok{\#\textgreater{}  6     6 Hypothalamus      Hypothalamus                ILX:0105177        2}
+\CommentTok{\#\textgreater{}  7     7 Hippocampus       Hippocampus                 ILX:0105021        5}
+\CommentTok{\#\textgreater{}  8     8 Striatum          Striatum                    ILX:0111098        5}
+\CommentTok{\#\textgreater{}  9     9 Cerebral cortex   Neocortex                   ILX:0101978        5}
+\CommentTok{\#\textgreater{} 10    10 Frontal lobe      Frontal lobe/frontal cortex ILX:0104451        9}
+\CommentTok{\#\textgreater{} 11    11 Occipital lobe    Occipital lobe              ILX:0107883        9}
+\CommentTok{\#\textgreater{} 12    12 Temporal lobe     Temporal lobe               ILX:0111590        9}
+\CommentTok{\#\textgreater{} 13    13 Parietal lobe     Parietal lobe               ILX:0108534        9}
+\CommentTok{\#\textgreater{} 14    14 Prefrontal cortex Prefrontal cortex           ILX:0109209       10}
+\CommentTok{\#\textgreater{} 15    15 Motor cortex      Motor cortex                ILX:0107119       10}
+\CommentTok{\#\textgreater{} 16    16 Visual cortex     Visual cortex               ILX:0112513       11}
+\CommentTok{\#\textgreater{} 17    17 Medial cortex     Medial cortex               ILX:0106634        9}
+\CommentTok{\#\textgreater{} 18    18 Caudal cortex     Caudal cortex               \textless{}NA\textgreater{}               9}
+\NormalTok{listR }\OtherTok{\textless{}{-}} \FunctionTok{getGenes4BrainRegion}\NormalTok{(listG}\SpecialCharTok{$}\NormalTok{GeneID, }\AttributeTok{brainRegion =} \StringTok{"Cerebellum"}\NormalTok{, }\AttributeTok{taxID =} \DecValTok{10090}\NormalTok{) }\CommentTok{\#check which genes from subset identified as synaptic are found in human cerebellum}
+\FunctionTok{dim}\NormalTok{(listR)}
+\CommentTok{\#\textgreater{} [1] 186  12}
+\FunctionTok{head}\NormalTok{(listR)}
+\CommentTok{\#\textgreater{} \# A tibble: 6 x 12}
+\CommentTok{\#\textgreater{}   GeneID Localisation MGI     Human\textasciitilde{}1 Mouse\textasciitilde{}2 Human\textasciitilde{}3 Mouse\textasciitilde{}4   PMID Paper  Year}
+\CommentTok{\#\textgreater{}    \textless{}int\textgreater{} \textless{}chr\textgreater{}        \textless{}chr\textgreater{}     \textless{}int\textgreater{}   \textless{}int\textgreater{} \textless{}chr\textgreater{}   \textless{}chr\textgreater{}    \textless{}int\textgreater{} \textless{}chr\textgreater{} \textless{}int\textgreater{}}
+\CommentTok{\#\textgreater{} 1     34 Postsynaptic MGI:87\textasciitilde{}     226   11674 ALDOA   Aldoa   1.81e7 TRIN\textasciitilde{}  2008}
+\CommentTok{\#\textgreater{} 2     34 Postsynaptic MGI:87\textasciitilde{}     226   11674 ALDOA   Aldoa   3.01e7 ROY\_\textasciitilde{}  2018}
+\CommentTok{\#\textgreater{} 3     34 Synaptosome  MGI:87\textasciitilde{}     226   11674 ALDOA   Aldoa   3.20e7 DIST\textasciitilde{}  2020}
+\CommentTok{\#\textgreater{} 4     34 Synaptosome  MGI:87\textasciitilde{}     226   11674 ALDOA   Aldoa   3.21e7 GONZ\textasciitilde{}  2020}
+\CommentTok{\#\textgreater{} 5     35 Postsynaptic MGI:21\textasciitilde{}      87  109711 ACTN1   Actn1   1.81e7 TRIN\textasciitilde{}  2008}
+\CommentTok{\#\textgreater{} 6     35 Postsynaptic MGI:21\textasciitilde{}      87  109711 ACTN1   Actn1   3.01e7 ROY\_\textasciitilde{}  2018}
+\CommentTok{\#\textgreater{} \# ... with 2 more variables: SpeciesTaxID \textless{}int\textgreater{}, BrainRegion \textless{}chr\textgreater{}, and}
+\CommentTok{\#\textgreater{} \#   abbreviated variable names 1: HumanEntrez, 2: MouseEntrez, 3: HumanName,}
+\CommentTok{\#\textgreater{} \#   4: MouseName}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{visualisatiion-of-ppi-network-with-igraph.}{%
+\subsection{13.Visualisatiion of PPI network with
+Igraph.}\label{visualisatiion-of-ppi-network-with-igraph.}}
+
+Combine information from PPI data.frame obtained with functions like
+\texttt{getPPIbyName}, \texttt{getPPIbyEntrez},
+\texttt{getPPIbyIDs4Compartment} or \texttt{getPPIbyIDs4BrainRegion}
+with information about genes obtained from \texttt{getGenesByID} to make
+interpretable undirected PPI graph in igraph format. In this format
+network could be further analysed and visualized by algorithms from
+igraph package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(igraph)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Attaching package: \textquotesingle{}igraph\textquotesingle{}}
+\CommentTok{\#\textgreater{} The following objects are masked from \textquotesingle{}package:dplyr\textquotesingle{}:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}     as\_data\_frame, groups, union}
+\CommentTok{\#\textgreater{} The following objects are masked from \textquotesingle{}package:BiocGenerics\textquotesingle{}:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}     normalize, path, union}
+\CommentTok{\#\textgreater{} The following objects are masked from \textquotesingle{}package:stats\textquotesingle{}:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}     decompose, spectrum}
+\CommentTok{\#\textgreater{} The following object is masked from \textquotesingle{}package:base\textquotesingle{}:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}     union}
+\NormalTok{g}\OtherTok{\textless{}{-}}\FunctionTok{getIGraphFromPPI}\NormalTok{(}
+    \FunctionTok{getPPIbyIDs}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{48}\NormalTok{, }\DecValTok{129}\NormalTok{,  }\DecValTok{975}\NormalTok{,  }\DecValTok{4422}\NormalTok{, }\DecValTok{5715}\NormalTok{, }\DecValTok{5835}\NormalTok{), }\AttributeTok{type=}\StringTok{\textquotesingle{}lim\textquotesingle{}}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(g,}\AttributeTok{vertex.label=}\FunctionTok{V}\NormalTok{(g)}\SpecialCharTok{$}\NormalTok{RatName,}\AttributeTok{vertex.size=}\DecValTok{25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{supplementary_files/figure-latex/PPI_igraph-1} \end{center}
+
+\hypertarget{export-of-ppi-network-as-a-table.}{%
+\subsection{1.Export of PPI network as a
+table.}\label{export-of-ppi-network-as-a-table.}}
+
+If Igraph is not an option, the PPI network could be exported as an
+interpretible table to be processed with other tools,
+e.g.~Cytoscape,etc.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tbl}\OtherTok{\textless{}{-}}\FunctionTok{getTableFromPPI}\NormalTok{(}\FunctionTok{getPPIbyIDs}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{48}\NormalTok{, }\DecValTok{585}\NormalTok{, }\DecValTok{710}\NormalTok{), }\AttributeTok{type=}\StringTok{\textquotesingle{}limited\textquotesingle{}}\NormalTok{))}
+\NormalTok{tbl}
+\CommentTok{\#\textgreater{} \# A tibble: 2 x 16}
+\CommentTok{\#\textgreater{}       A     B MGI.A     HumanEnt\textasciitilde{}1 Mouse\textasciitilde{}2 RatEn\textasciitilde{}3 Human\textasciitilde{}4 Mouse\textasciitilde{}5 RatNa\textasciitilde{}6 MGI.B}
+\CommentTok{\#\textgreater{}   \textless{}int\textgreater{} \textless{}int\textgreater{} \textless{}chr\textgreater{}          \textless{}int\textgreater{}   \textless{}int\textgreater{}   \textless{}int\textgreater{} \textless{}chr\textgreater{}   \textless{}chr\textgreater{}   \textless{}chr\textgreater{}   \textless{}chr\textgreater{}}
+\CommentTok{\#\textgreater{} 1   710   710 MGI:95602       2534   14360   25150 FYN     Fyn     Fyn     MGI:\textasciitilde{}}
+\CommentTok{\#\textgreater{} 2   585   585 MGI:98397       6714   20779   83805 SRC     Src     Src     MGI:\textasciitilde{}}
+\CommentTok{\#\textgreater{} \# ... with 6 more variables: HumanEntrez.B \textless{}int\textgreater{}, MouseEntrez.B \textless{}int\textgreater{},}
+\CommentTok{\#\textgreater{} \#   RatEntrez.B \textless{}int\textgreater{}, HumanName.B \textless{}chr\textgreater{}, MouseName.B \textless{}chr\textgreater{}, RatName.B \textless{}chr\textgreater{},}
+\CommentTok{\#\textgreater{} \#   and abbreviated variable names 1: HumanEntrez.A, 2: MouseEntrez.A,}
+\CommentTok{\#\textgreater{} \#   3: RatEntrez.A, 4: HumanName.A, 5: MouseName.A, 6: RatName.A}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{0}{0}
+\end{CSLReferences}
+
+\hypertarget{appendix}{%
+\section{Appendix}\label{appendix}}
+
+\hypertarget{versions}{%
+\subsection{Versions}\label{versions}}
+
+\hypertarget{session-info}{%
+\subsubsection{Session Info}\label{session-info}}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2083}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4306}}@{}}
+\toprule()
+\endhead
+\textbf{version} & R version 4.2.1 (2022-06-23) \\
+\textbf{os} & macOS Big Sur \ldots{} 10.16 \\
+\textbf{system} & x86\_64, darwin17.0 \\
+\textbf{ui} & X11 \\
+\textbf{language} & (EN) \\
+\textbf{collate} & en\_US.UTF-8 \\
+\textbf{ctype} & en\_US.UTF-8 \\
+\textbf{tz} & Asia/Tokyo \\
+\textbf{date} & 2022-10-17 \\
+\textbf{pandoc} & 2.19 @ /usr/local/bin/ (via rmarkdown) \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4028}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3472}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2222}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+~
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+package
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+ondiskversion
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+~
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+package
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+ondiskversion
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{AnnotationDbi} & AnnotationDbi & 1.59.1 \\
+\textbf{AnnotationHub} & AnnotationHub & 3.5.2 \\
+\textbf{assertthat} & assertthat & 0.2.1 \\
+\textbf{Biobase} & Biobase & 2.57.1 \\
+\textbf{BiocFileCache} & BiocFileCache & 2.5.2 \\
+\textbf{BiocGenerics} & BiocGenerics & 0.43.4 \\
+\textbf{BiocManager} & BiocManager & 1.30.18 \\
+\textbf{BiocVersion} & BiocVersion & 3.16.0 \\
+\textbf{Biostrings} & Biostrings & 2.65.6 \\
+\textbf{bit} & bit & 4.0.4 \\
+\textbf{bit64} & bit64 & 4.0.5 \\
+\textbf{bitops} & bitops & 1.0.7 \\
+\textbf{blob} & blob & 1.2.3 \\
+\textbf{cachem} & cachem & 1.0.6 \\
+\textbf{callr} & callr & 3.7.2 \\
+\textbf{cli} & cli & 3.4.1 \\
+\textbf{colorspace} & colorspace & 2.0.3 \\
+\textbf{crayon} & crayon & 1.5.2 \\
+\textbf{curl} & curl & 4.3.3 \\
+\textbf{DBI} & DBI & 1.1.3 \\
+\textbf{dbplyr} & dbplyr & 2.2.1 \\
+\textbf{devtools} & devtools & 2.4.5 \\
+\textbf{digest} & digest & 0.6.29 \\
+\textbf{dplyr} & dplyr & 1.0.10 \\
+\textbf{ellipsis} & ellipsis & 0.3.2 \\
+\textbf{evaluate} & evaluate & 0.17 \\
+\textbf{fansi} & fansi & 1.0.3 \\
+\textbf{fastmap} & fastmap & 1.1.0 \\
+\textbf{filelock} & filelock & 1.0.2 \\
+\textbf{fs} & fs & 1.5.2 \\
+\textbf{generics} & generics & 0.1.3 \\
+\textbf{GenomeInfoDb} & GenomeInfoDb & 1.33.7 \\
+\textbf{GenomeInfoDbData} & GenomeInfoDbData & 1.2.9 \\
+\textbf{ggplot2} & ggplot2 & 3.3.6 \\
+\textbf{glue} & glue & 1.6.2 \\
+\textbf{gtable} & gtable & 0.3.1 \\
+\textbf{htmltools} & htmltools & 0.5.3 \\
+\textbf{htmlwidgets} & htmlwidgets & 1.5.4 \\
+\textbf{httpuv} & httpuv & 1.6.6 \\
+\textbf{httr} & httr & 1.4.4 \\
+\textbf{igraph} & igraph & 1.3.5 \\
+\textbf{interactiveDisplayBase} & interactiveDisplayBase & 1.35.0 \\
+\textbf{IRanges} & IRanges & 2.31.2 \\
+\textbf{KEGGREST} & KEGGREST & 1.37.3 \\
+\textbf{knitr} & knitr & 1.40 \\
+\textbf{later} & later & 1.3.0 \\
+\textbf{lifecycle} & lifecycle & 1.0.3 \\
+\textbf{magrittr} & magrittr & 2.0.3 \\
+\textbf{memoise} & memoise & 2.0.1 \\
+\textbf{mime} & mime & 0.12 \\
+\textbf{miniUI} & miniUI & 0.1.1.1 \\
+\textbf{munsell} & munsell & 0.5.0 \\
+\textbf{pander} & pander & 0.6.5 \\
+\textbf{pillar} & pillar & 1.8.1 \\
+\textbf{pkgbuild} & pkgbuild & 1.3.1 \\
+\textbf{pkgconfig} & pkgconfig & 2.0.3 \\
+\textbf{pkgload} & pkgload & 1.3.0 \\
+\textbf{png} & png & 0.1.7 \\
+\textbf{prettyunits} & prettyunits & 1.1.1 \\
+\textbf{processx} & processx & 3.7.0 \\
+\textbf{profvis} & profvis & 0.3.7 \\
+\textbf{promises} & promises & 1.2.0.1 \\
+\textbf{ps} & ps & 1.7.1 \\
+\textbf{purrr} & purrr & 0.3.5 \\
+\textbf{R6} & R6 & 2.5.1 \\
+\textbf{rappdirs} & rappdirs & 0.3.3 \\
+\textbf{rbibutils} & rbibutils & 2.2.9 \\
+\textbf{Rcpp} & Rcpp & 1.0.9 \\
+\textbf{RCurl} & RCurl & 1.98.1.9 \\
+\textbf{Rdpack} & Rdpack & 2.4 \\
+\textbf{remotes} & remotes & 2.4.2 \\
+\textbf{rlang} & rlang & 1.0.6 \\
+\textbf{rmarkdown} & rmarkdown & 2.17 \\
+\textbf{RSQLite} & RSQLite & 2.2.18 \\
+\textbf{rstudioapi} & rstudioapi & 0.14 \\
+\textbf{S4Vectors} & S4Vectors & 0.35.4 \\
+\textbf{scales} & scales & 1.2.1 \\
+\textbf{sessioninfo} & sessioninfo & 1.2.2 \\
+\textbf{shiny} & shiny & 1.7.2 \\
+\textbf{stringi} & stringi & 1.7.8 \\
+\textbf{stringr} & stringr & 1.4.1 \\
+\textbf{synaptome.data} & synaptome.data & 0.99.3 \\
+\textbf{synaptome.ldb} & synaptome.ldb & 0.99.9 \\
+\textbf{tibble} & tibble & 3.1.8 \\
+\textbf{tidyselect} & tidyselect & 1.2.0 \\
+\textbf{urlchecker} & urlchecker & 1.0.1 \\
+\textbf{usethis} & usethis & 2.1.6 \\
+\textbf{utf8} & utf8 & 1.2.2 \\
+\textbf{vctrs} & vctrs & 0.4.2 \\
+\textbf{withr} & withr & 2.5.0 \\
+\textbf{xfun} & xfun & 0.33 \\
+\textbf{xtable} & xtable & 1.8.4 \\
+\textbf{XVector} & XVector & 0.37.1 \\
+\textbf{yaml} & yaml & 2.3.5 \\
+\textbf{zlibbioc} & zlibbioc & 1.43.0 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3671}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2025}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1392}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1266}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1646}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+~
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+loadedversion
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+attached
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+is\_base
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+date
+\end{minipage} \\
+\midrule()
+\endfirsthead
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+~
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+loadedversion
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+attached
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+is\_base
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+date
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{AnnotationDbi} & 1.59.1 & FALSE & FALSE & 2022-05-19 \\
+\textbf{AnnotationHub} & 3.5.2 & TRUE & FALSE & 2022-09-29 \\
+\textbf{assertthat} & 0.2.1 & FALSE & FALSE & 2019-03-21 \\
+\textbf{Biobase} & 2.57.1 & FALSE & FALSE & 2022-05-19 \\
+\textbf{BiocFileCache} & 2.5.2 & TRUE & FALSE & 2022-10-06 \\
+\textbf{BiocGenerics} & 0.43.4 & TRUE & FALSE & 2022-09-11 \\
+\textbf{BiocManager} & 1.30.18 & FALSE & FALSE & 2022-05-18 \\
+\textbf{BiocVersion} & 3.16.0 & FALSE & FALSE & 2022-05-05 \\
+\textbf{Biostrings} & 2.65.6 & FALSE & FALSE & 2022-09-09 \\
+\textbf{bit} & 4.0.4 & FALSE & FALSE & 2020-08-04 \\
+\textbf{bit64} & 4.0.5 & FALSE & FALSE & 2020-08-30 \\
+\textbf{bitops} & 1.0-7 & FALSE & FALSE & 2021-04-24 \\
+\textbf{blob} & 1.2.3 & FALSE & FALSE & 2022-04-10 \\
+\textbf{cachem} & 1.0.6 & FALSE & FALSE & 2021-08-19 \\
+\textbf{callr} & 3.7.2 & FALSE & FALSE & 2022-08-22 \\
+\textbf{cli} & 3.4.1 & FALSE & FALSE & 2022-09-23 \\
+\textbf{colorspace} & 2.0-3 & FALSE & FALSE & 2022-02-21 \\
+\textbf{crayon} & 1.5.2 & FALSE & FALSE & 2022-09-29 \\
+\textbf{curl} & 4.3.3 & FALSE & FALSE & 2022-10-06 \\
+\textbf{DBI} & 1.1.3 & FALSE & FALSE & 2022-06-18 \\
+\textbf{dbplyr} & 2.2.1 & TRUE & FALSE & 2022-06-27 \\
+\textbf{devtools} & 2.4.5 & FALSE & FALSE & 2022-10-11 \\
+\textbf{digest} & 0.6.29 & FALSE & FALSE & 2021-12-01 \\
+\textbf{dplyr} & 1.0.10 & TRUE & FALSE & 2022-09-01 \\
+\textbf{ellipsis} & 0.3.2 & FALSE & FALSE & 2021-04-29 \\
+\textbf{evaluate} & 0.17 & FALSE & FALSE & 2022-10-07 \\
+\textbf{fansi} & 1.0.3 & FALSE & FALSE & 2022-03-24 \\
+\textbf{fastmap} & 1.1.0 & FALSE & FALSE & 2021-01-25 \\
+\textbf{filelock} & 1.0.2 & FALSE & FALSE & 2018-10-05 \\
+\textbf{fs} & 1.5.2 & FALSE & FALSE & 2021-12-08 \\
+\textbf{generics} & 0.1.3 & FALSE & FALSE & 2022-07-05 \\
+\textbf{GenomeInfoDb} & 1.33.7 & FALSE & FALSE & 2022-09-07 \\
+\textbf{GenomeInfoDbData} & 1.2.9 & FALSE & FALSE & 2022-10-04 \\
+\textbf{ggplot2} & 3.3.6 & TRUE & FALSE & 2022-05-03 \\
+\textbf{glue} & 1.6.2 & FALSE & FALSE & 2022-02-24 \\
+\textbf{gtable} & 0.3.1 & FALSE & FALSE & 2022-09-01 \\
+\textbf{htmltools} & 0.5.3 & FALSE & FALSE & 2022-07-18 \\
+\textbf{htmlwidgets} & 1.5.4 & FALSE & FALSE & 2021-09-08 \\
+\textbf{httpuv} & 1.6.6 & FALSE & FALSE & 2022-09-08 \\
+\textbf{httr} & 1.4.4 & FALSE & FALSE & 2022-08-17 \\
+\textbf{igraph} & 1.3.5 & TRUE & FALSE & 2022-09-22 \\
+\textbf{interactiveDisplayBase} & 1.35.0 & FALSE & FALSE & 2022-05-05 \\
+\textbf{IRanges} & 2.31.2 & FALSE & FALSE & 2022-08-18 \\
+\textbf{KEGGREST} & 1.37.3 & FALSE & FALSE & 2022-07-10 \\
+\textbf{knitr} & 1.40 & TRUE & FALSE & 2022-08-24 \\
+\textbf{later} & 1.3.0 & FALSE & FALSE & 2021-08-18 \\
+\textbf{lifecycle} & 1.0.3 & FALSE & FALSE & 2022-10-07 \\
+\textbf{magrittr} & 2.0.3 & FALSE & FALSE & 2022-03-30 \\
+\textbf{memoise} & 2.0.1 & FALSE & FALSE & 2021-11-26 \\
+\textbf{mime} & 0.12 & FALSE & FALSE & 2021-09-28 \\
+\textbf{miniUI} & 0.1.1.1 & FALSE & FALSE & 2018-05-18 \\
+\textbf{munsell} & 0.5.0 & FALSE & FALSE & 2018-06-12 \\
+\textbf{pander} & 0.6.5 & TRUE & FALSE & 2022-03-18 \\
+\textbf{pillar} & 1.8.1 & FALSE & FALSE & 2022-08-19 \\
+\textbf{pkgbuild} & 1.3.1 & FALSE & FALSE & 2021-12-20 \\
+\textbf{pkgconfig} & 2.0.3 & FALSE & FALSE & 2019-09-22 \\
+\textbf{pkgload} & 1.3.0 & FALSE & FALSE & 2022-06-27 \\
+\textbf{png} & 0.1-7 & FALSE & FALSE & 2013-12-03 \\
+\textbf{prettyunits} & 1.1.1 & FALSE & FALSE & 2020-01-24 \\
+\textbf{processx} & 3.7.0 & FALSE & FALSE & 2022-07-07 \\
+\textbf{profvis} & 0.3.7 & FALSE & FALSE & 2020-11-02 \\
+\textbf{promises} & 1.2.0.1 & FALSE & FALSE & 2021-02-11 \\
+\textbf{ps} & 1.7.1 & FALSE & FALSE & 2022-06-18 \\
+\textbf{purrr} & 0.3.5 & FALSE & FALSE & 2022-10-06 \\
+\textbf{R6} & 2.5.1 & FALSE & FALSE & 2021-08-19 \\
+\textbf{rappdirs} & 0.3.3 & FALSE & FALSE & 2021-01-31 \\
+\textbf{rbibutils} & 2.2.9 & FALSE & FALSE & 2022-08-15 \\
+\textbf{Rcpp} & 1.0.9 & FALSE & FALSE & 2022-07-08 \\
+\textbf{RCurl} & 1.98-1.9 & FALSE & FALSE & 2022-10-03 \\
+\textbf{Rdpack} & 2.4 & FALSE & FALSE & 2022-07-20 \\
+\textbf{remotes} & 2.4.2 & FALSE & FALSE & 2021-11-30 \\
+\textbf{rlang} & 1.0.6 & FALSE & FALSE & 2022-09-24 \\
+\textbf{rmarkdown} & 2.17 & FALSE & FALSE & 2022-10-07 \\
+\textbf{RSQLite} & 2.2.18 & FALSE & FALSE & 2022-10-04 \\
+\textbf{rstudioapi} & 0.14 & FALSE & FALSE & 2022-08-22 \\
+\textbf{S4Vectors} & 0.35.4 & FALSE & FALSE & 2022-09-18 \\
+\textbf{scales} & 1.2.1 & FALSE & FALSE & 2022-08-20 \\
+\textbf{sessioninfo} & 1.2.2 & FALSE & FALSE & 2021-12-06 \\
+\textbf{shiny} & 1.7.2 & FALSE & FALSE & 2022-07-19 \\
+\textbf{stringi} & 1.7.8 & FALSE & FALSE & 2022-07-11 \\
+\textbf{stringr} & 1.4.1 & FALSE & FALSE & 2022-08-20 \\
+\textbf{synaptome.data} & 0.99.3 & TRUE & FALSE & 2022-08-22 \\
+\textbf{synaptome.ldb} & 0.99.9 & TRUE & FALSE & 2022-10-17 \\
+\textbf{tibble} & 3.1.8 & FALSE & FALSE & 2022-07-22 \\
+\textbf{tidyselect} & 1.2.0 & FALSE & FALSE & 2022-10-10 \\
+\textbf{urlchecker} & 1.0.1 & FALSE & FALSE & 2021-11-30 \\
+\textbf{usethis} & 2.1.6 & FALSE & FALSE & 2022-05-25 \\
+\textbf{utf8} & 1.2.2 & FALSE & FALSE & 2021-07-24 \\
+\textbf{vctrs} & 0.4.2 & FALSE & FALSE & 2022-09-29 \\
+\textbf{withr} & 2.5.0 & FALSE & FALSE & 2022-03-03 \\
+\textbf{xfun} & 0.33 & FALSE & FALSE & 2022-09-12 \\
+\textbf{xtable} & 1.8-4 & FALSE & FALSE & 2019-04-21 \\
+\textbf{XVector} & 0.37.1 & FALSE & FALSE & 2022-08-25 \\
+\textbf{yaml} & 2.3.5 & FALSE & FALSE & 2022-02-21 \\
+\textbf{zlibbioc} & 1.43.0 & FALSE & FALSE & 2022-05-05 \\
+\bottomrule()
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4028}}
+  >{\centering\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2361}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+~
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+source
+\end{minipage} \\
+\midrule()
+\endhead
+\textbf{AnnotationDbi} & Bioconductor \\
+\textbf{AnnotationHub} & Bioconductor \\
+\textbf{assertthat} & CRAN (R 4.2.0) \\
+\textbf{Biobase} & Bioconductor \\
+\textbf{BiocFileCache} & Bioconductor \\
+\textbf{BiocGenerics} & Bioconductor \\
+\textbf{BiocManager} & CRAN (R 4.2.0) \\
+\textbf{BiocVersion} & Bioconductor \\
+\textbf{Biostrings} & Bioconductor \\
+\textbf{bit} & CRAN (R 4.2.0) \\
+\textbf{bit64} & CRAN (R 4.2.0) \\
+\textbf{bitops} & CRAN (R 4.2.0) \\
+\textbf{blob} & CRAN (R 4.2.0) \\
+\textbf{cachem} & CRAN (R 4.2.0) \\
+\textbf{callr} & CRAN (R 4.2.0) \\
+\textbf{cli} & CRAN (R 4.2.0) \\
+\textbf{colorspace} & CRAN (R 4.2.0) \\
+\textbf{crayon} & CRAN (R 4.2.0) \\
+\textbf{curl} & CRAN (R 4.2.1) \\
+\textbf{DBI} & CRAN (R 4.2.0) \\
+\textbf{dbplyr} & CRAN (R 4.2.0) \\
+\textbf{devtools} & CRAN (R 4.2.1) \\
+\textbf{digest} & CRAN (R 4.2.0) \\
+\textbf{dplyr} & CRAN (R 4.2.1) \\
+\textbf{ellipsis} & CRAN (R 4.2.0) \\
+\textbf{evaluate} & CRAN (R 4.2.1) \\
+\textbf{fansi} & CRAN (R 4.2.0) \\
+\textbf{fastmap} & CRAN (R 4.2.0) \\
+\textbf{filelock} & CRAN (R 4.2.0) \\
+\textbf{fs} & CRAN (R 4.2.0) \\
+\textbf{generics} & CRAN (R 4.2.0) \\
+\textbf{GenomeInfoDb} & Bioconductor \\
+\textbf{GenomeInfoDbData} & Bioconductor \\
+\textbf{ggplot2} & CRAN (R 4.2.0) \\
+\textbf{glue} & CRAN (R 4.2.0) \\
+\textbf{gtable} & CRAN (R 4.2.1) \\
+\textbf{htmltools} & CRAN (R 4.2.0) \\
+\textbf{htmlwidgets} & CRAN (R 4.2.0) \\
+\textbf{httpuv} & CRAN (R 4.2.0) \\
+\textbf{httr} & CRAN (R 4.2.1) \\
+\textbf{igraph} & CRAN (R 4.2.0) \\
+\textbf{interactiveDisplayBase} & Bioconductor \\
+\textbf{IRanges} & Bioconductor \\
+\textbf{KEGGREST} & Bioconductor \\
+\textbf{knitr} & CRAN (R 4.2.0) \\
+\textbf{later} & CRAN (R 4.2.0) \\
+\textbf{lifecycle} & CRAN (R 4.2.1) \\
+\textbf{magrittr} & CRAN (R 4.2.0) \\
+\textbf{memoise} & CRAN (R 4.2.0) \\
+\textbf{mime} & CRAN (R 4.2.0) \\
+\textbf{miniUI} & CRAN (R 4.2.0) \\
+\textbf{munsell} & CRAN (R 4.2.0) \\
+\textbf{pander} & CRAN (R 4.2.0) \\
+\textbf{pillar} & CRAN (R 4.2.0) \\
+\textbf{pkgbuild} & CRAN (R 4.2.0) \\
+\textbf{pkgconfig} & CRAN (R 4.2.0) \\
+\textbf{pkgload} & CRAN (R 4.2.0) \\
+\textbf{png} & CRAN (R 4.2.0) \\
+\textbf{prettyunits} & CRAN (R 4.2.0) \\
+\textbf{processx} & CRAN (R 4.2.0) \\
+\textbf{profvis} & CRAN (R 4.2.0) \\
+\textbf{promises} & CRAN (R 4.2.0) \\
+\textbf{ps} & CRAN (R 4.2.0) \\
+\textbf{purrr} & CRAN (R 4.2.1) \\
+\textbf{R6} & CRAN (R 4.2.0) \\
+\textbf{rappdirs} & CRAN (R 4.2.0) \\
+\textbf{rbibutils} & CRAN (R 4.2.0) \\
+\textbf{Rcpp} & CRAN (R 4.2.0) \\
+\textbf{RCurl} & CRAN (R 4.2.1) \\
+\textbf{Rdpack} & CRAN (R 4.2.0) \\
+\textbf{remotes} & CRAN (R 4.2.0) \\
+\textbf{rlang} & CRAN (R 4.2.0) \\
+\textbf{rmarkdown} & CRAN (R 4.2.1) \\
+\textbf{RSQLite} & CRAN (R 4.2.0) \\
+\textbf{rstudioapi} & CRAN (R 4.2.0) \\
+\textbf{S4Vectors} & Bioconductor \\
+\textbf{scales} & CRAN (R 4.2.0) \\
+\textbf{sessioninfo} & CRAN (R 4.2.0) \\
+\textbf{shiny} & CRAN (R 4.2.0) \\
+\textbf{stringi} & CRAN (R 4.2.0) \\
+\textbf{stringr} & CRAN (R 4.2.1) \\
+\textbf{synaptome.data} & Bioconductor \\
+\textbf{synaptome.ldb} & Bioconductor \\
+\textbf{tibble} & CRAN (R 4.2.0) \\
+\textbf{tidyselect} & CRAN (R 4.2.1) \\
+\textbf{urlchecker} & CRAN (R 4.2.0) \\
+\textbf{usethis} & CRAN (R 4.2.0) \\
+\textbf{utf8} & CRAN (R 4.2.0) \\
+\textbf{vctrs} & CRAN (R 4.2.0) \\
+\textbf{withr} & CRAN (R 4.2.0) \\
+\textbf{xfun} & CRAN (R 4.2.0) \\
+\textbf{xtable} & CRAN (R 4.2.0) \\
+\textbf{XVector} & Bioconductor \\
+\textbf{yaml} & CRAN (R 4.2.0) \\
+\textbf{zlibbioc} & Bioconductor \\
+\bottomrule()
+\end{longtable}
+
+\end{document}

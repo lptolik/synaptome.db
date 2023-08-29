@@ -2,6 +2,9 @@
 ^\.Rproj\.user$
 ^.*\.docx$
 ^\.git$
-^doc$
 ^Meta$
 ^\.github$
+^.idea\.*$
+^identifier\.sqlite$
+^.*BiocCheck.*$
+^inst/supplementary_docs$

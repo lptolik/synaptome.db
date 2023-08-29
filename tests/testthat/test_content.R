@@ -12,6 +12,7 @@ test_that("Test first line of the content", {
         MouseName = "Dlg4",
         PaperPMID = 10818142,
         Paper = "WALIKONIS_2000",
+        Dataset = "FULL",
         Year = 2000,
         SpeciesTaxID = 10116,
         BrainRegion = "Forebrain"

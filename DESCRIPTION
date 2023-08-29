@@ -1,7 +1,7 @@
 Package: synaptome.db
 Type: Package
 Title: Synamptosome Proteome Database
-Version: 0.99.1
+Version: 0.99.12
 Date: 2021-09-25
 Authors@R: c(
     person("Anatoly", "Sorokin", 
@@ -15,13 +15,13 @@ Description: The package contains local copy of the Synaptic proteome
     for specific genes and building the protein-protein interaction graph 
     for gene sets, synaptic compartments, and brain regions.
 Depends: R (>= 3.5.0), synaptome.data
-Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack, AnnotationHub
+Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack, AnnotationHub, utils
 RdMacros: Rdpack
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 BugReports: https://github.com/lptolik/synaptome.db/issues/
-biocViews: FunctionalAnnotation, CustomDBSchema, DataImport
+biocViews: CustomDBSchema, AnnotationHub, FunctionalAnnotation, AnnotationData
 Suggests: 
     rmarkdown, knitr, pander, testthat, devtools, markdown

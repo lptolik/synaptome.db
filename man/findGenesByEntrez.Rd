@@ -37,6 +37,9 @@ Other {Lookup functions}:
 \code{\link{findGenesByName}()}
 
 Other {Gene functions}: 
+\code{\link{findGeneByCompartmentPaperCnt}()},
+\code{\link{findGeneByPaperCnt}()},
+\code{\link{findGeneByPapers}()},
 \code{\link{findGenesByName}()},
 \code{\link{getAllGenes4Compartment}()},
 \code{\link{getGenes4Compartment}()},
