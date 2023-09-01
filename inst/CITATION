@@ -28,3 +28,23 @@ citEntry(
                       "https://doi.org/10.1038/s41598-021-88945-7"
   )
 )
+
+citEntry(
+  entry    = "Article",
+  title    = "Synaptome.db: a bioconductor package for synaptic proteomics data",
+  author   = personList(as.person("Oksana Sorokina"),
+                        as.person("Anatoly Sorokin"),
+                        as.person("J. Douglas Armstrong")),
+  journal  = "Bioinformatics Advances",
+  year     = 2022,
+  volume   = 2,
+  number   = 1,
+  pages    = "vbac086",
+  doi      = "10.1093/bioadv/vbac086",
+  url      = "https://doi.org/10.1093/bioadv/vbac086",
+  textVersion = paste("Oksana Sorokina and others, Synaptome.db: a ",
+                "bioconductor package for synaptic proteomics data, ",
+                "Bioinformatics Advances, Volume 2, Issue 1, 2022, vbac086, ",
+                "https://doi.org/10.1093/bioadv/vbac086"
+  )
+)

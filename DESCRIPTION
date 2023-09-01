@@ -15,11 +15,12 @@ Description: The package contains local copy of the Synaptic proteome
     for specific genes and building the protein-protein interaction graph 
     for gene sets, synaptic compartments, and brain regions.
 Depends: R (>= 3.5.0), synaptome.data
-Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack, AnnotationHub, utils
+Imports: DBI, RSQLite, dplyr, dbplyr, igraph, Rdpack, AnnotationHub, utils,
+         BioNAR 
 RdMacros: Rdpack
 License: Artistic-2.0
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 BugReports: https://github.com/lptolik/synaptome.db/issues/
 biocViews: CustomDBSchema, AnnotationHub, FunctionalAnnotation, AnnotationData
