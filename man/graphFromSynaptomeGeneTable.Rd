@@ -17,6 +17,7 @@ graphFromSynaptomeGeneTable(geneTable, LCC = TRUE, simplify = TRUE)
 }
 \value{
 network defined by the gene table
+#importFrom BioNAR buildNetwork
 }
 \description{
 Utility function to create network from

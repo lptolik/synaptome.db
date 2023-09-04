@@ -15,7 +15,7 @@
 #' gg<-graphFromSynaptomeByEntrez(geneTable$HumanEntrez)
 graphFromSynaptomeByEntrez<-function(entrez,LCC=TRUE,simplify=TRUE){
     geneTable<-findGenesByEntrez(entrez)
-    gg<-buildFromSynaptomeGeneTable(geneTable)
+    gg<-graphFromSynaptomeGeneTable(geneTable)
     return(gg)
 }
 
@@ -28,7 +28,7 @@ graphFromSynaptomeByEntrez<-function(entrez,LCC=TRUE,simplify=TRUE){
 #' @param simplify if TRUE loops and multiple edges will be removed
 #'
 #' @return network defined by the gene table
-#' @importFrom BioNAR buildNetwork
+#' #importFrom BioNAR buildNetwork
 #' @export
 #'
 #' @examples
@@ -41,7 +41,7 @@ graphFromSynaptomeGeneTable<-function(geneTable,LCC=TRUE,simplify=TRUE){
     aidx<-match(p$A, geneTable$GeneID)
     bidx<-match(p$B, geneTable$GeneID)
     # TODO: uncomment once BioNAR>= 1.3.7 in Bioconductor
-    gg<-buildNetwork(data.frame(A=geneTable$HumanEntrez[aidx],
+    gg<-BioNAR::buildNetwork(data.frame(A=geneTable$HumanEntrez[aidx],
                                 B=geneTable$HumanEntrez[bidx]))#,
                      #LCC=LCC,simplify=simplify)
     return(gg)
