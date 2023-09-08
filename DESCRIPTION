@@ -25,4 +25,4 @@ BugReports: https://github.com/lptolik/synaptome.db/issues/
 biocViews: CustomDBSchema, AnnotationHub, FunctionalAnnotation, AnnotationData
 Suggests: 
     rmarkdown, knitr, pander, testthat, devtools, markdown,
-         BioNAR 
+         BioNAR, ggplot2
